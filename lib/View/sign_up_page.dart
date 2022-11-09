@@ -50,7 +50,7 @@ Widget ContainerForSignInAndSignUp() {
     child: Padding(
       padding:  EdgeInsets.only(left: 10.0.w,right: 10.0.w),
       child: Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding:  EdgeInsets.only(top: 4.0.h),
@@ -62,9 +62,9 @@ crossAxisAlignment: CrossAxisAlignment.start,
                 Padding(
                   padding:  EdgeInsets.only(left: 2.0.h,top: 1.0.h),
                   child: Text("ChemX",style:  GoogleFonts.poppins(
-                    textStyle:  TextStyle(fontSize: 22.0.sp,color: HexColor("#192A51"),)
+                      textStyle:  TextStyle(fontSize: 22.0.sp,color: HexColor("#192A51"),)
                   ),
-                    ),
+                  ),
                 )
               ],
             ),
@@ -72,10 +72,10 @@ crossAxisAlignment: CrossAxisAlignment.start,
           Padding(padding: EdgeInsets.all(10)),
 
 
-              Container(
-                height:0.2.h,
-                width:double.infinity,
-                color:Colors.grey,),
+          Container(
+            height:0.2.h,
+            width:double.infinity,
+            color:Colors.grey,),
 
           Padding(
             padding:  EdgeInsets.only(top: 4.0.h),
@@ -84,13 +84,13 @@ crossAxisAlignment: CrossAxisAlignment.start,
             ),),
           ),
 
-           Padding(
-             padding:  EdgeInsets.only(bottom: 2.0.h),
-             child: Text("Sign Up",style:  GoogleFonts.poppins(
-                  textStyle:  TextStyle(fontSize: 15.0.sp,color: Colors.grey,)
-              ),
+          Padding(
+            padding:  EdgeInsets.only(bottom: 2.0.h),
+            child: Text("Sign Up",style:  GoogleFonts.poppins(
+                textStyle:  TextStyle(fontSize: 15.0.sp,color: Colors.grey,)
+            ),
+            ),
           ),
-           ),
           appButtons(color: "#849ED9", text:'Sign Up With Google' , image: "assets/googlelogo.png"),
           SizedBox(
             height: 2.0.h,
@@ -99,45 +99,45 @@ crossAxisAlignment: CrossAxisAlignment.start,
           SizedBox(
             height: 2.0.h,
           ),
-  Row(
-    children: [
-      Text("OR ",style: TextStyle(color: Colors.black),),
-      Container(
-        height:0.3.h,
-        width:70.0.w,
-        color:Colors.black,),
-    ],
-  ),
+          Row(
+            children: [
+              Text("OR ",style: TextStyle(color: Colors.black),),
+              Container(
+                height:0.3.h,
+                width:70.0.w,
+                color:Colors.black,),
+            ],
+          ),
           SizedBox(
             height: 3.0.h,
           ),
           appButtons(color: "#AAA1C8", text: 'Sign Up With Email', image: "assets/Vector.png"),
 
-Padding(
-  padding:  EdgeInsets.only(top:2.5.h ),
-  child:   Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
+          Padding(
+            padding:  EdgeInsets.only(top:2.5.h ),
+            child:   Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
 
-    Text("Already have an account?",style: TextStyle(fontSize: 12.0.sp),),
+                Text("Already have an account?",style: TextStyle(fontSize: 12.0.sp),),
 
-    InkWell(
+                InkWell(
 
-      child: Text(" Sign In",style: TextStyle(color: Colors.blue,fontSize: 12.0.sp),),
+                  child: Text(" Sign In",style: TextStyle(color: Colors.blue,fontSize: 12.0.sp),),
 
-    )
+                )
 
-  ],),
-)
-  ],
-  ),
+              ],),
+          )
+        ],
+      ),
 
 
     ),
   );
 }
 Widget appButtons({required String color, required String text, required String image}){
- return ElevatedButton(
+  return ElevatedButton(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(HexColor(color)),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
