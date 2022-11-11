@@ -1,25 +1,11 @@
-// import 'package:flutter/material.dart';
-//
-// void main() {
-//   runApp(ChemX());
-// }
-//
-// class ChemX extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
-//
-// class ChemX_HomePage extends StatefulWidget {
-//   @override
-//   _ChemX_HomePageState createState() => _ChemX_HomePageState();
-// }
-//
-// class _ChemX_HomePageState extends State<ChemX_HomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
-//
+import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+import 'View/sign_up_page.dart';
+
+void main() {
+  runApp(Sizer(builder: (context, orientation, deviceType) {
+    return const MaterialApp(
+      home: MyApp(),
+    );
+  }));
+}
