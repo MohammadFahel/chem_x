@@ -9,6 +9,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../View/splash_screen.dart';
+
 class AuthO{
 haundleAuthState(){
   return StreamBuilder(
@@ -17,7 +19,7 @@ haundleAuthState(){
       if(snapshot.hasData){
         return HomePageChemX();
       }else{
-        return MyApp();
+        return SplashScreen();
       }
     }
   );}

@@ -18,6 +18,7 @@ void main() async{
       create: (_) => TextProvider(),
       child:Sizer(builder: (context, orientation, deviceType) {
     return  MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: AuthO().haundleAuthState(),
     );
 

@@ -51,10 +51,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.2.14
-
-flutter_native_splash:
-  background_image: "assets/images/SplashScreen.png"
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -82,6 +78,7 @@ flutter:
     - assets/facebooklogo.png
     - assets/googlelogo.png
     - assets/Vector.png
+    - assets/images/chemxlogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
