@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^2.1.1
   flutter_facebook_auth: ^5.0.6
   flutter_login_facebook: ^1.6.2
+  smooth_page_indicator: ^1.0.0+2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -79,6 +80,8 @@ flutter:
     - assets/googlelogo.png
     - assets/Vector.png
     - assets/images/chemxlogo.png
+    - assets/images/onBoardingImage1.png
+    - assets/images/onBoardingImage2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
