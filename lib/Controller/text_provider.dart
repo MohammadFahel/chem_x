@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class TextProvider with ChangeNotifier {
   String niceToMetyouOrWelcomeBack = "Glad To Meet You!";
-  String signUpOrSignIn = "Sign In";
+  String signUpOrSignIn = "Sign Up";
   String google = "Sign Up With Google";
   String faceBook = "Sign Up With FaceBook";
   String email = "Sign Up With Email";
@@ -12,7 +12,7 @@ class TextProvider with ChangeNotifier {
 
   void oldUser() {
     niceToMetyouOrWelcomeBack = "Welcome Back!";
-    signUpOrSignIn = "Sign Up";
+    signUpOrSignIn = "Sign In";
     google = "Sign In With Google";
     faceBook = "Sign In With FaceBook";
     email = "Sign In With Email";
@@ -22,7 +22,7 @@ class TextProvider with ChangeNotifier {
 
   void NewUser() {
     niceToMetyouOrWelcomeBack = "Glad To Meet You!";
-    signUpOrSignIn = "Sign In";
+    signUpOrSignIn = "Sign Up";
     google = "Sign Up With Google";
     faceBook = "Sign Up With FaceBook";
     email = "Sign Up With Email";
