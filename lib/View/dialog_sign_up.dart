@@ -1,4 +1,5 @@
 import 'package:chem_x/Controller/auth.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,7 +13,6 @@ class DialogSignUp extends StatelessWidget {
   final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final PasswordController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +171,7 @@ Widget TextFieldWidget(
           return "please fill this field ";
         } else if (text.isEmpty) {
           return "please fill this field ";
-        } else if (!isAlpha(text)) {
+        } else if (!isAlpha(text.replaceAll(' ', ''))) {
           return "User Name must not contain numbers";
         }
       } else if (validator == "Email") {
@@ -179,7 +179,9 @@ Widget TextFieldWidget(
           return "please fill this field ";
         } else if (text.isEmpty) {
           return "please fill this field ";
-        } else if (!isEmail(text)) {
+        } else if (  !RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+            .hasMatch(text)) {
           return "Please enter a valid email";
         }
       } else if (validator == "Password") {
@@ -190,7 +192,7 @@ Widget TextFieldWidget(
         } else if (text.length < 6 ||
             RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
                 .hasMatch(text)) {
-          print("i will cum my password22");
+
           return "The password must be greater than 6 characters and contain an uppercase letter, lowercase letter and a symbol ";
         }
       }

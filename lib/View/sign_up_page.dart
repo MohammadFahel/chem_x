@@ -263,7 +263,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                   }
                 },
                 child: Text(
-                  " ${textProvider.signUpOrSignIn}",
+                  " ${textProvider.signUpOrSignInClick}",
                   style: TextStyle(color: Colors.blue, fontSize: 12.0.sp),
                 ),
               )
