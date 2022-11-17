@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:chem_x/Controller/auth.dart';
+import 'package:chem_x/View/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -16,9 +18,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 5),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => OnBoardingScreen1())));
+        Duration(milliseconds: 500),
+        () => initScreen == 0 || initScreen == null ?   Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => OnBoardingScreen1()),
+        ) : Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => AuthO().haundleAuthState()),
+        ),
+    );
   }
 
   @override

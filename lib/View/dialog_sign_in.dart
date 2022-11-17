@@ -149,38 +149,38 @@ controller: controller,
           borderSide: BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(20)),
     ),
-    validator: (text) {
-      if (validator == "UserName") {
-
-        if (text == null) {
-          return "please fill this field ";
-        } else if (text.isEmpty) {
-          return "please fill this field ";
-        } else if (!isAlpha(text)) {
-          return "User Name must not contain numbers";
-        }
-      } else if (validator == "Email") {
-
-        if (text == null) {
-          return "please fill this field ";
-        } else if (text.isEmpty) {
-          return "please fill this field ";
-        } else if (!isEmail(text)) {
-          return "Please enter a valid email";
-        }
-      } else if (validator == "Password") {
-        if (text == null) {
-          return "please fill this field ";
-        } else if (text.isEmpty) {
-          return "please fill this field ";
-        } else if (text.length < 6 ||
-            RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                .hasMatch(text)) {
-          print("i will cum my password22");
-          return "The password must be greater than 6 characters and contain an uppercase letter, lowercase letter and a symbol ";
-        }
-      }
-      return null;
-    },
+    // validator: (text) {
+    //   if (validator == "UserName") {
+    //
+    //     if (text == null) {
+    //       return "please fill this field ";
+    //     } else if (text.isEmpty) {
+    //       return "please fill this field ";
+    //     } else if (!isAlpha(text)) {
+    //       return "User Name must not contain numbers";
+    //     }
+    //   } else if (validator == "Email") {
+    //
+    //     if (text == null) {
+    //       return "please fill this field ";
+    //     } else if (text.isEmpty) {
+    //       return "please fill this field ";
+    //     } else if (!isEmail(text)) {
+    //       return "Please enter a valid email";
+    //     }
+    //   } else if (validator == "Password") {
+    //     if (text == null) {
+    //       return "please fill this field ";
+    //     } else if (text.isEmpty) {
+    //       return "please fill this field ";
+    //     } else if (text.length < 6 ||
+    //         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+    //             .hasMatch(text)) {
+    //       print("i will cum my password22");
+    //       return "The password must be greater than 6 characters and contain an uppercase letter, lowercase letter and a symbol ";
+    //     }
+    //   }
+    //   return null;
+    // },
   );
 }

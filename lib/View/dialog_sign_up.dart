@@ -172,7 +172,7 @@ Widget TextFieldWidget(
         } else if (text.isEmpty) {
           return "please fill this field ";
         } else if (!isAlpha(text.replaceAll(' ', ''))) {
-          return "User Name must not contain numbers";
+          return "User Name must be only litters";
         }
       } else if (validator == "Email") {
         if (text == null) {
@@ -189,11 +189,11 @@ Widget TextFieldWidget(
           return "please fill this field ";
         } else if (text.isEmpty) {
           return "please fill this field ";
-        } else if (text.length < 6 ||
-            RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                .hasMatch(text)) {
-
-          return "The password must be greater than 6 characters and contain an uppercase letter, lowercase letter and a symbol ";
+        } else if (text.length < 6) {
+          return "The password must be greater than 6 characters";
+        } else if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+            .hasMatch(text)){
+          return "Must contain an uppercase, lowercase letter, symbol";
         }
       }
       return null;

@@ -41,6 +41,8 @@ dependencies:
   string_validator: ^0.3.0
   overlay_support: ^2.1.0
   email_validator: ^2.0.1
+  shared_preferences: ^2.0.15
+  after_layout: ^1.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,10 +56,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.2.14
 
-flutter_native_splash:
-  background_image: "assets/images/SplashScreen.png"
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -85,6 +84,9 @@ flutter:
     - assets/facebooklogo.png
     - assets/googlelogo.png
     - assets/Vector.png
+    - assets/images/onBoardingImage1.png
+    - assets/images/onBoardingImage2.png
+    - assets/images/chemxlogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

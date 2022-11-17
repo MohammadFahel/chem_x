@@ -9,6 +9,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
+import '../View/splash_screen.dart';
+
 class AuthO {
   final _firebaseAuth = FirebaseAuth.instance;
   FacebookLogin _facebookLogin = FacebookLogin();

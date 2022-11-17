@@ -2,23 +2,35 @@ import 'package:chem_x/Controller/auth.dart';
 import 'package:chem_x/Controller/text_provider.dart';
 import 'package:chem_x/View/dialog_sign_in.dart';
 import 'package:chem_x/View/dialog_sign_up.dart';
+import 'package:chem_x/View/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+int? initScreen;
+
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  initScreen = await prefs.getInt('initScreen');
+  await prefs.setInt("initScreen", 1);
+
   runApp(ChangeNotifierProvider<TextProvider>(
       create: (_) => TextProvider(),
       child: Sizer(builder: (context, orientation, deviceType) {
         return OverlaySupport.global(
             child: MaterialApp(
-          home: AuthO().haundleAuthState(),
+              debugShowCheckedModeBanner: false,
+              home: SplashScreen(),
+          // home: AuthO().haundleAuthState(),
         ));
       })));
 }
