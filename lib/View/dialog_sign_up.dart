@@ -37,8 +37,8 @@ class DialogSignUp extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 5),
                     child: Icon(Icons.mail_sharp),
                   ),
                   Text(
@@ -143,6 +143,7 @@ Widget TextFieldWidget(
     required String validator,
     required TextEditingController controller}) {
   return TextFormField(
+    obscureText: validator=="Password"? true :false,
     controller: controller,
     style: TextStyle(color: Colors.red),
     key: keyy,
@@ -193,8 +194,7 @@ Widget TextFieldWidget(
         } else if (text.length <= 6) {
 
           return "The password must be greater than 6 characters";
-        } else if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-            .hasMatch(text)){
+        } else if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)").hasMatch(text)){
           return "Must contain an uppercase, lowercase letter, symbol";
         }
       }

@@ -123,13 +123,15 @@ class DialogSignIn extends StatelessWidget {
   }
 }
 
+
+
 Widget TextFieldWidget(
     {required String lable,
       required GlobalKey<FormFieldState> keyy,
       required String validator,
     required TextEditingController controller}) {
   return TextFormField(
-
+    obscureText: validator=="Password"? true :false,
 controller: controller,
     style: TextStyle(color: Colors.red),
     key: keyy,

@@ -63,8 +63,6 @@ class AuthO {
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "email-already-in-use":
-          print("odeh is trying");
-
           // toast('Email already exist',duration:Toast.LENGTH_LONG );
           showSimpleNotification(
             Text('Email already exist', style: TextStyle(fontSize: 15.sp),),
