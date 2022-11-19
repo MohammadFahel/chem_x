@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(milliseconds: 500),
+        Duration(seconds: 3),
         () => initScreen == 0 || initScreen == null ?   Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => OnBoardingScreen1()),
@@ -40,43 +40,37 @@ class _SplashScreenState extends State<SplashScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomRight,
                 colors: [Color(0xffaaa1c8), Color(0xffebebeb)])),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+        child:
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset("assets/images/chemxlogo.png",
-                          height: 100, width: 100),
-                      Text(
-                        "ChemX",
-                        style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                                fontSize: 22.0.sp, color: HexColor("#192A51"))),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "The easy way to learn\nPeriodic Table",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                                fontSize: 15.0.sp, color: HexColor("#494949"))),
-                      )
-                    ],
-                  ),
-                ],
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/images/chemxlogo.png",
+                            height: 15.h, width: 20.w),
+                        SizedBox(width: 2.5.w),
+                        Text(
+                          "ChemX",
+                          style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                  fontSize: 25.0.sp, color: HexColor("#192A51"))),
+                        ),
+                      ],
+                    ),
+                        Text(
+                          "The easy way to learn\nPeriodic Table",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                  fontSize: 17.5.sp, color: HexColor("#494949"))),
+                        ),
+              SizedBox(height: 20.h),
+              CircularProgressIndicator(
+                color: HexColor("#192A51"),
               ),
-              CircularProgressIndicator(),
-            ]),
+                  ],
+              ),
       ),
     );
   }

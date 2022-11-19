@@ -33,13 +33,20 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        scrollDirection: Axis.horizontal,
-        onPageChanged: _onchanged,
-        controller: _controller,
+      body: Column(
         children: [
-          OnboardingPage1(),
-          OnboardingPage2()
+          Expanded(
+            child: PageView(
+              scrollDirection: Axis.horizontal,
+              onPageChanged: _onchanged,
+              controller: _controller,
+              children: [
+                OnboardingPage1(),
+                OnboardingPage2()
+              ],
+            ),
+          ),
+          ChangeStateButton()
         ],
       )
     );
@@ -71,9 +78,6 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                         fontSize: 15.0.sp, color: HexColor("#494949")))),
           ],
         ),
-        ChangeStateButton()
-
-
       ],
     );
   }
@@ -107,11 +111,6 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                     ]
                 ),
               ),
-              // Text("With ChemX you can:",
-              //     textAlign: TextAlign.center,
-              //     style: GoogleFonts.poppins(
-              //         textStyle: TextStyle(
-              //             fontSize: 18.sp, color: HexColor("#0E131F")))),
               SizedBox(
                 height: 2.0.h,
               ),
@@ -185,7 +184,6 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
             ],
           ),
         ),
-        ChangeStateButton()
       ],
     );
   }

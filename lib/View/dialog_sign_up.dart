@@ -185,11 +185,13 @@ Widget TextFieldWidget(
           return "Please enter a valid email";
         }
       } else if (validator == "Password") {
+        print(text);
         if (text == null) {
           return "please fill this field ";
         } else if (text.isEmpty) {
           return "please fill this field ";
-        } else if (text.length < 6) {
+        } else if (text.length <= 6) {
+
           return "The password must be greater than 6 characters";
         } else if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
             .hasMatch(text)){
