@@ -43,6 +43,7 @@ dependencies:
   email_validator: ^2.0.1
   shared_preferences: ^2.0.15
   after_layout: ^1.2.0
+  flutter_screenutil: ^5.6.0
 
 
 
@@ -88,6 +89,9 @@ flutter:
     - assets/images/onBoardingImage1.png
     - assets/images/onBoardingImage2.png
     - assets/images/chemxlogo.png
+    - assets/images/profile.png
+    - assets/images/flask.png
+    - assets/data/elementsData.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
