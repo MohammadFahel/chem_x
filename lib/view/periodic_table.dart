@@ -62,7 +62,7 @@ class _PeriodicTableState extends State<PeriodicTable> {
                 child: ListTile(
                   leading: Text(_items[index]["category"]),
                   title: Text(_items[index]["name"]),
-                  subtitle: Text(_items[index]["discovered_by"]),
+                  subtitle: Text(_items[index]["name"]),
                 ),
               );
             },
@@ -87,7 +87,7 @@ class _PeriodicTableState extends State<PeriodicTable> {
   @override
   Widget build(BuildContext context) {
 
-    return _items != null ? _buildTable(_items) : const Center(
+    return _items.isNotEmpty ? _buildTable(_items) : const Center(
                    child: CircularProgressIndicator(),
                  );
 
