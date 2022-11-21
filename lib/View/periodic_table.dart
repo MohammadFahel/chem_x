@@ -87,7 +87,7 @@ class _PeriodicTableState extends State<PeriodicTable> {
   @override
   Widget build(BuildContext context) {
 
-    return _items != null ? _buildTable(_items) : const Center(
+    return _items.isNotEmpty ? _buildTable(_items) : const Center(
                    child: CircularProgressIndicator(),
                  );
 
