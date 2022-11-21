@@ -219,6 +219,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
             }
             else{
               print("In Else");
+              print("just test");
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AuthO().haundleAuthState()),
