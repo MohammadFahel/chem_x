@@ -62,7 +62,7 @@ class _PeriodicTableState extends State<PeriodicTable> {
                 child: ListTile(
                   leading: Text(_items[index]["category"]),
                   title: Text(_items[index]["name"]),
-                  subtitle: Text(_items[index]["discovered_by"]),
+                  subtitle: Text(_items[index]["name"]),
                 ),
               );
             },
