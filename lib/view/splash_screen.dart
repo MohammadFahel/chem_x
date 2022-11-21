@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:chem_x/Controller/auth.dart';
-import 'package:chem_x/View/sign_up_page.dart';
+import 'package:chem_x/controller/auth.dart';
+import 'package:chem_x/view/registration_pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        const Duration(seconds: 3),
         () => initScreen == 0 || initScreen == null ?   Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => OnBoardingScreen1()),
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomRight,

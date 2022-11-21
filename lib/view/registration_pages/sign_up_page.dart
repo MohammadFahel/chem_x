@@ -1,8 +1,5 @@
 import 'package:chem_x/Controller/auth.dart';
 import 'package:chem_x/Controller/text_provider.dart';
-import 'package:chem_x/View/dialog_sign_in.dart';
-import 'package:chem_x/View/dialog_sign_up.dart';
-import 'package:chem_x/View/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,28 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'home_page.dart';
+
+import '../../View/home_page.dart';
+import 'dialog_sign_in.dart';
+import 'dialog_sign_up.dart';
 
 int? initScreen;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  initScreen = await prefs.getInt('initScreen');
-  await prefs.setInt("initScreen", 1);
 
-  runApp(ChangeNotifierProvider<TextProvider>(
-      create: (_) => TextProvider(),
-      child: Sizer(builder: (context, orientation, deviceType) {
-        return  OverlaySupport.global(
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: MyApp2(),
-          // home: AuthO().haundleAuthState(),
-        ));
-      })));
-}
 // class Odeh extends StatelessWidget{
 //   @override
 //   Widget build(BuildContext context) {
@@ -66,7 +49,7 @@ class MyHomePage extends State<MyApp> {
         width: double.infinity,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/signup_in.png"), fit: BoxFit.cover)),
+                image: AssetImage("assets/images/signup_in.png"), fit: BoxFit.cover)),
         child: CustomScrollView(slivers: [
           SliverFillRemaining(
             hasScrollBody: false,
@@ -102,7 +85,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/chemxlogo.png",
+                  "assets/images/chemxlogo.png",
                   width: 10.0.w,
                 ),
                 Padding(
@@ -183,7 +166,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       decoration: BoxDecoration(
                           color: Colors.white, shape: BoxShape.circle),
                       child: Image.asset(
-                        "assets/googlelogo.png",
+                        "assets/images/googlelogo.png",
                         width: 30,
                         height: 30,
                       )),
@@ -223,7 +206,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       decoration: BoxDecoration(
                           color: Colors.white, shape: BoxShape.circle),
                       child: Image.asset(
-                        "assets/facebooklogo.png",
+                        "assets/images/facebooklogo.png",
                         width: 30,
                         height: 30,
                       )),

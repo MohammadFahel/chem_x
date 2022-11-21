@@ -1,5 +1,4 @@
-import 'package:chem_x/View/home_screen.dart';
-import 'package:chem_x/View/sign_up_page.dart';
+import 'package:chem_x/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
-import '../View/splash_screen.dart';
+import '../view/registration_pages/sign_up_page.dart';
+
+
 
 class AuthO {
   final _firebaseAuth = FirebaseAuth.instance;

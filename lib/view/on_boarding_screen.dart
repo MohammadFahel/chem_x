@@ -1,4 +1,4 @@
-import 'package:chem_x/View/sign_up_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -17,8 +17,8 @@ class OnBoardingScreen1 extends StatefulWidget {
 class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
 
   int _currentPage = 0;
-  PageController _controller = PageController();
-  _onchanged(int index) {
+  final PageController _controller = PageController();
+  _onChanged(int index) {
     setState(() {
       _currentPage = index;
     });
@@ -38,7 +38,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
           Expanded(
             child: PageView(
               scrollDirection: Axis.horizontal,
-              onPageChanged: _onchanged,
+              onPageChanged: _onChanged,
               controller: _controller,
               children: [
                 OnboardingPage1(),
@@ -104,7 +104,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                             fontSize: 18.sp, color: HexColor("#0E131F"))),
-                    children: [
+                    children: const [
                       TextSpan(text: "With "),
                       TextSpan(text: "ChemX", style: TextStyle(fontWeight: FontWeight.bold)),
                       TextSpan(text: " you can:")
@@ -123,7 +123,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                     decoration: BoxDecoration(
                       color: HexColor("#AAA1C8"),
                       border: Border.all(width: 10.w,color: HexColor("#AAA1C8")),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
                     ),
                   ),
                   SizedBox(width: 2.w),
@@ -146,7 +146,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                     decoration: BoxDecoration(
                       color: HexColor("#AAA1C8"),
                       border: Border.all(width: 10.w,color: HexColor("#AAA1C8")),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
                     ),
                   ),
                   SizedBox(width: 2.w),
@@ -169,7 +169,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                     decoration: BoxDecoration(
                       color: HexColor("#AAA1C8"),
                       border: Border.all(width: 10.w,color: HexColor("#AAA1C8")),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
                     ),
                   ),
                   SizedBox(width: 2.w),
@@ -196,11 +196,11 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List<Widget>.generate(2, (int index) {
               return AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   height: 0.75.h,
                   width: (index == _currentPage) ? 8.h : 3.h,
                   margin:
-                  EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+                  const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: (index == _currentPage)
@@ -260,32 +260,3 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
     );
   }
 }
-
-
-
-
-// ElevatedButton(
-// style: ButtonStyle(
-// backgroundColor: MaterialStateProperty.all<Color>(HexColor("#192A51")),
-// shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-// RoundedRectangleBorder(
-// borderRadius: BorderRadius.circular(20)))),
-// onPressed: () {
-// Navigator.of(context).push(MaterialPageRoute(builder: (context)=> MyApp()));
-// },
-// child: Container(
-// alignment: Alignment.center,
-// height: 6.0.h,
-// width: 35.w,
-// child:
-// Text(
-// "Start Learning",
-// textAlign: TextAlign.center,
-// style: GoogleFonts.poppins(
-// textStyle: TextStyle(
-// fontSize: 15.0.sp,
-// color: Colors.white,
-// )),
-// ), // <-- Text
-// ),
-// ),
