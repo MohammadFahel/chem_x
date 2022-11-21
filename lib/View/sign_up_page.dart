@@ -12,13 +12,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'home_page.dart';
+
 int? initScreen;
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = await prefs.getInt('initScreen');
   await prefs.setInt("initScreen", 1);
@@ -26,10 +26,10 @@ void main() async {
   runApp(ChangeNotifierProvider<TextProvider>(
       create: (_) => TextProvider(),
       child: Sizer(builder: (context, orientation, deviceType) {
-        return OverlaySupport.global(
+        return  OverlaySupport.global(
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: SplashScreen(),
+              home: MyApp2(),
           // home: AuthO().haundleAuthState(),
         ));
       })));

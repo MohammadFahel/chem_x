@@ -19,7 +19,7 @@ class DialogSignUp extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Dialog(
-        insetPadding: EdgeInsets.all(10),
+        insetPadding: const EdgeInsets.all(10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
@@ -154,7 +154,7 @@ Widget TextFieldWidget(
         style: TextStyle(fontSize: 10.sp),
       ),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
+          borderSide: const BorderSide(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(20)),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black, width: 2),

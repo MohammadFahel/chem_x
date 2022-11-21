@@ -18,12 +18,10 @@ const String post_transition_metals="#2F4D47";
 const String lanthanides="#004A77";
 
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+class MyApp2 extends StatelessWidget {
+  const MyApp2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

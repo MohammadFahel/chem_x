@@ -728,13 +728,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
-  the_validator:
-    dependency: "direct main"
-    description:
-      name: the_validator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.5"
   typed_data:
     dependency: transitive
     description:
