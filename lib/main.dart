@@ -7,9 +7,8 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
 import 'Controller/text_provider.dart';
-import 'View/home_page.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -31,11 +31,7 @@ class _PeriodicTableState extends State<PeriodicTable> {
     });
   }
 
-  void initState() {
-    super.initState();
-    // Call the readJson method when the app starts
-    readJson();
-  }
+
 
   _buildTable(List elements) {
     // final forGrid = elements
@@ -119,11 +115,13 @@ class _PeriodicTableState extends State<PeriodicTable> {
 
   @override
   Widget build(BuildContext context) {
-    return _items.isNotEmpty
-        ? _buildTable(_items)
-        : const Center(
-            child: CircularProgressIndicator(),
-          );
+     if(_items.isNotEmpty) {
+       return  _buildTable(_items);
+    }else{
+       readJson();
+         return const Center(child:  CircularProgressIndicator());
+       }
+    }
 
     // return FutureBuilder(
     //   future: _items,
@@ -133,5 +131,5 @@ class _PeriodicTableState extends State<PeriodicTable> {
     //           child: CircularProgressIndicator(),
     //         ),
     // );
-  }
+
 }

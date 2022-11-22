@@ -150,11 +150,13 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                     ),
                   ),
                   SizedBox(width: 2.w),
-                  Text("Solve quizzes to better understand the\nmaterials and test your knowledge",
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                              fontSize: 12.sp, color: HexColor("#0E131F")))),
+                  Expanded(
+                    child: Text("Solve quizzes to better understand the materials and test your knowledge",
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontSize: 12.sp, color: HexColor("#0E131F")))),
+                  ),
                 ],
               ),
               SizedBox(
