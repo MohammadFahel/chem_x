@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
+import '../View/home_page.dart';
 import '../view/registration_pages/sign_up_page.dart';
 
 
@@ -21,7 +22,7 @@ class AuthO {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return HomePageChemX();
+            return PeriodicTablePage();
           } else {
             return MyApp();
           }

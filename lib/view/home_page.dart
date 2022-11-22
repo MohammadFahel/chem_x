@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
+import 'drawer_page/my_drawer.dart';
+
 const String alkali_metals = "#85CAC4";
 const String metalloids = "#8C692B";
 const String actinides = "#8C4D2D";
@@ -16,12 +18,11 @@ const String noble_gases = "#934356";
 const String post_transition_metals = "#2F4D47";
 const String lanthanides = "#004A77";
 
-void main() {
-  runApp(const MyApp2());
-}
+var drawerIcon = GlobalKey<ScaffoldState>();
 
-class MyApp2 extends StatelessWidget {
-  const MyApp2({Key? key}) : super(key: key);
+
+class PeriodicTablePage extends StatelessWidget {
+  const PeriodicTablePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,60 +33,58 @@ class MyApp2 extends StatelessWidget {
             theme: ThemeData.light().copyWith(
               scaffoldBackgroundColor: Colors.white,
             ),
-            home: const HomePage());
+            home: const PeriodicTableHomePage(),
+        );
       },
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class PeriodicTableHomePage extends StatefulWidget {
+  const PeriodicTableHomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _PeriodicTableHomePageState createState() => _PeriodicTableHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
   //final PageController _periodicTable = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: drawerIcon,
+      drawer: const MyNavigationDrawer(),
       appBar: AppBar(
         bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(20),
+          preferredSize: Size.fromHeight(1),
           child: SizedBox(
-            height: 20,
+            height: 1,
           ),
         ),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
-        leading: Padding(
-            padding:
-                const EdgeInsets.only(left: 7, top: 8, bottom: 0, right: 0),
-            child: IconButton(
-                onPressed: () {
-
-                },
-                icon: const ImageIcon(
-                  AssetImage("assets/images/profile.png"),
-                  size: 60,
-                  color: Colors.black,
-                ))),
         actions: [
           Padding(
             padding:
-                const EdgeInsets.only(left: 0, top: 12, bottom: 0, right: 7),
+                const EdgeInsets.only(left: 0, bottom: 0, right: 7),
             child: IconButton(
                 onPressed: () {},
                 icon: const ImageIcon(
                   AssetImage("assets/images/flask.png"),
-                  size: 40,
+                  size: 50,
                   color: Colors.black,
                 )),
           ),
         ],
+        leading: IconButton(
+          icon: Image.asset('assets/images/myProfile.png', width: 30),
+          onPressed: (){
+            drawerIcon.currentState?.openDrawer();
+          },
+        ),
       ),
+
       // body: Padding(
       //   padding: EdgeInsets.all(10),
       //   child: PageView(

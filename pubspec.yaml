@@ -90,6 +90,7 @@ flutter:
     - assets/images/chemxlogo.png
     - assets/images/profile.png
     - assets/images/flask.png
+    - assets/images/myProfile.png
     - assets/data/elementsData.json
 
   # An image asset can refer to one or more resolution-specific "variants", see

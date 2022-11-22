@@ -1,4 +1,5 @@
 import 'package:chem_x/view/registration_pages/sign_up_page.dart';
+import 'package:chem_x/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ void main() async {
         return  OverlaySupport.global(
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: MyApp2(),
+              home: SplashScreen(),
               // home: AuthO().haundleAuthState(),
             ));
       })));

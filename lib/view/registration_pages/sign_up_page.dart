@@ -142,6 +142,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)))),
               onPressed: () {
+                
                 print("hi");
                 AuthO().signInwithGoogle();
                 textProvider.loguser();
@@ -237,7 +238,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
           appButtons(
               color: "#AAA1C8",
               text: textProvider.email,
-              image: "assets/Vector.png",
+              image: "assets/images/Vector.png",
               type: "Email",
               context: context),
           spaceBetweenWidgets(MediaQuery.of(context).size.height),
