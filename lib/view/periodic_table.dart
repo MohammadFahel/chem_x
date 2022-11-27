@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'home_page.dart' as colors;
+import 'package:hexcolor/hexcolor.dart';
+
 
 class PeriodicTable extends StatefulWidget {
   PeriodicTable({Key? key}) : super(key: key);
@@ -21,6 +24,7 @@ class PeriodicTable extends StatefulWidget {
 
 class _PeriodicTableState extends State<PeriodicTable> {
   List<dynamic> _items = [];
+  String myColor="#00000";
   // Fetch content from the json file
   Future<void> readJson() async {
     final String response =
@@ -30,8 +34,6 @@ class _PeriodicTableState extends State<PeriodicTable> {
       _items = data["myelements"];
     });
   }
-
-
 
   _buildTable(List elements) {
     // final forGrid = elements
@@ -48,30 +50,81 @@ class _PeriodicTableState extends State<PeriodicTable> {
     //     .toList();
 
     return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 9, crossAxisSpacing: 2, mainAxisSpacing: 10),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 9, crossAxisSpacing: 2, mainAxisSpacing: 10),
       scrollDirection: Axis.horizontal,
       itemCount: _items.length,
-      itemBuilder: (_, index){
-        return _items[index]==null? Container(width: 100,) : Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width:2),
-            color: Colors.white,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("${_items[index]["number"]}"),
-                  const SizedBox(width: 20,),
-                  //Text("${_items[index]["atomic_mass"].toStringAsFixed(3)}"),
-                ],
-              ),
-              Text(_items[index]["symbol"], style: TextStyle(fontSize: 15)),
-            ],
-          ),
-        );
+      itemBuilder: (_, index) {
+        if (_items[index] == null) {
+          return Container(
+                width: 100,
+              );
+        } else {
+          myColor="#00000";
+          switch(_items[index]["category"]){
+            case "noble gas":
+              myColor=colors.noble_gases;
+              break;
+            case "diatomic nonmetal":
+              myColor=colors.reactive_nonmetals;
+              break;
+            case "polyatomic nonmetal":
+              myColor=colors.reactive_nonmetals;
+              break;
+            case "metalloid":
+              myColor=colors.metalloids;
+              break;
+            case "post-transition metal":
+              myColor=colors.post_transition_metals;
+              break;
+            case "unknown, probably transition metal":
+              myColor=colors.unknown_properties;
+              break;
+            case "alkali metal":
+              myColor=colors.alkali_metals;
+              break;
+            case "alkaline earth metal":
+              myColor=colors.alkaline_earth_metals;
+              break;
+            case "transition metal":
+              myColor=colors.transition_metals;
+              break;
+            case "lanthanide":
+              myColor=colors.lanthanides;
+              break;
+            case "actinide":
+              myColor=colors.actinides;
+          }
+          return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: HexColor("${myColor}"), width: 2),
+                  color: HexColor("${myColor}"),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text("${_items[index]["number"]}", style: const TextStyle(color: Colors.white),),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        //Text("${_items[index]["atomic_mass"].toStringAsFixed(3)}"),
+                      ],
+                    ),
+                    Text(_items[index]["symbol"],
+                        style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)),
+                    Text(_items[index]["name"],
+                        style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white)),
+                  ],
+                ),
+              );
+        }
       },
     );
 
@@ -100,8 +153,6 @@ class _PeriodicTableState extends State<PeriodicTable> {
     //   ],
     // );
 
-
-
     //  return SingleChildScrollView(
     //   child: SizedBox(
     //     height: 100,
@@ -115,21 +166,21 @@ class _PeriodicTableState extends State<PeriodicTable> {
 
   @override
   Widget build(BuildContext context) {
-     if(_items.isNotEmpty) {
-       return  _buildTable(_items);
-    }else{
-       readJson();
-         return const Center(child:  CircularProgressIndicator());
-       }
+    if (_items.isNotEmpty) {
+      return _buildTable(_items);
+    } else {
+      readJson();
+      return const Center(child: CircularProgressIndicator());
     }
+  }
 
-    // return FutureBuilder(
-    //   future: _items,
-    //   builder: (context, AsyncSnapshot snapshot) => snapshot.hasData
-    //       ? _buildTable(snapshot.data)
-    //       : const Center(
-    //           child: CircularProgressIndicator(),
-    //         ),
-    // );
+  // return FutureBuilder(
+  //   future: _items,
+  //   builder: (context, AsyncSnapshot snapshot) => snapshot.hasData
+  //       ? _buildTable(snapshot.data)
+  //       : const Center(
+  //           child: CircularProgressIndicator(),
+  //         ),
+  // );
 
 }
