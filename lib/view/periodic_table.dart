@@ -48,6 +48,7 @@ class _PeriodicTableState extends State<PeriodicTable> {
     //             ),
     //     )
     //     .toList();
+    //
 
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
