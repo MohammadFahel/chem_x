@@ -46,33 +46,33 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 icon: Icons.account_circle_outlined,
                 onPressed: () => onItemPressed(context, index: 0),
               ),
-              const SizedBox(height: 15),
-              Row(
-                children: [
-                  DrawerItem(
-                      name: 'Change Language',
-                      icon: Icons.language,
-                      onPressed: () => onItemPressed(context, index: 1)),
-                  const SizedBox(width: 30),
-                  DropdownButton(
-
-                    value: dropdownValue,
-                    items: languageList
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                  )
-                ],
-              ),
+              // const SizedBox(height: 15),
+              // Row(
+              //   children: [
+              //     DrawerItem(
+              //         name: 'Change Language',
+              //         icon: Icons.language,
+              //         onPressed: () => onItemPressed(context, index: 1)),
+              //     const SizedBox(width: 30),
+              //     DropdownButton(
+              //
+              //       value: dropdownValue,
+              //       items: languageList
+              //           .map<DropdownMenuItem<String>>((String value) {
+              //         return DropdownMenuItem<String>(
+              //           value: value,
+              //           child: Text(value),
+              //         );
+              //       }).toList(),
+              //       onChanged: (String? value) {
+              //         // This is called when the user selects an item.
+              //         setState(() {
+              //           dropdownValue = value!;
+              //         });
+              //       },
+              //     )
+              //   ],
+              // ),
               const SizedBox(height: 15),
               Row(
                 children: [
@@ -118,7 +118,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     switch (index) {
       case 0:
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const MyProfile()));
+            MaterialPageRoute(builder: (context) => MyProfile()));
         break;
       case 1:
         Navigator.push(context,
@@ -130,7 +130,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
         break;
       case 3:
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SendFeedback()));
+            MaterialPageRoute(builder: (context) => SendFeedback()));
         break;
       case 4:
         AuthO().signOutUser();

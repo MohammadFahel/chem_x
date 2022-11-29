@@ -92,6 +92,9 @@ flutter:
     - assets/images/flask.png
     - assets/images/myProfile.png
     - assets/data/elementsData.json
+    - assets/images/profile5.png
+    - assets/images/editProfile.png
+    - assets/images/backbutton.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -118,3 +121,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+assets/images/editProfile:
+  png:
