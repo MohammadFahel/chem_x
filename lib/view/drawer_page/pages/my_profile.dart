@@ -45,6 +45,7 @@ class MyProfile extends StatelessWidget{
           },
         ),
       ),
+
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -55,7 +56,20 @@ class MyProfile extends StatelessWidget{
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(height: 30),
-                Image.asset("assets/images/editProfile.png", width: 100, height: 100),
+                Material(
+                  color: Colors.white,
+                  child: InkWell(
+                    onTap: () {
+                      // change image code
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset("assets/images/editProfile.png",
+                          width: 110.0, height: 110.0),
+                    ),
+                  ),
+                ),
+                // Image.asset("assets/images/editProfile.png", width: 100, height: 100),
                 SizedBox(height: 15),
                 Text("User Information",
                   style: GoogleFonts.poppins(

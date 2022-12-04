@@ -10,6 +10,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Controller/auth.dart';
+import '../../module/routing_navigator.dart';
 
 const List<String> languageList = <String>['EN', 'AR'];
 
@@ -44,8 +45,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
               DrawerItem(
                 name: 'My Account',
                 icon: Icons.account_circle_outlined,
-                onPressed: () => onItemPressed(context, index: 0),
-              ),
+                onPressed: () => onItemPressed(context, index: 0)),
               // const SizedBox(height: 15),
               // Row(
               //   children: [
@@ -117,6 +117,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
 
     switch (index) {
       case 0:
+        // Navigator.pushNamed(context, myProfileRoute);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => MyProfile()));
         break;

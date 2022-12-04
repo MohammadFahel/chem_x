@@ -1,3 +1,4 @@
+import 'package:chem_x/module/routing_navigator.dart';
 import 'package:chem_x/view/registration_pages/sign_up_page.dart';
 import 'package:chem_x/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,4 +28,20 @@ void main() async {
               // home: AuthO().haundleAuthState(),
             ));
       })));
+
+  // runApp(MyChemxApp(appRouter: AppRouter()));
 }
+
+// class MyChemxApp extends StatelessWidget {
+//   final AppRouter appRouter;
+//   const MyChemxApp({Key? key, required this.appRouter}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       onGenerateRoute: appRouter.generateRoute,
+//
+//     );
+//   }
+// }
