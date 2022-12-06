@@ -225,17 +225,18 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     } else {
       DatabaseReference ref =
       FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
-      return FutureBuilder(
-          future: AuthO().getUserData(),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.done) {
-        var data = snapshot.data as Map;
-        return Container(
+      return Container(
           color: HexColor('#AAA1C8'),
           width: double.infinity,
           height: 200,
           padding: EdgeInsets.only(top: 20.0),
-          child: Column(
+
+          child:FutureBuilder(
+    future: AuthO().getUserData(),
+    builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.done) {
+    var data = snapshot.data as Map;
+        return  Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
@@ -282,13 +283,14 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
               ),
             ]
             ,
-          )
-          ,
-        );
+          );
+
       }else{
         return Center(child: CircularProgressIndicator(),);
       }
-    });
+    }
+    )
+      );
     }
 
   }
