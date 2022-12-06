@@ -10,6 +10,7 @@ class TextProvider with ChangeNotifier {
   String doYouHaveAnAccountOrNot = "Already have an account?";
   bool oldUserOrNot=true;
   String signUpOrSignInClick="Sign In";
+  String userFaceBookId="";
 
   void oldUser() {
     niceToMetyouOrWelcomeBack = "Welcome Back!";
@@ -30,6 +31,10 @@ class TextProvider with ChangeNotifier {
     email = "Sign Up With Email";
     doYouHaveAnAccountOrNot = "Already have an account?";
     signUpOrSignInClick="Sign In";
+    notifyListeners();
+  }
+  void facebookId(String x){
+    userFaceBookId=x;
     notifyListeners();
   }
   void loguser(){

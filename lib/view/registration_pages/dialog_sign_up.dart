@@ -101,6 +101,7 @@ class DialogSignUp extends StatelessWidget {
                         _passwordSignUpDialogKey.currentState!.validate()) {
                       Navigator.of(context).pop();
                       AuthO().createUserWithEmailAndPassword(
+                          userName: userNameController.text,
                           email: emailController.text,
                           password: PasswordController.text);
                     }
@@ -143,7 +144,7 @@ Widget TextFieldWidget(
     required String validator,
     required TextEditingController controller}) {
   return TextFormField(
-    obscureText: validator=="Password"? true :false,
+    obscureText: validator == "Password" ? true : false,
     controller: controller,
     style: TextStyle(color: Colors.red),
     key: keyy,
@@ -180,8 +181,8 @@ Widget TextFieldWidget(
           return "please fill this field ";
         } else if (text.isEmpty) {
           return "please fill this field ";
-        } else if (  !RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        } else if (!RegExp(
+                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
             .hasMatch(text)) {
           return "Please enter a valid email";
         }
@@ -192,9 +193,9 @@ Widget TextFieldWidget(
         } else if (text.isEmpty) {
           return "please fill this field ";
         } else if (text.length <= 6) {
-
           return "The password must be greater than 6 characters";
-        } else if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)").hasMatch(text)){
+        } else if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
+            .hasMatch(text)) {
           return "Must contain an uppercase, lowercase letter, symbol";
         }
       }

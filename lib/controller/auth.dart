@@ -1,13 +1,17 @@
+
+
+import 'package:chem_x/Controller/text_provider.dart';
 import 'package:chem_x/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import '../View/home_page.dart';
 import '../view/registration_pages/sign_up_page.dart';
 
@@ -54,6 +58,7 @@ class AuthO {
   }
 
   Future<void> createUserWithEmailAndPassword({
+    required String userName,
     required String email,
     required String password,
   }) async {
@@ -62,6 +67,14 @@ class AuthO {
         email: email,
         password: password,
       );
+      DatabaseReference ref = FirebaseDatabase.instance.ref(_firebaseAuth.currentUser!.uid);
+      await ref.set({
+        "userName": userName,
+        "email": email,
+        "password": password,
+        "photo": "https://firebasestorage.googleapis.com/v0/b/chemx-59612.appspot.com/o/userImages%2Ffacebook-silhouette_thumb.jpg?alt=media&token=d3e4307a-6f90-4f56-a852-b68f4faf4b50",
+      });
+
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "email-already-in-use":
@@ -87,19 +100,46 @@ class AuthO {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
+getUserData()async{
+  final ref = FirebaseDatabase.instance.ref();
+  final snapshot = await ref.child(_firebaseAuth.currentUser!.uid).get();
+  if (snapshot.exists) {
+    return snapshot.value;
+  } else {
+    print('No data available.');
+  }
+}
+  getFacebookUserData() async{
+   final ref = FirebaseDatabase.instance.ref();
+   final userData=await FacebookAuth.instance.getUserData();
+   final snapshot = await ref.child(userData['id']).get();
+   if(snapshot.exists) {
+     return  snapshot.value;
+   }else{
+     print("ERROR");
+   }
 
+
+}
   Future<UserCredential> signInWithFacebook() async {
     // Trigger the sign-in flow
     final LoginResult loginResult = await FacebookAuth.i
         .login(permissions: ['email', 'public_profile']);
-
+final userData=await FacebookAuth.instance.getUserData();
     // Create a credential from the access token
     final OAuthCredential facebookAuthCredential =
     FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    DatabaseReference ref = FirebaseDatabase.instance.ref(userData['id']);
 
+    await ref.set({
+      "name": userData['name'],
+      "email": userData['email'],
+      "pic": userData['picture']['data']['url']
+    });
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }

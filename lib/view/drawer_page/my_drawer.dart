@@ -1,18 +1,29 @@
+import 'dart:io';
+
 import 'package:chem_x/main.dart';
+import 'package:chem_x/module/facebook_info.dart';
 import 'package:chem_x/view/drawer_page/pages/change_language.dart';
 import 'package:chem_x/view/drawer_page/pages/change_theme.dart';
 import 'package:chem_x/view/drawer_page/pages/my_profile.dart';
 import 'package:chem_x/view/drawer_page/pages/send_feedback.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
 import '../../Controller/auth.dart';
+import '../../Controller/text_provider.dart';
 import '../../module/routing_navigator.dart';
 
 const List<String> languageList = <String>['EN', 'AR'];
+String profilePicture = "";
 
 class MyNavigationDrawer extends StatefulWidget {
   const MyNavigationDrawer({Key? key}) : super(key: key);
@@ -24,6 +35,7 @@ class MyNavigationDrawer extends StatefulWidget {
 class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   bool _darkMode = false;
   bool isSwitched = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -42,10 +54,11 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             children: [
               headerWidget(),
               const SizedBox(height: 15),
+
               DrawerItem(
-                name: 'My Account',
-                icon: Icons.account_circle_outlined,
-                onPressed: () => onItemPressed(context, index: 0)),
+                  name: 'My Account',
+                  icon: Icons.account_circle_outlined,
+                  onPressed: () => onItemPressed(context, index: 0)),
               // const SizedBox(height: 15),
               // Row(
               //   children: [
@@ -118,20 +131,20 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     switch (index) {
       case 0:
         // Navigator.pushNamed(context, myProfileRoute);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MyProfile()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MyProfile()));
         break;
       case 1:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ChangeLanguage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ChangeLanguage()));
         break;
       case 2:
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const ChangeTheme()));
         break;
       case 3:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SendFeedback()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SendFeedback()));
         break;
       case 4:
         AuthO().signOutUser();
@@ -140,38 +153,144 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   }
 
   Widget headerWidget() {
-    return Container(
-      color: HexColor('#AAA1C8'),
-      width: double.infinity,
-      height: 200,
-      padding: EdgeInsets.only(top: 20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.only(bottom: 10),
-            height: 70,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage('assets/images/myProfile.png'),
+    if (_auth.currentUser!.providerData[0].providerId.contains("facebook")) {
+      return Container(
+          color: HexColor('#AAA1C8'),
+          width: double.infinity,
+          height: 200,
+          padding: EdgeInsets.only(top: 20.0),
+          child: FutureBuilder(
+              future: AuthO().getFacebookUserData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  var data = snapshot.data as Map;
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        height: 70,
+                        child: Image.network(data['pic']),
+                      ),
+                      Text(
+                        data['name'],
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      Text(
+                        data['email'],
+                        style: TextStyle(
+                          color: Colors.grey[200],
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }));
+    } else if (_auth.currentUser!.providerData[0].providerId
+        .contains("google")) {
+      return Container(
+        color: HexColor('#AAA1C8'),
+        width: double.infinity,
+        height: 200,
+        padding: EdgeInsets.only(top: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              height: 70,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 10),
+                height: 70,
+                child: Image.network(_auth.currentUser!.photoURL.toString()),
               ),
             ),
-          ),
-          Text(
-            "ChemX User",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          Text(
-            "chemx@asu.edu.jo",
-            style: TextStyle(
-              color: Colors.grey[200],
-              fontSize: 14,
+            Text(
+              _auth.currentUser!.displayName.toString(),
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-          ),
-        ],
-      ),
-    );
+            Text(
+              _auth.currentUser!.email.toString(),
+              style: TextStyle(
+                color: Colors.grey[200],
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      DatabaseReference ref =
+      FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
+      return FutureBuilder(
+          future: AuthO().getUserData(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.done) {
+        var data = snapshot.data as Map;
+        return Container(
+          color: HexColor('#AAA1C8'),
+          width: double.infinity,
+          height: 200,
+          padding: EdgeInsets.only(top: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                height: 70,
+                child: Image.network(data['photo']),
+              ),
+              InkWell(
+                child: Text("Add new Photo"),
+                onTap: () async {
+                  ImagePicker imagePicker = ImagePicker();
+                  XFile? file =
+                  await imagePicker.pickImage(source: ImageSource.gallery);
+                  if (file == null) return;
+                  Reference referenceRoot =
+                  FirebaseStorage.instance.ref().child("userImage");
+                  Reference referenceUploadImage =
+                  referenceRoot.child(_auth.currentUser!.uid);
+                  try {
+                    await referenceUploadImage.putFile(File(file!.path));
+                    profilePicture =
+                    await referenceUploadImage.getDownloadURL();
+                    await ref.update({
+                      "photo": profilePicture,
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                data['userName'],
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              Text(
+                data['email'],
+                style: TextStyle(
+                  color: Colors.grey[200],
+                  fontSize: 14,
+                ),
+              ),
+            ]
+            ,
+          )
+          ,
+        );
+      }else{
+        return Center(child: CircularProgressIndicator(),);
+      }
+    });
+    }
+
   }
 }
 
