@@ -1,19 +1,39 @@
 import 'package:chem_x/Controller/auth.dart';
-import 'package:chem_x/view/registration_pages/dialog_forgot_password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
-import 'package:string_validator/string_validator.dart';
 
-class DialogSignIn extends StatelessWidget {
-  final _emailSignInDialogKey = GlobalKey<FormFieldState>();
-  final _passwordSignInDialogKey = GlobalKey<FormFieldState>();
-  final emailController = TextEditingController();
-  final PasswordController = TextEditingController();
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({Key? key}) : super(key: key);
 
   @override
+  State<ForgotPassword> createState() => _ForgotPasswordState();
+}
+
+class _ForgotPasswordState extends State<ForgotPassword> {
+  @override
   Widget build(BuildContext context) {
+    final _emailSignInDialogKey = GlobalKey<FormFieldState>();
+    final emailController = TextEditingController();
+
+    @override
+    void dispose(){
+      emailController.dispose();
+      super.dispose();
+    }
+
+    Future PasswordReset() async{
+      try {
+        await FirebaseAuth.instance.sendPasswordResetEmail(
+            email: emailController.text.trim())
+            .then((value) => Navigator.of(context).pop());
+      } on FirebaseAuthException catch (e){
+        print(e);
+      }
+    }
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Dialog(
@@ -39,7 +59,7 @@ class DialogSignIn extends StatelessWidget {
                     child: Icon(Icons.mail_sharp),
                   ),
                   Text(
-                    "Sign In With Email",
+                    "Reset Your Password",
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           fontSize: 15.0.sp,
@@ -62,38 +82,13 @@ class DialogSignIn extends StatelessWidget {
                   lable: "Email",
                   keyy: _emailSignInDialogKey,
                   validator: "Email",
-              controller: emailController),
+                  controller: emailController),
               SizedBox(
                 height: 2.h,
               ),
-              TextFieldWidget(
-                  lable: "Password",
-                  keyy: _passwordSignInDialogKey,
-                  validator: "Password",
-              controller: PasswordController),
-              // SizedBox(
-              //   height: 3.h,
-              // ),
-              TextButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ForgotPassword();
-                        });
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => const ForgotPassword()));
-                    // Navigator.pushReplacement(context, ForgotPassword());
-                  },
-                  child: Text(
-                    "Forgot Password?",
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13.0.sp,
-                        )),
-                  )),
+              SizedBox(
+                height: 3.h,
+              ),
               ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
@@ -102,20 +97,13 @@ class DialogSignIn extends StatelessWidget {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0)))),
                 onPressed: () {
-                  if(_emailSignInDialogKey.currentState != null && _passwordSignInDialogKey.currentState != null) {
-                    if (_emailSignInDialogKey.currentState!.validate() &&
-                        _passwordSignInDialogKey.currentState!.validate()) {
-                      Navigator.of(context).pop();
-                      AuthO().signInWithEmailAndPassword(email: emailController.text,
-                          password: PasswordController.text);
+                  PasswordReset();
 
-                    }
-                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Sign In",
+                    "Confirm",
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
 
@@ -144,16 +132,14 @@ class DialogSignIn extends StatelessWidget {
   }
 }
 
-
-
 Widget TextFieldWidget(
     {required String lable,
       required GlobalKey<FormFieldState> keyy,
       required String validator,
-    required TextEditingController controller}) {
+      required TextEditingController controller}) {
   return TextFormField(
     obscureText: validator=="Password"? true :false,
-controller: controller,
+    controller: controller,
     style: TextStyle(color: Colors.red),
     key: keyy,
     decoration: InputDecoration(
@@ -172,38 +158,5 @@ controller: controller,
           borderSide: BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(20)),
     ),
-    // validator: (text) {
-    //   if (validator == "UserName") {
-    //
-    //     if (text == null) {
-    //       return "please fill this field ";
-    //     } else if (text.isEmpty) {
-    //       return "please fill this field ";
-    //     } else if (!isAlpha(text)) {
-    //       return "User Name must not contain numbers";
-    //     }
-    //   } else if (validator == "Email") {
-    //
-    //     if (text == null) {
-    //       return "please fill this field ";
-    //     } else if (text.isEmpty) {
-    //       return "please fill this field ";
-    //     } else if (!isEmail(text)) {
-    //       return "Please enter a valid email";
-    //     }
-    //   } else if (validator == "Password") {
-    //     if (text == null) {
-    //       return "please fill this field ";
-    //     } else if (text.isEmpty) {
-    //       return "please fill this field ";
-    //     } else if (text.length < 6 ||
-    //         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-    //             .hasMatch(text)) {
-    //       print("i will cum my password22");
-    //       return "The password must be greater than 6 characters and contain an uppercase letter, lowercase letter and a symbol ";
-    //     }
-    //   }
-    //   return null;
-    // },
   );
 }

@@ -59,33 +59,6 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                   name: 'My Account',
                   icon: Icons.account_circle_outlined,
                   onPressed: () => onItemPressed(context, index: 0)),
-              // const SizedBox(height: 15),
-              // Row(
-              //   children: [
-              //     DrawerItem(
-              //         name: 'Change Language',
-              //         icon: Icons.language,
-              //         onPressed: () => onItemPressed(context, index: 1)),
-              //     const SizedBox(width: 30),
-              //     DropdownButton(
-              //
-              //       value: dropdownValue,
-              //       items: languageList
-              //           .map<DropdownMenuItem<String>>((String value) {
-              //         return DropdownMenuItem<String>(
-              //           value: value,
-              //           child: Text(value),
-              //         );
-              //       }).toList(),
-              //       onChanged: (String? value) {
-              //         // This is called when the user selects an item.
-              //         setState(() {
-              //           dropdownValue = value!;
-              //         });
-              //       },
-              //     )
-              //   ],
-              // ),
               const SizedBox(height: 15),
               Row(
                 children: [
@@ -126,7 +99,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   }
 
   void onItemPressed(BuildContext context, {required int index}) {
-    Navigator.pop(context);
+    // Navigator.pop(context);
 
     switch (index) {
       case 0:
@@ -139,12 +112,17 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             context, MaterialPageRoute(builder: (context) => ChangeLanguage()));
         break;
       case 2:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ChangeTheme()));
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => const ChangeTheme()));
         break;
       case 3:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SendFeedback()));
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SendFeedback();
+            });
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => SendFeedback()));
         break;
       case 4:
         AuthO().signOutUser();
