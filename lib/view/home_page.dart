@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
-
 import 'drawer_page/my_drawer.dart';
 
 const String alkali_metals = "#85CAC4";

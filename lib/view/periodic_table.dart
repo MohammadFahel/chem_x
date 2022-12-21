@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'element_page.dart';
 import 'home_page.dart' as colors;
 import 'package:hexcolor/hexcolor.dart';
 
@@ -90,81 +91,64 @@ class _PeriodicTableState extends State<PeriodicTable> {
             case "transition metal":
               myColor=colors.transition_metals;
               break;
+            case "actinide":
+              myColor=colors.actinides;
+              break;
             case "lanthanide":
               myColor=colors.lanthanides;
               break;
-            case "actinide":
-              myColor=colors.actinides;
           }
-          return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: HexColor("${myColor}"), width: 2),
-                  color: HexColor("${myColor}"),
+          print(myColor);
+          print(_items[index]['category']);
+          return GestureDetector(
+            onTap: () {
+              print(myColor);
+              // print(_items[index]['category']);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ElementPage(atomicMass: _items[index]["atomic_mass"]==null?0.0:_items[index]["atomic_mass"].toDouble(), appearance: _items[index]["appearance"]==null?"":_items[index]["appearance"], boil: _items[index]["boil"]==null?0.0:_items[index]["boil"].toDouble(),
+                  category: _items[index]["category"]==null?"":_items[index]["category"], density: _items[index]["density"]==null?0.0:_items[index]["density"].toDouble(), discoveredBy: _items[index]["discovered_by"]==null?"":_items[index]["discovered_by"], melt: _items[index]["melt"]==null?0.0:_items[index]["melt"].toDouble(),
+                    molarHeat: _items[index]["molar_heat"]==null?0.0:_items[index]["molar_heat"].toDouble(),
+                  namedBy: _items[index]["named_by"]==null?"":_items[index]["named_by"], number: _items[index]["number"]==null?0:_items[index]["number"], period: _items[index]["period"]==null?0:_items[index]["period"], phase: _items[index]["phase"]==null?0:_items[index]["phase"],
+                    summary: _items[index]["summary"]==null?"":_items[index]["summary"], myColor: myColor,
+                    symbol: _items[index]["symbol"]==null?"":_items[index]["symbol"], name: _items[index]["name"],),
+                ));
+            },
+            child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: HexColor("${myColor}"), width: 2),
+                    color: HexColor("${myColor}"),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text("${_items[index]["number"]}", style: const TextStyle(color: Colors.white),),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          //Text("${_items[index]["atomic_mass"].toStringAsFixed(3)}"),
+                        ],
+                      ),
+                      Text(_items[index]["symbol"],
+                          style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)),
+                      Text(_items[index]["name"],
+                          style: const TextStyle(fontSize: 7.5, fontWeight: FontWeight.bold, color: Colors.white)),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text("${_items[index]["number"]}", style: const TextStyle(color: Colors.white),),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        //Text("${_items[index]["atomic_mass"].toStringAsFixed(3)}"),
-                      ],
-                    ),
-                    Text(_items[index]["symbol"],
-                        style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)),
-                    Text(_items[index]["name"],
-                        style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white)),
-                  ],
-                ),
-              );
+          );
         }
       },
     );
-
-    // return Column(
-    //   children: [
-    //     // Display the data loaded from sample.json
-    //     _items.isNotEmpty
-    //         ? Expanded(
-    //       child: ListView.builder(
-    //         itemCount: _items.length,
-    //         itemBuilder: (context, index) {
-    //           return Card(
-    //             key: ValueKey(_items[index]["name"]),
-    //             margin: const EdgeInsets.all(10),
-    //             color: Colors.white24,
-    //             child: ListTile(
-    //               leading: Text(_items[index]["category"]),
-    //               title: Text(_items[index]["name"]),
-    //               subtitle: Text(_items[index]["symbol"]),
-    //             ),
-    //           );
-    //         },
-    //       ),
-    //     )
-    //         : Container(child: Text("ERROR"),)
-    //   ],
-    // );
-
-    //  return SingleChildScrollView(
-    //   child: SizedBox(
-    //     height: 100,
-    //     child: GridView.count(
-    //       crossAxisCount: 10,
-    //       children: <Widget>[...forGrid],
-    //     ),
-    //   ),
-    // );
   }
-
   @override
   Widget build(BuildContext context) {
     if (_items.isNotEmpty) {
@@ -174,14 +158,5 @@ class _PeriodicTableState extends State<PeriodicTable> {
       return const Center(child: CircularProgressIndicator());
     }
   }
-
-  // return FutureBuilder(
-  //   future: _items,
-  //   builder: (context, AsyncSnapshot snapshot) => snapshot.hasData
-  //       ? _buildTable(snapshot.data)
-  //       : const Center(
-  //           child: CircularProgressIndicator(),
-  //         ),
-  // );
 
 }
