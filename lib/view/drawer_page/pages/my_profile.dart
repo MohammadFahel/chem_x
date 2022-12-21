@@ -7,17 +7,32 @@ import 'package:string_validator/string_validator.dart';
 import 'package:chem_x/Controller/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class MyProfile extends StatelessWidget {
+class MyProfile extends StatefulWidget {
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
   final _auth = FirebaseAuth.instance.currentUser;
+
   final _usernameKey = GlobalKey<FormFieldState>();
+
   final _emailKey = GlobalKey<FormFieldState>();
+
   final _currentPasswordKey = GlobalKey<FormFieldState>();
+
   final _newPasswordKey = GlobalKey<FormFieldState>();
+
   final _againNewPasswordKey = GlobalKey<FormFieldState>();
+
   final userNameController = TextEditingController();
+
   final curruentPsswordController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final newPasswordController = TextEditingController();
+
   final againNewPasswordController = TextEditingController();
 
   @override

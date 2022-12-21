@@ -69,12 +69,6 @@ class DialogSignUp extends StatelessWidget {
               SizedBox(
                 height: 2.h,
               ),
-              TextFormField(
-                key:  _emailSignUpDialogKey,
-                decoration:const InputDecoration(
-                  labelText: "Email",
-                ),
-              ),
               TextFieldWidget(
                   lable: "Email",
                   keyy: _emailSignUpDialogKey,
