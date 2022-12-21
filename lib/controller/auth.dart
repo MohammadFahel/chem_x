@@ -56,7 +56,29 @@ class AuthO {
       }
     }
   }
+userChangePassword(String currentPassword,String newPassword){
+final user=_firebaseAuth.currentUser;
+if(user == null){
+  print("nooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+  return;
+}
+  AuthCredential credential = EmailAuthProvider.credential(
+    email: user!.email.toString(),
+    password: currentPassword,
+  );
 
+
+  _firebaseAuth.signInWithCredential(credential).then((authResult) {
+    user.updatePassword(newPassword).then((_) {
+      print("Successfully changed password!");
+      toast("Password Changed Successfully!");
+    }).catchError((error) {
+      print("Error changing password: $error");
+    });
+  }).catchError((error) {
+    print("Error re-authenticating user: $error");
+  });
+}
   Future<void> createUserWithEmailAndPassword({
     required String userName,
     required String email,

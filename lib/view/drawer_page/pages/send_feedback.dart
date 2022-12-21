@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,7 +92,12 @@ class SendFeedback extends StatelessWidget {
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0)))),
-                onPressed: () {
+                onPressed: () async {
+                  DatabaseReference ref = FirebaseDatabase.instance.ref("feedback Users").child(FirebaseAuth.instance.currentUser!.uid);
+                  await ref.set({
+                  "feedback":textAreaField.text
+                  });
+                  Navigator.of(context).pop();
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

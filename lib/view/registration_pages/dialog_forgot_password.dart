@@ -24,8 +24,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       super.dispose();
     }
 
-    Future PasswordReset() async{
+    Future<void> PasswordReset() async{
       try {
+        print(emailController.text.trim());
         await FirebaseAuth.instance.sendPasswordResetEmail(
             email: emailController.text.trim())
             .then((value) => Navigator.of(context).pop());
@@ -54,8 +55,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
+                  const Padding(
+                    padding:  EdgeInsets.only(right: 5),
                     child: Icon(Icons.mail_sharp),
                   ),
                   Text(
