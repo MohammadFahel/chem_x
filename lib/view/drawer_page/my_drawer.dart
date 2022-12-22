@@ -19,7 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../../Controller/auth.dart';
-import '../../Controller/text_provider.dart';
+import '../../Controller/chem_provider.dart';
 import '../../module/routing_navigator.dart';
 
 const List<String> languageList = <String>['EN', 'AR'];
@@ -54,7 +54,6 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             children: [
               headerWidget(),
               const SizedBox(height: 15),
-
               DrawerItem(
                   name: 'My Account',
                   icon: Icons.account_circle_outlined,
@@ -137,25 +136,23 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
           width: double.infinity,
           height: 200,
           padding: EdgeInsets.only(top: 20.0),
-          child: FutureBuilder(
-              future: AuthO().getFacebookUserData(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  var data = snapshot.data as Map;
+          child:  Consumer<TextProvider>(
+            builder: (context, data, child) {
+              // return Text(data.data['someKey'].toString());
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         margin: EdgeInsets.only(bottom: 10),
                         height: 70,
-                        child: Image.network(data['pic']),
+                        child: Image.network(data.data['pic'].toString()),
                       ),
                       Text(
-                        data['name'],
+                        data.data['name'].toString(),
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       Text(
-                        data['email'],
+                        data.data['email'].toString(),
                         style: TextStyle(
                           color: Colors.grey[200],
                           fontSize: 14,
@@ -163,10 +160,8 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                       ),
                     ],
                   );
-                } else {
-                  return Center(child: CircularProgressIndicator());
                 }
-              }));
+              ));
     } else if (_auth.currentUser!.providerData[0].providerId
         .contains("google")) {
       return Container(
@@ -202,75 +197,68 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
       );
     } else {
       DatabaseReference ref =
-      FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
+          FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
       return Container(
           color: HexColor('#AAA1C8'),
           width: double.infinity,
           height: 200,
           padding: EdgeInsets.only(top: 20.0),
+          child:  Consumer<TextProvider>(
+              builder: (context, data, child) {
 
-          child:FutureBuilder(
-    future: AuthO().getUserData(),
-    builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.done) {
-    var data = snapshot.data as Map;
-        return  Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                height: 70,
-                child: Image.network(data['photo']),
-              ),
-              InkWell(
-                child: Text("Add new Photo"),
-                onTap: () async {
-                  ImagePicker imagePicker = ImagePicker();
-                  XFile? file =
-                  await imagePicker.pickImage(source: ImageSource.gallery);
-                  if (file == null) return;
-                  Reference referenceRoot =
-                  FirebaseStorage.instance.ref().child("userImage");
-                  Reference referenceUploadImage =
-                  referenceRoot.child(_auth.currentUser!.uid);
-                  try {
-                    await referenceUploadImage.putFile(File(file!.path));
-                    profilePicture =
-                    await referenceUploadImage.getDownloadURL();
-                    await ref.update({
-                      "photo": profilePicture,
-                    });
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                data['userName'],
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              Text(
-                data['email'],
-                style: TextStyle(
-                  color: Colors.grey[200],
-                  fontSize: 14,
-                ),
-              ),
-            ]
-            ,
-          );
+                // return Text(data.data['someKey'].toString());
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        height: 70,
+                        child: Image.network(data.userData['photo'].toString()),
+                      ),
+                      InkWell(
+                        child: Text("Add new Photo"),
+                        onTap: () async {
+                          ImagePicker imagePicker = ImagePicker();
+                          XFile? file = await imagePicker.pickImage(
+                              source: ImageSource.gallery);
+                          if (file == null) return;
+                          Reference referenceRoot =
+                              FirebaseStorage.instance.ref().child("userImage");
+                          Reference referenceUploadImage =
+                              referenceRoot.child(_auth.currentUser!.uid);
+                          try {
+                            await referenceUploadImage
+                                .putFile(File(file!.path));
+                            profilePicture =
+                                await referenceUploadImage.getDownloadURL();
+                            await ref.update({
+                              "photo": profilePicture,
+                            });
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        data.userData['userName'].toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      Text(
+                        data.userData['email'].toString(),
+                        style: TextStyle(
+                          color: Colors.grey[200],
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  );
+                }
 
-      }else{
-        return Center(child: CircularProgressIndicator(),);
-      }
+                ));
     }
-    )
-      );
-    }
-
   }
 }
 

@@ -1,9 +1,13 @@
 import 'package:chem_x/View/periodic_table.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../Controller/chem_provider.dart';
 import 'drawer_page/my_drawer.dart';
 
 const String alkali_metals = "#85CAC4";
@@ -48,8 +52,13 @@ class PeriodicTableHomePage extends StatefulWidget {
 
 class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
   //final PageController _periodicTable = PageController(initialPage: 0);
+  DatabaseReference ref = FirebaseDatabase.instance.ref(FirebaseAuth.instance.currentUser!.uid);
   @override
   Widget build(BuildContext context) {
+    ref.onValue.listen((event) {
+      Provider.of<TextProvider>(context, listen: false).userData = event.snapshot.value as Map ;
+    }
+    );
     return Scaffold(
       key: drawerIcon,
       drawer: const MyNavigationDrawer(),

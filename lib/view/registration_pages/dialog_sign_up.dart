@@ -93,6 +93,7 @@ class DialogSignUp extends StatelessWidget {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0)))),
                 onPressed: () {
+
                   if (_userNameSignUpDialogKey.currentState != null &&
                       _emailSignUpDialogKey.currentState != null &&
                       _passwordSignUpDialogKey.currentState != null) {
@@ -100,7 +101,7 @@ class DialogSignUp extends StatelessWidget {
                         _emailSignUpDialogKey.currentState!.validate() &&
                         _passwordSignUpDialogKey.currentState!.validate()) {
                       Navigator.of(context).pop();
-                      AuthO().createUserWithEmailAndPassword(
+                      AuthO().createUserWithEmailAndPassword(context,
                           userName: userNameController.text,
                           email: emailController.text,
                           password: PasswordController.text);

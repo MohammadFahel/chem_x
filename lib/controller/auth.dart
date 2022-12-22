@@ -1,6 +1,6 @@
 
 
-import 'package:chem_x/Controller/text_provider.dart';
+import 'package:chem_x/Controller/chem_provider.dart';
 import 'package:chem_x/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -33,7 +33,7 @@ class AuthO {
         });
   }
 
-  Future<void> signInWithEmailAndPassword({
+  Future<void> signInWithEmailAndPassword(BuildContext context,{
     required String email,
     required String password,
   }) async {
@@ -42,6 +42,7 @@ class AuthO {
           email: email,
           password: password
       );
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSimpleNotification(
@@ -55,6 +56,8 @@ class AuthO {
           duration: Duration(seconds: 2),);
       }
     }
+
+
   }
 userChangePassword(String currentPassword,String newPassword){
 final user=_firebaseAuth.currentUser;
@@ -79,7 +82,7 @@ if(user == null){
     print("Error re-authenticating user: $error");
   });
 }
-  Future<void> createUserWithEmailAndPassword({
+  Future<void> createUserWithEmailAndPassword(BuildContext context,{
     required String userName,
     required String email,
     required String password,
@@ -95,6 +98,14 @@ if(user == null){
         "email": email,
         "password": password,
         "photo": "https://firebasestorage.googleapis.com/v0/b/chemx-59612.appspot.com/o/userImages%2Ffacebook-silhouette_thumb.jpg?alt=media&token=d3e4307a-6f90-4f56-a852-b68f4faf4b50",
+      });
+      ref.onValue.listen((event) {
+        if(event.snapshot.exists){
+          Provider.of<TextProvider>(context, listen: false).userData = event.snapshot.value as Map ;
+        }else{
+          print("nonononononononononononononononon");
+        }
+
       });
 
     } on FirebaseAuthException catch (e) {
@@ -135,19 +146,17 @@ getUserData()async{
     print('No data available.');
   }
 }
-  getFacebookUserData() async{
-   final ref = FirebaseDatabase.instance.ref();
-   final userData=await FacebookAuth.instance.getUserData();
-   final snapshot = await ref.child(userData['id']).get();
-   if(snapshot.exists) {
-     return  snapshot.value;
-   }else{
-     print("ERROR");
-   }
+  // getFacebookUserData() async{
+  //  final ref = FirebaseDatabase.instance.ref();
+  //  final userData=await FacebookAuth.instance.getUserData();
+  //  final snapshot = await ref.child(userData['id']).get();
+  //  if(snapshot.exists) {
+  //    Provider.of<TextProvider>(context, listen: false).data = snapshot.data.value;
+  //  }else{
+  //    print("ERROR");
+  //  }
 
-
-}
-  Future<UserCredential> signInWithFacebook() async {
+  Future<UserCredential> signInWithFacebook(BuildContext context) async {
     // Trigger the sign-in flow
     final LoginResult loginResult = await FacebookAuth.i
         .login(permissions: ['email', 'public_profile']);
@@ -161,6 +170,9 @@ final userData=await FacebookAuth.instance.getUserData();
       "name": userData['name'],
       "email": userData['email'],
       "pic": userData['picture']['data']['url']
+    });
+    ref.onValue.listen((event) {
+      Provider.of<TextProvider>(context, listen: false).data = event.snapshot.value as Map ;
     });
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);

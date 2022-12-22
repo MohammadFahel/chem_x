@@ -1,10 +1,15 @@
 import 'package:chem_x/Controller/auth.dart';
 import 'package:chem_x/view/registration_pages/dialog_forgot_password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:string_validator/string_validator.dart';
+
+import '../../Controller/chem_provider.dart';
 
 class DialogSignIn extends StatelessWidget {
   final _emailSignInDialogKey = GlobalKey<FormFieldState>();
@@ -106,9 +111,9 @@ class DialogSignIn extends StatelessWidget {
                     if (_emailSignInDialogKey.currentState!.validate() &&
                         _passwordSignInDialogKey.currentState!.validate()) {
                       Navigator.of(context).pop();
-                      AuthO().signInWithEmailAndPassword(email: emailController.text,
+                      AuthO().signInWithEmailAndPassword(context,
+                          email: emailController.text,
                           password: PasswordController.text);
-
                     }
                   }
                 },

@@ -25,15 +25,15 @@ class _MyProfileState extends State<MyProfile> {
 
   final _againNewPasswordKey = GlobalKey<FormFieldState>();
 
-  final userNameController = TextEditingController();
+  var userNameController = TextEditingController();
 
-  final curruentPsswordController = TextEditingController();
+  var curruentPsswordController = TextEditingController();
 
-  final passwordController = TextEditingController();
+  var passwordController = TextEditingController();
 
-  final newPasswordController = TextEditingController();
+  var newPasswordController = TextEditingController();
 
-  final againNewPasswordController = TextEditingController();
+  var againNewPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +203,7 @@ class _MyProfileState extends State<MyProfile> {
 
 Widget TextFieldWidget(
     {required String lable,
-    required GlobalKey<FormFieldState> keyy,
+     GlobalKey<FormFieldState>? keyy,
     required String validator,
     TextEditingController? controller,
     String? initialText,

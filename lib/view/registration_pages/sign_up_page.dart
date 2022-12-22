@@ -1,5 +1,5 @@
 import 'package:chem_x/Controller/auth.dart';
-import 'package:chem_x/Controller/text_provider.dart';
+import 'package:chem_x/Controller/chem_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -185,7 +185,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)))),
               onPressed: () {
-                AuthO().signInWithFacebook();
+                AuthO().signInWithFacebook(context);
               },
               child: Container(
                 height: 6.0.h,

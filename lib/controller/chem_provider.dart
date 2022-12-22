@@ -1,7 +1,7 @@
 import 'package:chem_x/Controller/auth.dart';
 import 'package:flutter/cupertino.dart';
 
-class TextProvider with ChangeNotifier {
+class TextProvider extends ChangeNotifier {
   String niceToMetyouOrWelcomeBack = "Glad To Meet You!";
   String signUpOrSignIn = "Sign Up";
   String google = "Sign Up With Google";
@@ -11,6 +11,20 @@ class TextProvider with ChangeNotifier {
   bool oldUserOrNot=true;
   String signUpOrSignInClick="Sign In";
   String userFaceBookId="";
+  Map<dynamic, dynamic> _data={};
+  Map<dynamic, dynamic> get data => _data;
+  set data(Map<dynamic, dynamic> value) {
+    _data = value;
+    notifyListeners();
+  }
+  Map<dynamic, dynamic> _userData={};
+  Map<dynamic, dynamic> get userData => _userData;
+  set userData(Map<dynamic, dynamic> value) {
+    print(value);
+    print("user was hereeeeeeeeeeeeeeee");
+    _userData = value;
+    notifyListeners();
+  }
 
   void oldUser() {
     niceToMetyouOrWelcomeBack = "Welcome Back!";
