@@ -1,6 +1,7 @@
 import 'package:chem_x/Module/single_element_data.dart';
 import 'package:chem_x/View/element_tile.dart';
 import 'package:chem_x/module/single_element_data.dart';
+import 'package:chem_x/view/pop_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,95 +47,95 @@ class ElementPage extends StatelessWidget {
   // var randomItem = (List.shuffle()).first;
   @override
   Widget build(BuildContext context) {
-    showPopUp(String title, String description) {
-      return showDialog(
-          context: context,
-          builder: (context) {
-            return Dialog(
-              insetPadding: EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              child: Container(
-                padding:
-                    EdgeInsets.only(top: 10, bottom: 10, right: 7, left: 7),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30)),
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-                  const Padding(
-                    padding: const EdgeInsets.only(right: 20, left: 20),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                      ),
-                      Text(
-                        "$title",
-                        style: GoogleFonts.poppins(
-                            color: HexColor("#192A51"),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: 0.2,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: Text(
-                      "$description",
-                      style: GoogleFonts.poppins(
-                        fontSize: 15,
-                        color: HexColor("192A51"),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          elevation: 6.0,
-                        backgroundColor: HexColor("#AAA1C8"),
-                      ),
-                      child: Text(
-                        "Done",
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 13.0,
-                            )),
-                      ))
-                ]),
-              ),
-            );
-          });
-    }
+    // showPopUp(String title, String description, BuildContext context) {
+    //   return showDialog(
+    //       context: context,
+    //       builder: (context) {
+    //         return Dialog(
+    //           insetPadding: EdgeInsets.all(20),
+    //           shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(30),
+    //           ),
+    //           elevation: 0,
+    //           backgroundColor: Colors.transparent,
+    //           child: Container(
+    //             padding:
+    //                 EdgeInsets.only(top: 10, bottom: 10, right: 7, left: 7),
+    //             width: double.infinity,
+    //             decoration: BoxDecoration(
+    //                 color: Colors.white,
+    //                 borderRadius: BorderRadius.circular(30)),
+    //             child: Column(mainAxisSize: MainAxisSize.min, children: [
+    //               const Padding(
+    //                 padding: const EdgeInsets.only(right: 20, left: 20),
+    //               ),
+    //               Row(
+    //                 mainAxisAlignment: MainAxisAlignment.start,
+    //                 children: [
+    //                   const Padding(
+    //                     padding: const EdgeInsets.only(right: 10),
+    //                   ),
+    //                   Text(
+    //                     "$title",
+    //                     style: GoogleFonts.poppins(
+    //                         color: HexColor("#192A51"),
+    //                         fontWeight: FontWeight.bold,
+    //                         fontSize: 18),
+    //                   ),
+    //                 ],
+    //               ),
+    //               const SizedBox(
+    //                 height: 5,
+    //               ),
+    //               Container(
+    //                 height: 0.2,
+    //                 width: double.infinity,
+    //                 color: Colors.grey,
+    //               ),
+    //               const SizedBox(
+    //                 height: 5,
+    //               ),
+    //               Padding(
+    //                 padding: const EdgeInsets.only(right: 10, left: 10),
+    //                 child: Text(
+    //                   "$description",
+    //                   style: GoogleFonts.poppins(
+    //                     fontSize: 15,
+    //                     color: HexColor("192A51"),
+    //                     fontWeight: FontWeight.w400,
+    //                   ),
+    //                 ),
+    //               ),
+    //               const SizedBox(
+    //                 height: 7,
+    //               ),
+    //               ElevatedButton(
+    //                   onPressed: () {
+    //                     Navigator.pop(context);
+    //                   },
+    //                   style: ElevatedButton.styleFrom(
+    //                       elevation: 6.0,
+    //                     backgroundColor: HexColor("#AAA1C8"),
+    //                   ),
+    //                   child: Text(
+    //                     "Done",
+    //                     style: GoogleFonts.poppins(
+    //                         textStyle: const TextStyle(
+    //                           color: Colors.white,
+    //                           fontSize: 13.0,
+    //                         )),
+    //                   ))
+    //             ]),
+    //           ),
+    //         );
+    //       });
+    // }
 
     showButton(BuildContext context, String title, String description) {
       return Transform.rotate(
         angle: 180 * math.pi / 180,
         child: IconButton(
-            onPressed: () => showPopUp(title, description),
+            onPressed: () => showPopUp(title, description, context),
             iconSize: 20,
             icon: Icon(Icons.arrow_back_ios)),
       );
@@ -264,12 +265,12 @@ class ElementPage extends StatelessWidget {
                           : const SizedBox(
                               height: 0.0,
                             ),
-                      buildColumn("Atomic Mass", atomicMass.toStringAsFixed(3),
+                      buildColumn("Atomic Mass", "${atomicMass.toStringAsFixed(3)} Da (Dalton)",
                           true, "Atomic mass, the quantity of matter contained in an atom of an element. It is expressed as a multiple of one-twelfth the mass of the carbon-12 atom, 1.992646547 × 10−23 gram, which is assigned an atomic mass of 12 units."),
-                      buildColumn("Boil", boil, true, "Boiling is the process by which a liquid turns into a vapor when it is heated to its boiling point. The change from a liquid phase to a gaseous phase occurs when the vapor pressure of the liquid is equal to the atmospheric pressure exerted on the liquid."),
-                      buildColumn("Density", density, true, "Density is the measurement of how tightly a material is packed together. It is defined as the mass per unit volume. Density Symbol: D or ρ Density Formula: ρ = m/V, where ρ is the density, m is the mass of the object and V is the volume of the object."),
-                      buildColumn("Melt", melt, true, "Melting, change of a solid into a liquid when heat is applied. In a pure crystalline solid, this process occurs at a fixed temperature called the melting point; an impure solid generally melts over a range of temperatures below the melting point of the principal component."),
-                      buildColumn("Molar Heat", molarHeat, true, "Molar heat capacity is defined as the amount of heat required to raise 1 mole of a substance by 1 degree Kelvin."),
+                      buildColumn("Boiling Point", "$boil K", true, "Boiling is the process by which a liquid turns into a vapor when it is heated to its boiling point. The change from a liquid phase to a gaseous phase occurs when the vapor pressure of the liquid is equal to the atmospheric pressure exerted on the liquid."),
+                      buildColumn("Density", "$density Kg/m\u00B3", true, "Density is the measurement of how tightly a material is packed together. It is defined as the mass per unit volume. Density Symbol: D or ρ Density Formula: ρ = m/V, where ρ is the density, m is the mass of the object and V is the volume of the object."),
+                      buildColumn("Melting Point", "$melt K", true, "Melting, change of a solid into a liquid when heat is applied. In a pure crystalline solid, this process occurs at a fixed temperature called the melting point; an impure solid generally melts over a range of temperatures below the melting point of the principal component."),
+                      buildColumn("Molar Heat", "$molarHeat J/mol °C", true, "Molar heat capacity is defined as the amount of heat required to raise 1 mole of a substance by 1 degree Kelvin."),
                       buildColumn("Period", period, false, ""),
                       buildColumn("Phase", phase, true, "There are four phases in chemistry: solid, liquid, gas, and plasma."),
                       namedBy.isNotEmpty

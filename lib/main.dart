@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'Controller/chem_provider.dart';
 import 'view/home_page.dart';
-import 'View/periodic_table.dart';
+import 'view/periodic_table.dart';
 
 
 void main() async {
