@@ -1,11 +1,20 @@
+import 'dart:io';
+
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:chem_x/Controller/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../Controller/chem_provider.dart';
+import '../../../View/drawer_page/my_drawer.dart';
 
 class MyProfile extends StatefulWidget {
   @override
@@ -13,27 +22,21 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+
   final _auth = FirebaseAuth.instance.currentUser;
-
   final _usernameKey = GlobalKey<FormFieldState>();
-
   final _emailKey = GlobalKey<FormFieldState>();
-
   final _currentPasswordKey = GlobalKey<FormFieldState>();
-
   final _newPasswordKey = GlobalKey<FormFieldState>();
-
   final _againNewPasswordKey = GlobalKey<FormFieldState>();
-
   var userNameController = TextEditingController();
-
   var curruentPsswordController = TextEditingController();
-
   var passwordController = TextEditingController();
-
   var newPasswordController = TextEditingController();
-
   var againNewPasswordController = TextEditingController();
+
+  final FirebaseAuth _autho = FirebaseAuth.instance;
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,24 +65,20 @@ class _MyProfileState extends State<MyProfile> {
         ),
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               //mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 30),
-                Image.asset("assets/images/editProfile.png", width: 100, height: 100),
-                SizedBox(height: 15),
-                Text("User Information",
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                      fontSize: 15.0,
-                    ))),
-                SizedBox(height: 15),
+                SizedBox(height: 20),
+                ChangeUserPhoto(),
+                // SizedBox(height: 15),
+                // Text("User Information",
+                //     style: GoogleFonts.poppins(
+                //         textStyle: TextStyle(
+                //       fontSize: 15.0,
+                //     ))),
+                SizedBox(height: 25),
                 FutureBuilder(
                     future: AuthO().getUserData(),
                     builder: (context, snapshot) {
@@ -106,12 +105,12 @@ class _MyProfileState extends State<MyProfile> {
                   validator: "Email",
                 ),
 
-                SizedBox(height: 50),
-                Text("Change Password",
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                      fontSize: 15.0,
-                    ))),
+                // SizedBox(height: 25),
+                // Text("Change Password",
+                //     style: GoogleFonts.poppins(
+                //         textStyle: TextStyle(
+                //       fontSize: 15.0,
+                //     ))),
                 SizedBox(height: 15),
 
                 TextFieldWidget(
@@ -138,7 +137,7 @@ class _MyProfileState extends State<MyProfile> {
                     validator: "Password",
                     controller: againNewPasswordController),
 
-                SizedBox(height: 30),
+                SizedBox(height: 25),
                 ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
@@ -196,10 +195,124 @@ class _MyProfileState extends State<MyProfile> {
             ),
           ),
         ),
-      ),
+
     );
   }
+
+  Widget ChangeUserPhoto(){
+    if (_autho.currentUser!.providerData[0].providerId.contains("facebook")) {
+      return Container(
+          child:  Consumer<TextProvider>(
+              builder: (context, data, child) {
+                // return Text(data.data['someKey'].toString());
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      height: 70,
+                      child: Image.asset("assets/images/editProfile.png", width: 100, height: 100),
+                    ),
+                    Text(
+                      data.data['name'].toString(),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    Text(
+                      data.data['email'].toString(),
+                      style: TextStyle(
+                        color: Colors.grey[200],
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                );
+              }
+          ));
+    } else if (_autho.currentUser!.providerData[0].providerId
+        .contains("google")) {
+      return Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              height: 70,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 10),
+                height: 70,
+                child: Image.asset("assets/images/editProfile.png", width: 100, height: 100),
+              ),
+            ),
+            Text(
+              _autho.currentUser!.displayName.toString(),
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            Text(
+              _autho.currentUser!.email.toString(),
+              style: TextStyle(
+                color: Colors.grey[200],
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      DatabaseReference ref =
+      FirebaseDatabase.instance.ref().child(_autho.currentUser!.uid);
+      return Container(
+          // color: HexColor('#AAA1C8'),
+          // width: double.infinity,
+          // height: 200,
+          // padding: EdgeInsets.only(top: 20.0),
+          child:  Consumer<TextProvider>(
+              builder: (context, data, child) {
+
+                // return Text(data.data['someKey'].toString());
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 60.0,
+                      backgroundImage:NetworkImage(data.userData['photo'].toString()),
+                      backgroundColor: Colors.transparent,),
+                    SizedBox(height: 10),
+                    InkWell(
+                      child: Text("Change Photo", style: TextStyle(
+                        color: Colors.blueAccent, decoration: TextDecoration.underline,
+                      )),
+                      onTap: () async {
+                        ImagePicker imagePicker = ImagePicker();
+                        XFile? file = await imagePicker.pickImage(
+                            source: ImageSource.gallery);
+                        if (file == null) return;
+                        Reference referenceRoot =
+                        FirebaseStorage.instance.ref().child("userImage");
+                        Reference referenceUploadImage =
+                        referenceRoot.child(_autho.currentUser!.uid);
+                        try {
+                          await referenceUploadImage
+                              .putFile(File(file!.path));
+                          profilePicture =
+                          await referenceUploadImage.getDownloadURL();
+                          await ref.update({
+                            "photo": profilePicture,
+                          });
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
+                    ),
+                  ],
+                );
+              }
+
+          ));
+    }
+  }
 }
+
+
 
 Widget TextFieldWidget(
     {required String lable,
@@ -213,7 +326,8 @@ Widget TextFieldWidget(
     enabled: enable,
     obscureText: validator == "Password" ? true : false,
     controller: controller,
-    style: TextStyle(color: Colors.red),
+    style: validator == "UserName" || validator == "Email"?
+    TextStyle(color: Colors.black):TextStyle(color: Colors.black54) ,
 
     decoration: InputDecoration(
       contentPadding: EdgeInsets.all(20),

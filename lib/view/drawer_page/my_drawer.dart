@@ -53,12 +53,12 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
           child: Column(
             children: [
               headerWidget(),
+
               const SizedBox(height: 15),
-              DrawerItem(
-                  name: 'My Account',
-                  icon: Icons.account_circle_outlined,
-                  onPressed: () => onItemPressed(context, index: 0)),
-              const SizedBox(height: 15),
+              // DrawerItem(
+              //     name: 'My Account',
+              //     icon: Icons.account_circle_outlined,
+              //     onPressed: () => onItemPressed(context, index: 0)),
               Row(
                 children: [
                   DrawerItem(
@@ -83,6 +83,32 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                   name: 'Send Feedback',
                   icon: Icons.favorite_outline,
                   onPressed: () => onItemPressed(context, index: 3)),
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  DrawerItem(
+                      name: 'Change Language',
+                      icon: Icons.language,
+                      onPressed: () => onItemPressed(context, index: 2)),
+                  const SizedBox(width: 40),
+                  DropdownButton(
+                    value: dropdownValue,
+                    items: languageList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
+                      // This is called when the user selects an item.
+                      setState(() {
+                        dropdownValue = value!;
+                      });
+                    },
+                  )
+                ],
+              ),
               const SizedBox(height: 15),
               const Divider(thickness: 1, height: 10, color: Colors.grey),
               const SizedBox(height: 15),
@@ -132,40 +158,53 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   Widget headerWidget() {
     if (_auth.currentUser!.providerData[0].providerId.contains("facebook")) {
       return Container(
-          color: HexColor('#AAA1C8'),
+          color: Colors.grey.shade400,
           width: double.infinity,
           height: 200,
           padding: EdgeInsets.only(top: 20.0),
-          child:  Consumer<TextProvider>(
-            builder: (context, data, child) {
-              // return Text(data.data['someKey'].toString());
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        height: 70,
-                        child: Image.network(data.data['pic'].toString()),
-                      ),
-                      Text(
-                        data.data['name'].toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      Text(
-                        data.data['email'].toString(),
-                        style: TextStyle(
-                          color: Colors.grey[200],
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  );
-                }
-              ));
+          child: Consumer<TextProvider>(builder: (context, data, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    height: 100,
+                    child: CircleAvatar(
+                      radius: 50.0,
+                      backgroundImage:
+                      NetworkImage(data.data['pic'].toString()),
+                      backgroundColor: Colors.transparent,
+                    )
+                ),
+                Text(
+                  data.data['name'].toString(),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                Text(
+                  data.data['email'].toString(),
+                  style: TextStyle(
+                    color: Colors.grey[200],
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 15),
+                InkWell(
+                    child: Text('Edit Profile >',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontSize: 15,
+                                color: Colors.blueAccent,
+                                fontWeight: FontWeight.w500))),
+                    onTap: () {
+                      onItemPressed(context, index: 0);
+                    }),
+              ],
+            );
+          }));
     } else if (_auth.currentUser!.providerData[0].providerId
         .contains("google")) {
       return Container(
-        color: HexColor('#AAA1C8'),
+        color: Colors.grey.shade400,
         width: double.infinity,
         height: 200,
         padding: EdgeInsets.only(top: 20.0),
@@ -173,13 +212,14 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 10),
-              height: 70,
-              child: Container(
                 margin: EdgeInsets.only(bottom: 10),
-                height: 70,
-                child: Image.network(_auth.currentUser!.photoURL.toString()),
-              ),
+                height: 100,
+                child: CircleAvatar(
+                  radius: 50.0,
+                  backgroundImage:
+                  NetworkImage(_auth.currentUser!.photoURL.toString()),
+                  backgroundColor: Colors.transparent,
+                )
             ),
             Text(
               _auth.currentUser!.displayName.toString(),
@@ -192,6 +232,17 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 fontSize: 14,
               ),
             ),
+            SizedBox(height: 15),
+            InkWell(
+                child: Text('Edit Profile >',
+                    style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.w500))),
+                onTap: () {
+                  onItemPressed(context, index: 0);
+                }),
           ],
         ),
       );
@@ -199,68 +250,181 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
       DatabaseReference ref =
           FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
       return Container(
-          color: HexColor('#AAA1C8'),
+          color: Colors.grey.shade400,
           width: double.infinity,
-          height: 200,
+          height: 250,
           padding: EdgeInsets.only(top: 20.0),
-          child:  Consumer<TextProvider>(
-              builder: (context, data, child) {
-
-                // return Text(data.data['someKey'].toString());
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        height: 70,
-                        child: Image.network(data.userData['photo'].toString()),
-                      ),
-                      InkWell(
-                        child: Text("Add new Photo"),
-                        onTap: () async {
-                          ImagePicker imagePicker = ImagePicker();
-                          XFile? file = await imagePicker.pickImage(
-                              source: ImageSource.gallery);
-                          if (file == null) return;
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref().child("userImage");
-                          Reference referenceUploadImage =
-                              referenceRoot.child(_auth.currentUser!.uid);
-                          try {
-                            await referenceUploadImage
-                                .putFile(File(file!.path));
-                            profilePicture =
-                                await referenceUploadImage.getDownloadURL();
-                            await ref.update({
-                              "photo": profilePicture,
-                            });
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        data.userData['userName'].toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      Text(
-                        data.userData['email'].toString(),
-                        style: TextStyle(
-                          color: Colors.grey[200],
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  );
-                }
-
-                ));
+          child: Consumer<TextProvider>(builder: (context, data, child) {
+            // return Text(data.data['someKey'].toString());
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    height: 100,
+                    child: CircleAvatar(
+                      radius: 50.0,
+                      backgroundImage:
+                          NetworkImage(data.userData['photo'].toString()),
+                      backgroundColor: Colors.transparent,
+                    )
+                    ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  data.userData['userName'].toString(),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                Text(
+                  data.userData['email'].toString(),
+                  style: TextStyle(
+                    color: Colors.grey[200],
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 15),
+                InkWell(
+                    child: Text('Edit Profile >',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontSize: 15,
+                                color: Colors.blueAccent,
+                                fontWeight: FontWeight.w500))),
+                    onTap: () {
+                      onItemPressed(context, index: 0);
+                    }),
+              ],
+            );
+          }));
     }
   }
 }
+
+// Widget headerWidget() {
+//   return Text("erg");
+//   if (_auth.currentUser!.providerData[0].providerId.contains("facebook")) {
+//     return Container(
+//         color: HexColor('#AAA1C8'),
+//         width: double.infinity,
+//         height: 200,
+//         padding: EdgeInsets.only(top: 20.0),
+//         child: Consumer<TextProvider>(builder: (context, data, child) {
+//           // return Text(data.data['someKey'].toString());
+//           return Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Container(
+//                 margin: EdgeInsets.only(bottom: 10),
+//                 height: 70,
+//                 child: Image.network(data.data['pic'].toString()),
+//               ),
+//               Text(
+//                 data.data['name'].toString(),
+//                 style: TextStyle(color: Colors.white, fontSize: 20),
+//               ),
+//               Text(
+//                 data.data['email'].toString(),
+//                 style: TextStyle(
+//                   color: Colors.grey[200],
+//                   fontSize: 14,
+//                 ),
+//               ),
+//             ],
+//           );
+//         }));
+//   } else if (_auth.currentUser!.providerData[0].providerId.contains("google")) {
+//     return Container(
+//       color: HexColor('#AAA1C8'),
+//       width: double.infinity,
+//       height: 200,
+//       padding: EdgeInsets.only(top: 20.0),
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           Container(
+//             margin: EdgeInsets.only(bottom: 10),
+//             height: 70,
+//             child: Container(
+//               margin: EdgeInsets.only(bottom: 10),
+//               height: 70,
+//               child: Image.network(_auth.currentUser!.photoURL.toString()),
+//             ),
+//           ),
+//           Text(
+//             _auth.currentUser!.displayName.toString(),
+//             style: TextStyle(color: Colors.white, fontSize: 20),
+//           ),
+//           Text(
+//             _auth.currentUser!.email.toString(),
+//             style: TextStyle(
+//               color: Colors.grey[200],
+//               fontSize: 14,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   } else {
+//     DatabaseReference ref =
+//         FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
+//     return Container(
+//         color: HexColor('#AAA1C8'),
+//         width: double.infinity,
+//         height: 200,
+//         padding: EdgeInsets.only(top: 20.0),
+//         child: Consumer<TextProvider>(builder: (context, data, child) {
+//           // return Text(data.data['someKey'].toString());
+//           return Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Container(
+//                 margin: EdgeInsets.only(bottom: 10),
+//                 height: 70,
+//                 child: Image.network(data.userData['photo'].toString()),
+//               ),
+//               InkWell(
+//                 child: Text("Add new Photo"),
+//                 onTap: () async {
+//                   ImagePicker imagePicker = ImagePicker();
+//                   XFile? file =
+//                       await imagePicker.pickImage(source: ImageSource.gallery);
+//                   if (file == null) return;
+//                   Reference referenceRoot =
+//                       FirebaseStorage.instance.ref().child("userImage");
+//                   Reference referenceUploadImage =
+//                       referenceRoot.child(_auth.currentUser!.uid);
+//                   try {
+//                     await referenceUploadImage.putFile(File(file!.path));
+//                     profilePicture =
+//                         await referenceUploadImage.getDownloadURL();
+//                     await ref.update({
+//                       "photo": profilePicture,
+//                     });
+//                   } catch (e) {
+//                     print(e);
+//                   }
+//                 },
+//               ),
+//               SizedBox(
+//                 height: 10,
+//               ),
+//               Text(
+//                 data.userData['userName'].toString(),
+//                 style: TextStyle(color: Colors.white, fontSize: 20),
+//               ),
+//               Text(
+//                 data.userData['email'].toString(),
+//                 style: TextStyle(
+//                   color: Colors.grey[200],
+//                   fontSize: 14,
+//                 ),
+//               ),
+//             ],
+//           );
+//         }));
+//   }
+// }
 
 class DrawerItem extends StatelessWidget {
   const DrawerItem(
