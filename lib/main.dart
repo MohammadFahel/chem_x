@@ -28,7 +28,7 @@ void main() async {
         return  const OverlaySupport.global(
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: SplashScreen(),
+              home: PeriodicTablePage(),
               // home: AuthO().haundleAuthState(),
             ));
       })));
