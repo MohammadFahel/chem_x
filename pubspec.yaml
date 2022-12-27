@@ -95,6 +95,7 @@ flutter:
     - assets/images/flask.png
     - assets/images/myProfile.png
     - assets/data/elementsData.json
+    - assets/data/quizzesData.json
     - assets/images/profile5.png
     - assets/images/editProfile.png
     - assets/images/backbutton.png
