@@ -65,7 +65,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
       key: drawerIcon,
 
       drawer: const MyNavigationDrawer(),
-
+      endDrawer: const QuizDrawerPage(),
       appBar: AppBar(
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1),
