@@ -1,4 +1,3 @@
-
 import 'package:chem_x/module/routing_navigator.dart';
 import 'package:chem_x/view/home_page.dart';
 import 'package:chem_x/view/registration_pages/sign_up_page.dart';
@@ -24,7 +23,6 @@ void main() async {
   await prefs.setInt("initScreen", 1);
 
   runApp(ChangeNotifierProvider<TextProvider>(
-
       create: (_) => TextProvider(),
       child: Sizer(builder: (context, orientation, deviceType) {
         return  const OverlaySupport.global(
