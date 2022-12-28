@@ -13,6 +13,10 @@ class TextProvider extends ChangeNotifier {
   String userFaceBookId="";
   Map<dynamic, dynamic> _data={};
   Map<dynamic, dynamic> get data => _data;
+  bool isPressedButtonInQuizPageForA=false;
+  bool isPressedButtonInQuizPageForB=false;
+  bool isPressedButtonInQuizPageForC=false;
+  bool isPressedButtonInQuizPageForD=false;
   set data(Map<dynamic, dynamic> value) {
     _data = value;
     notifyListeners();
@@ -23,6 +27,36 @@ class TextProvider extends ChangeNotifier {
     print(value);
     print("user was hereeeeeeeeeeeeeeee");
     _userData = value;
+    notifyListeners();
+  }
+  void changeColorOfButtonInQuizPageForTrue(String symbol){
+    if(symbol=="A"){
+      isPressedButtonInQuizPageForA=true;
+
+    }else if(symbol=="B"){
+      isPressedButtonInQuizPageForB=true;
+
+    }else if(symbol=="C"){
+      isPressedButtonInQuizPageForC=true;
+    }else{
+      isPressedButtonInQuizPageForD=true;
+
+    }
+    notifyListeners();
+  }
+  void changeColorOfButtonInQuizPageForFalse(String symbol){
+    if(symbol=="A"){
+      isPressedButtonInQuizPageForA=false;
+
+    }else if(symbol=="B"){
+      isPressedButtonInQuizPageForB=false;
+
+    }else if(symbol=="C"){
+      isPressedButtonInQuizPageForC=false;
+    }else{
+      isPressedButtonInQuizPageForD=false;
+
+    }
     notifyListeners();
   }
 

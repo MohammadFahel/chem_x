@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chem_x/main.dart';
 import 'package:chem_x/module/facebook_info.dart';
 import 'package:chem_x/view/drawer_page/pages/change_language.dart';
@@ -264,8 +265,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                     height: 100,
                     child: CircleAvatar(
                       radius: 50.0,
-                      backgroundImage:
-                          NetworkImage(data.userData['photo'].toString()),
+                      backgroundImage:NetworkImage(data.userData['photo'].toString()),
                       backgroundColor: Colors.transparent,
                     )
                     ),

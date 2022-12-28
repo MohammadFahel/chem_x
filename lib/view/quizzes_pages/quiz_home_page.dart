@@ -86,7 +86,7 @@ print(myList[0]["category"]);
   return Expanded(
     child: GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+        crossAxisCount: 3,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
       ),
@@ -113,8 +113,8 @@ print(myList[0]["category"]);
 Widget elementForListQuizzes(int index){
   return Container(
     alignment: Alignment.center,
-    height:8.h,
-    width: 15.w,
+    height:9.h,
+    width: 20.w,
     decoration: BoxDecoration(
 
       color: HexColor("#D9D9D9"),
