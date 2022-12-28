@@ -48,7 +48,6 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     var providerChem = Provider.of<TextProvider>(context, listen: true);
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
@@ -142,10 +141,10 @@ class _QuizState extends State<Quiz> {
                                 borderRadius: BorderRadius.circular(18.0)))),
                     onPressed: () =>
                         {
-                          providerChem.changeColorOfButtonInQuizPageForTrue("A"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("B"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("C"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("D"),
+                          // providerChem.changeColorOfButtonInQuizPageForTrue("A"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("B"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("C"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("D"),
 
                         },
                     child: Row(
@@ -196,11 +195,12 @@ class _QuizState extends State<Quiz> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0)))),
                     onPressed: () =>
-                        {providerChem.changeColorOfButtonInQuizPageForTrue("B"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("A"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("C"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("D"),
-
+                        {
+                          // providerChem.changeColorOfButtonInQuizPageForTrue("B"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("A"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("C"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("D"),
+                          //
 
                         },
                     child: Row(
@@ -251,12 +251,12 @@ class _QuizState extends State<Quiz> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0)))),
                     onPressed: () =>
-                        {providerChem.changeColorOfButtonInQuizPageForTrue("C"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("B"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("A"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("D"),
-
-
+                        {
+                          //
+                          // providerChem.changeColorOfButtonInQuizPageForTrue("C"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("B"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("A"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("D"),
                         },
                     child: Row(
                       children: [
@@ -307,10 +307,11 @@ class _QuizState extends State<Quiz> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0)))),
                     onPressed: () =>
-                        {providerChem.changeColorOfButtonInQuizPageForTrue("D"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("B"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("C"),
-                          providerChem.changeColorOfButtonInQuizPageForFalse("A"),
+                        {
+                          // providerChem.changeColorOfButtonInQuizPageForTrue("D"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("B"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("C"),
+                          // providerChem.changeColorOfButtonInQuizPageForFalse("A"),
 
 
                         },

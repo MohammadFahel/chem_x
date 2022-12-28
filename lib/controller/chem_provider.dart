@@ -47,10 +47,8 @@ class TextProvider extends ChangeNotifier {
   void changeColorOfButtonInQuizPageForFalse(String symbol){
     if(symbol=="A"){
       isPressedButtonInQuizPageForA=false;
-
     }else if(symbol=="B"){
       isPressedButtonInQuizPageForB=false;
-
     }else if(symbol=="C"){
       isPressedButtonInQuizPageForC=false;
     }else{
