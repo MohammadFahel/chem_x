@@ -18,40 +18,42 @@ class _QuizDrawerPageState extends State<QuizDrawerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+    return  Drawer(
 
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5,top: 10),
-              child: Container(
-                  width: 5.5.w,
-                  height: 4.h,
-                  child: Image.asset("assets/images/flask.png"
-                    ,fit: BoxFit.fill,)),
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
 
-            Padding(
-              padding: EdgeInsets.only(bottom: 1.h),
-              child: Text(
-                "Quizzes",
-                style: TextStyle(fontSize: 12.sp,color: HexColor("#778198")),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5,top: 10),
+                child: Container(
+                    width: 5.5.w,
+                    height: 4.h,
+                    child: Image.asset("assets/images/flask.png"
+                      ,fit: BoxFit.fill,)),
               ),
-            ),
+
+              Padding(
+                padding: EdgeInsets.only(bottom: 1.h),
+                child: Text(
+                  "Quizzes",
+                  style: TextStyle(fontSize: 12.sp,color: HexColor("#778198")),
+                ),
+              ),
 
 
-            Divider(color: Colors.grey,thickness: 2,),
-            SizedBox(
-              height: 1.5.h,
-            ),
-            quizzesCategory(context)
+              Divider(color: Colors.grey,thickness: 2,),
+              SizedBox(
+                height: 1.5.h,
+              ),
+              quizzesCategory(context)
 
-          ],
+            ],
+          ),
         ),
-      ),
+
     );
   }
 }
