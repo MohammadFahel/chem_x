@@ -1,7 +1,21 @@
 import 'package:chem_x/Controller/auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 class TextProvider extends ChangeNotifier {
+
+  // ThemeData _themeData = darkMode? ThemeData.dark(): ThemeData.light();
+  // getTheme(){
+  //   return _themeData;
+  // }
+  // void setTheme(ThemeData theme){
+  //   _themeData = theme;
+  //   notifyListeners();
+  // }
+  //
+
   String niceToMetyouOrWelcomeBack = "Glad To Meet You!";
   String signUpOrSignIn = "Sign Up";
   String google = "Sign Up With Google";
@@ -17,6 +31,17 @@ class TextProvider extends ChangeNotifier {
   bool isPressedButtonInQuizPageForB=false;
   bool isPressedButtonInQuizPageForC=false;
   bool isPressedButtonInQuizPageForD=false;
+  bool isActive = false;
+
+  void isActiveSwitch(bool x){
+    if (x){
+      isActive=true;
+    } else {
+      isActive=false;
+    }
+    notifyListeners();
+  }
+
   set data(Map<dynamic, dynamic> value) {
     _data = value;
     notifyListeners();
@@ -87,4 +112,7 @@ class TextProvider extends ChangeNotifier {
     AuthO().haundleAuthState();
     notifyListeners();
   }
+
+
+
 }

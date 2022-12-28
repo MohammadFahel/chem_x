@@ -11,6 +11,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 
+import '../controller/theme_service.dart';
+
 class ElementPage extends StatelessWidget {
   final String summary,
       appearance,
@@ -152,7 +154,6 @@ class ElementPage extends StatelessWidget {
             Text(
               "$title",
               style: GoogleFonts.poppins(
-                  color: HexColor("#192A51"),
                   fontWeight: FontWeight.bold,
                   fontSize: 18),
             ),
@@ -173,7 +174,6 @@ class ElementPage extends StatelessWidget {
                   softWrap: false,
                   style: GoogleFonts.poppins(
                     fontSize: 15,
-                    color: HexColor("192A51"),
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -186,7 +186,7 @@ class ElementPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade500,
         elevation: 0.0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),

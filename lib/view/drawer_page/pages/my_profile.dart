@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:chem_x/Controller/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../../Controller/chem_provider.dart';
-import '../../../View/drawer_page/my_drawer.dart';
+import '../../../controller/theme_service.dart';
+import '../my_drawer.dart';
 
 class MyProfile extends StatefulWidget {
   @override
@@ -48,7 +48,7 @@ class _MyProfileState extends State<MyProfile> {
             height: 1,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade500,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         title: const Text("Edit Profile",
@@ -139,12 +139,10 @@ class _MyProfileState extends State<MyProfile> {
 
                 SizedBox(height: 25),
                 ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(HexColor("#192A51")),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0)))),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#192A51"): HexColor("#849ED9"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0))),
                   onPressed: () {
                    if(newPasswordController.text == againNewPasswordController.text){
                      AuthO().userChangePassword(curruentPsswordController.text, newPasswordController.text);
@@ -187,7 +185,7 @@ class _MyProfileState extends State<MyProfile> {
                       "Cancel",
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
-                        color: HexColor("#B90000"),
+                        color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
                         fontSize: 15.0,
                       )),
                     )),
@@ -279,7 +277,8 @@ class _MyProfileState extends State<MyProfile> {
                     SizedBox(height: 10),
                     InkWell(
                       child: Text("Change Photo", style: TextStyle(
-                        color: Colors.blueAccent, decoration: TextDecoration.underline,
+                        color: ThemeService().getThemeMode() == ThemeMode.light? Colors.blueAccent: HexColor("#849ED9"),
+                        decoration: TextDecoration.underline,
                       )),
                       onTap: () async {
                         ImagePicker imagePicker = ImagePicker();
@@ -327,27 +326,30 @@ Widget TextFieldWidget(
     obscureText: validator == "Password" ? true : false,
     controller: controller,
     style: validator == "UserName" || validator == "Email"?
-    TextStyle(color: Colors.black):TextStyle(color: Colors.black54) ,
+    TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black54: Colors.grey):
+    TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white) ,
 
     decoration: InputDecoration(
       contentPadding: EdgeInsets.all(20),
       label: Text(lable, style: TextStyle(fontSize: 15)),
       disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(20)),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
           borderRadius: BorderRadius.circular(20)),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(20)),
       errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
           borderRadius: BorderRadius.circular(20)),
       focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
           borderRadius: BorderRadius.circular(20)),
     ),
+
+
     // validator: (text) {
     //   if (validator == "UserName") {
     //
