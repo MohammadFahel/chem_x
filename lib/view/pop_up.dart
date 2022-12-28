@@ -7,6 +7,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 
+import '../controller/theme_service.dart';
+
 showPopUp(String title, String description, BuildContext context) {
   return showDialog(
       context: context,
@@ -23,7 +25,7 @@ showPopUp(String title, String description, BuildContext context) {
             EdgeInsets.only(top: 10, bottom: 10, right: 7, left: 7),
             width: double.infinity,
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.black87,
                 borderRadius: BorderRadius.circular(30)),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               const Padding(
@@ -38,7 +40,6 @@ showPopUp(String title, String description, BuildContext context) {
                   Text(
                     "$title",
                     style: GoogleFonts.poppins(
-                        color: HexColor("#192A51"),
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ),
@@ -61,7 +62,6 @@ showPopUp(String title, String description, BuildContext context) {
                   "$description",
                   style: GoogleFonts.poppins(
                     fontSize: 15,
-                    color: HexColor("192A51"),
                     fontWeight: FontWeight.w400,
                   ),
                 ),

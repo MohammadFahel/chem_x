@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 import '../../View/home_page.dart';
+import '../../controller/theme_service.dart';
 import 'dialog_sign_in.dart';
 import 'dialog_sign_up.dart';
 
@@ -69,8 +70,8 @@ class MyHomePage extends State<MyApp> {
 Widget ContainerForSignInAndSignUp(BuildContext context) {
   var textProvider = Provider.of<TextProvider>(context);
   return Container(
-    decoration: const BoxDecoration(
-        color: Colors.white,
+    decoration: BoxDecoration(
+        color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade400,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
     child: Padding(
@@ -129,7 +130,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                 fontSize: 15.0.sp,
-                color: Colors.grey,
+                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey: Colors.black54
               )),
             ),
           ),
@@ -247,7 +248,8 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
             children: [
               Text(
                 textProvider.doYouHaveAnAccountOrNot,
-                style: TextStyle(fontSize: 12.0.sp),
+                style: TextStyle(fontSize: 12.0.sp,
+                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey: Colors.black54),
               ),
               InkWell(
                 onTap: () {

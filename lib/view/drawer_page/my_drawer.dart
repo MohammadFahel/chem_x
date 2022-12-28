@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chem_x/main.dart';
 import 'package:chem_x/module/facebook_info.dart';
 import 'package:chem_x/view/drawer_page/pages/change_language.dart';
@@ -17,10 +16,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../../Controller/auth.dart';
 import '../../Controller/chem_provider.dart';
+import '../../controller/theme_service.dart';
 import '../../module/routing_navigator.dart';
 
 const List<String> languageList = <String>['EN', 'AR'];
@@ -34,20 +35,17 @@ class MyNavigationDrawer extends StatefulWidget {
 }
 
 class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
-  bool _darkMode = false;
-  bool isSwitched = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
     super.initState();
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     String dropdownValue = languageList.first;
-
+    var providerChem = Provider.of<TextProvider>(context, listen: true);
     return Drawer(
       child: SingleChildScrollView(
         child: Container(
@@ -55,6 +53,8 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             children: [
               headerWidget(),
 
+              const SizedBox(height: 15),
+              const Divider(thickness: 1, height: 10, color: Colors.grey),
               const SizedBox(height: 15),
               // DrawerItem(
               //     name: 'My Account',
@@ -66,15 +66,13 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                       name: 'Change Theme',
                       icon: Icons.dark_mode,
                       onPressed: () => onItemPressed(context, index: 2)),
-                  const SizedBox(width: 50),
+                  const SizedBox(width: 60),
                   Switch(
                     activeColor: HexColor('#AAA1C8'),
-                    value: isSwitched,
-                    onChanged: (value) {
-                      setState(() {
-                        isSwitched = value;
-                        print(isSwitched);
-                      });
+                    value: providerChem.isActive,
+                    onChanged: (newValue){
+                      providerChem.isActiveSwitch(newValue);
+                      ThemeService().changeTheme();
                     },
                   )
                 ],
@@ -159,8 +157,6 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   Widget headerWidget() {
     if (_auth.currentUser!.providerData[0].providerId.contains("facebook")) {
       return Container(
-          color: Colors.grey.shade400,
-          width: double.infinity,
           height: 200,
           padding: EdgeInsets.only(top: 20.0),
           child: Consumer<TextProvider>(builder: (context, data, child) {
@@ -179,12 +175,13 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 ),
                 Text(
                   data.data['name'].toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+                      fontSize: 20),
                 ),
                 Text(
                   data.data['email'].toString(),
                   style: TextStyle(
-                    color: Colors.grey[200],
+                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey[600]: Colors.grey[100],
                     fontSize: 14,
                   ),
                 ),
@@ -205,8 +202,6 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     } else if (_auth.currentUser!.providerData[0].providerId
         .contains("google")) {
       return Container(
-        color: Colors.grey.shade400,
-        width: double.infinity,
         height: 200,
         padding: EdgeInsets.only(top: 20.0),
         child: Column(
@@ -224,12 +219,13 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             ),
             Text(
               _auth.currentUser!.displayName.toString(),
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+                  fontSize: 20),
             ),
             Text(
               _auth.currentUser!.email.toString(),
               style: TextStyle(
-                color: Colors.grey[200],
+                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey[600]: Colors.grey[100],
                 fontSize: 14,
               ),
             ),
@@ -251,8 +247,6 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
       DatabaseReference ref =
           FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
       return Container(
-          color: Colors.grey.shade400,
-          width: double.infinity,
           height: 250,
           padding: EdgeInsets.only(top: 20.0),
           child: Consumer<TextProvider>(builder: (context, data, child) {
@@ -265,7 +259,8 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                     height: 100,
                     child: CircleAvatar(
                       radius: 50.0,
-                      backgroundImage:NetworkImage(data.userData['photo'].toString()),
+                      backgroundImage:
+                          NetworkImage(data.userData['photo'].toString()),
                       backgroundColor: Colors.transparent,
                     )
                     ),
@@ -274,12 +269,14 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 ),
                 Text(
                   data.userData['userName'].toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+                      fontSize: 20),
                 ),
                 Text(
                   data.userData['email'].toString(),
                   style: TextStyle(
-                    color: Colors.grey[200],
+                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey[600]: Colors.grey[100]
+                    ,
                     fontSize: 14,
                   ),
                 ),
@@ -451,14 +448,15 @@ class DrawerItem extends StatelessWidget {
               Icon(
                 icon,
                 size: 20,
-                color: Colors.black,
+                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
               ),
               const SizedBox(width: 20),
               Text(name,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                       textStyle:
-                          TextStyle(fontSize: 15, color: HexColor("#0E131F"))))
+                          TextStyle(fontSize: 15,
+                            color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,)))
             ],
           ),
         ),

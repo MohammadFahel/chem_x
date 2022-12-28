@@ -11,6 +11,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../Controller/chem_provider.dart';
+import '../controller/theme_service.dart';
 import 'drawer_page/my_drawer.dart';
 
 const String alkali_metals = "#85CAC4";
@@ -27,18 +28,26 @@ const String lanthanides = "#004A77";
 var drawerIcon = GlobalKey<ScaffoldState>();
 
 
-class PeriodicTablePage extends StatelessWidget {
+class PeriodicTablePage extends StatefulWidget {
   const PeriodicTablePage({Key? key}) : super(key: key);
 
+  @override
+  State<PeriodicTablePage> createState() => _PeriodicTablePageState();
+}
+
+class _PeriodicTablePageState extends State<PeriodicTablePage> {
   @override
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData.light().copyWith(
-              scaffoldBackgroundColor: Colors.white,
-            ),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeService().lightTheme,
+          darkTheme: ThemeService().darkTheme,
+          themeMode: ThemeService().getThemeMode(),
+            // theme: ThemeData.light().copyWith(
+            //   scaffoldBackgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.black12,
+            // ),
             home: const PeriodicTableHomePage(),
         );
       },
@@ -74,7 +83,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
             height: 1,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade400,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         actions: [
@@ -85,15 +94,24 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
                 onPressed: () {
                   drawerIcon.currentState?.openEndDrawer();
                 },
-                icon: const ImageIcon(
-                  AssetImage("assets/images/flask.png"),
-                  size: 50,
-                  color: Colors.black,
-                )),
+              icon: Icon(
+                Icons.assignment_turned_in,
+                  color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.black54,
+                  size: 30
+              ),
+                // icon: const ImageIcon(
+                //   AssetImage("assets/images/flask.png"),
+                //   size: 50,
+                //   color: Colors.black,
+                // )
+            ),
           ),
         ],
         leading: IconButton(
-          icon: Image.asset('assets/images/myProfile.png', width: 30),
+
+          icon: Icon(Icons.person,
+              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.black54,
+              size: 30),
           onPressed: (){
             drawerIcon.currentState?.openDrawer();
           },
@@ -126,7 +144,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
             ]),
         child: BottomAppBar(
             elevation: 8,
-            color: Colors.white,
+            color: Colors.grey.shade400,
             child: Padding(
               padding: EdgeInsets.all(10),
               child: SingleChildScrollView(

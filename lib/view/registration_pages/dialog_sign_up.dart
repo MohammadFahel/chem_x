@@ -6,6 +6,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 import 'package:string_validator/string_validator.dart';
 
+import '../../controller/theme_service.dart';
+
 class DialogSignUp extends StatelessWidget {
   final _emailSignUpDialogKey = GlobalKey<FormFieldState>();
   final _passwordSignUpDialogKey = GlobalKey<FormFieldState>();
@@ -30,7 +32,8 @@ class DialogSignUp extends StatelessWidget {
               EdgeInsets.only(top: 3.h, bottom: 3.h, right: 7.w, left: 7.w),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(30)),
+              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.black87,
+              borderRadius: BorderRadius.circular(30)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -86,12 +89,10 @@ class DialogSignUp extends StatelessWidget {
                 height: 3.h,
               ),
               ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(HexColor("#192A51")),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)))),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#192A51"): HexColor("#849ED9"),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0))),
                 onPressed: () {
 
                   if (_userNameSignUpDialogKey.currentState != null &&
@@ -127,7 +128,7 @@ class DialogSignUp extends StatelessWidget {
                     "Cancel",
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                      color: HexColor("#B90000"),
+                      color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
                       fontSize: 15.0.sp,
                     )),
                   )),
@@ -147,7 +148,7 @@ Widget TextFieldWidget(
   return TextFormField(
     obscureText: validator == "Password" ? true : false,
     controller: controller,
-    style: TextStyle(color: Colors.red),
+    style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
     key: keyy,
     decoration: InputDecoration(
       contentPadding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
@@ -156,16 +157,16 @@ Widget TextFieldWidget(
         style: TextStyle(fontSize: 10.sp),
       ),
       enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.black, width: 2),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
           borderRadius: BorderRadius.circular(20)),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(20)),
       errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
           borderRadius: BorderRadius.circular(20)),
       focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
           borderRadius: BorderRadius.circular(20)),
     ),
     validator: (text) {

@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../controller/theme_service.dart';
+
 class SendFeedback extends StatelessWidget {
 
   final _sendFeedbackKey = GlobalKey<FormFieldState>();
@@ -26,7 +28,8 @@ class SendFeedback extends StatelessWidget {
           padding: EdgeInsets.only(top: 50,bottom:50,right: 20,left: 20),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(50)),
+              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.black87,
+              borderRadius: BorderRadius.circular(50)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -65,16 +68,16 @@ class SendFeedback extends StatelessWidget {
                 decoration: InputDecoration(
                     hintText: "Enter Your Message Here",
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 2),
+                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
                       borderRadius: BorderRadius.circular(20)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 2),
+                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
                       borderRadius: BorderRadius.circular(20)),
                   errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
+                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
                       borderRadius: BorderRadius.circular(20)),
                   focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
+                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
                       borderRadius: BorderRadius.circular(20)),
                 ),
 
@@ -86,12 +89,10 @@ class SendFeedback extends StatelessWidget {
                 height: 10,
               ),
               ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                    MaterialStateProperty.all<Color>(HexColor("#192A51")),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)))),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#192A51"): HexColor("#849ED9"),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0))),
                 onPressed: () async {
                   DatabaseReference ref = FirebaseDatabase.instance.ref("feedback Users").child(FirebaseAuth.instance.currentUser!.uid);
                   await ref.set({
@@ -118,7 +119,7 @@ class SendFeedback extends StatelessWidget {
                     "Cancel",
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          color: HexColor("#B90000"),
+                          color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
                           fontSize: 17.5,
                         )),
                   )),
@@ -147,16 +148,16 @@ Widget TextFieldWidget(
       contentPadding: EdgeInsets.symmetric(vertical: 100,horizontal: 10),
       label: Text(lable, style: TextStyle(fontSize: 10),),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
           borderRadius: BorderRadius.circular(20)),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(20)),
       errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
           borderRadius: BorderRadius.circular(20)),
       focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
           borderRadius: BorderRadius.circular(20)),
     ),
   );
