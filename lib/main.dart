@@ -18,7 +18,7 @@ import 'view/periodic_table.dart';
 bool darkMode = false;
 void main() async {
 
-  await GetStorage.init();
+  // await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();

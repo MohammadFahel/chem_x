@@ -82,6 +82,19 @@ class TextProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+  void changeColorOfButtonInQuizPageForAllFalse(){
+
+      isPressedButtonInQuizPageForA=false;
+
+      isPressedButtonInQuizPageForB=false;
+
+      isPressedButtonInQuizPageForC=false;
+
+      isPressedButtonInQuizPageForD=false;
+
+
+    notifyListeners();
+  }
 
   void oldUser() {
     niceToMetyouOrWelcomeBack = "Welcome Back!";

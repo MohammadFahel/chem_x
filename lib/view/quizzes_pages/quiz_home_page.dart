@@ -23,11 +23,27 @@ _QuizzesPageState(this.categoryName);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: Colors.black,size: 30,),
+          onPressed: ()=> Navigator.pop(context),
+        ),
+        // centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        // title: Container(
+        //   width: 5.5.w,
+        //   height: 4.h,
+        //   child: Image.asset("assets/images/flask.png"
+        //     ,fit: BoxFit.fill,)),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.only(bottom: 15,right: 15,left: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
 
              Padding(
                padding: const EdgeInsets.only(bottom: 5,top: 10),
@@ -85,6 +101,7 @@ print(myList[0]["category"]);
   // print(myList2[0][0]["category"]);
   return Expanded(
     child: GridView.builder(
+
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 8,

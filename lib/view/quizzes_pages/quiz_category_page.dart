@@ -15,126 +15,140 @@ class QuizDrawerPage extends StatefulWidget {
 }
 
 class _QuizDrawerPageState extends State<QuizDrawerPage> {
-
   @override
   Widget build(BuildContext context) {
-    return  Drawer(
-
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5,top: 10),
-                child: Container(
-                    width: 5.5.w,
-                    height: 4.h,
-                    child: Image.asset("assets/images/flask.png"
-                      ,fit: BoxFit.fill,)),
+    return Drawer(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5, top: 10),
+              child: Container(
+                  width: 5.5.w,
+                  height: 4.h,
+                  child: Image.asset(
+                    "assets/images/flask.png",
+                    fit: BoxFit.fill,
+                  )),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 1.h),
+              child: Text(
+                "Quizzes",
+                style: TextStyle(fontSize: 12.sp, color: HexColor("#778198")),
               ),
-
-              Padding(
-                padding: EdgeInsets.only(bottom: 1.h),
-                child: Text(
-                  "Quizzes",
-                  style: TextStyle(fontSize: 12.sp,color: HexColor("#778198")),
-                ),
-              ),
-
-
-              Divider(color: Colors.grey,thickness: 2,),
-              SizedBox(
-                height: 1.5.h,
-              ),
-              quizzesCategory(context)
-
-            ],
-          ),
+            ),
+            Divider(
+              color: Colors.grey,
+              thickness: 2,
+            ),
+            SizedBox(
+              height: 1.5.h,
+            ),
+            quizzesCategory(context)
+          ],
         ),
-
+      ),
     );
   }
 }
+
 Future<void> readJson() async {
   // Read the file
   final String response =
-  await rootBundle.loadString("assets/data/quizzesData.json");
+      await rootBundle.loadString("assets/data/quizzesData.json");
   final data = await json.decode(response);
   print(data);
   // Parse the JSON string into a dart object
   return data;
 }
-Widget quizzesCategory(BuildContext context)
-{
 
+Widget quizzesCategory(BuildContext context) {
   return Expanded(
-    child: GridView.count(crossAxisCount: 2,
-    padding: EdgeInsets.zero,
-    crossAxisSpacing: 20,
-    mainAxisSpacing: 20,
-    children: [
-      elementInsideGridForQuizzes("#85CAC4","Alkali metals",context,"alkali metal"),
-      elementInsideGridForQuizzes("#8C692B","Metalloids",context,"metalloid"),
-      elementInsideGridForQuizzes("#8C4D2D","Actinides",context,"actinide"),
-      elementInsideGridForQuizzes("#622E39","Alkaline earth metals",context,"alkaline earth metal"),
-      elementInsideGridForQuizzes("#2A4165","Reactive nonmetals",context,"diatomic nonmetal"),
-      elementInsideGridForQuizzes("#46474C","Unknown properties",context,"unknown, probably transition metal"),
-      elementInsideGridForQuizzes("#433C65","Transition metals",context,"transition metal"),
-      elementInsideGridForQuizzes("#934356","Noble gases",context,"noble gas"),
-      elementInsideGridForQuizzes("#2F4D47","Post transition metals",context,"post-transition metal"),
-      elementInsideGridForQuizzes("#004A77","Lanthanides",context,"lanthanide"),
-      // elementInsideGridForQuizzes("#D5C6E0","alkali_metals"),
-      // elementInsideGridForQuizzes("#D5C6E0","metalloids"),
-      // elementInsideGridForQuizzes("#D5C6E0","actinides"),
-      // elementInsideGridForQuizzes("#D5C6E0","alkaline_earth_metals"),
-      // elementInsideGridForQuizzes("#D5C6E0","reactive_nonmetals"),
-      // elementInsideGridForQuizzes("#D5C6E0","unknown_properties"),
-      // elementInsideGridForQuizzes("#D5C6E0","transition_metals"),
-      // elementInsideGridForQuizzes("#D5C6E0","noble_gases"),
-      // elementInsideGridForQuizzes("#D5C6E0","post_transition_metals"),
-      // elementInsideGridForQuizzes("#D5C6E0","lanthanides"),
-      // elementInsideGridForQuizzes("#849ED9","alkali_metals"),
-      // elementInsideGridForQuizzes("#849ED9","metalloids"),
-      // elementInsideGridForQuizzes("#849ED9","actinides"),
-      // elementInsideGridForQuizzes("#849ED9","alkaline_earth_metals"),
-      // elementInsideGridForQuizzes("#849ED9","reactive_nonmetals"),
-      // elementInsideGridForQuizzes("#849ED9","unknown_properties"),
-      // elementInsideGridForQuizzes("#849ED9","transition_metals"),
-      // elementInsideGridForQuizzes("#849ED9","noble_gases"),
-      // elementInsideGridForQuizzes("#849ED9","post_transition_metals"),
-      // elementInsideGridForQuizzes("#849ED9","lanthanides"),
-
-    ],),
+    child: GridView.count(
+      crossAxisCount: 2,
+      padding: EdgeInsets.zero,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+      children: [
+        elementInsideGridForQuizzes(
+            "#85CAC4", "Alkali metals", context, "alkali metal"),
+        elementInsideGridForQuizzes(
+            "#8C692B", "Metalloids", context, "metalloid"),
+        elementInsideGridForQuizzes(
+            "#8C4D2D", "Actinides", context, "actinide"),
+        elementInsideGridForQuizzes("#622E39", "Alkaline earth metals", context,
+            "alkaline earth metal"),
+        elementInsideGridForQuizzes(
+            "#2A4165", "Reactive nonmetals", context, "diatomic nonmetal"),
+        elementInsideGridForQuizzes("#46474C", "Unknown properties", context,
+            "unknown, probably transition metal"),
+        elementInsideGridForQuizzes(
+            "#433C65", "Transition metals", context, "transition metal"),
+        elementInsideGridForQuizzes(
+            "#934356", "Noble gases", context, "noble gas"),
+        elementInsideGridForQuizzes("#2F4D47", "Post transition metals",
+            context, "post-transition metal"),
+        elementInsideGridForQuizzes(
+            "#004A77", "Lanthanides", context, "lanthanide"),
+        // elementInsideGridForQuizzes("#D5C6E0","alkali_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","metalloids"),
+        // elementInsideGridForQuizzes("#D5C6E0","actinides"),
+        // elementInsideGridForQuizzes("#D5C6E0","alkaline_earth_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","reactive_nonmetals"),
+        // elementInsideGridForQuizzes("#D5C6E0","unknown_properties"),
+        // elementInsideGridForQuizzes("#D5C6E0","transition_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","noble_gases"),
+        // elementInsideGridForQuizzes("#D5C6E0","post_transition_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","lanthanides"),
+        // elementInsideGridForQuizzes("#849ED9","alkali_metals"),
+        // elementInsideGridForQuizzes("#849ED9","metalloids"),
+        // elementInsideGridForQuizzes("#849ED9","actinides"),
+        // elementInsideGridForQuizzes("#849ED9","alkaline_earth_metals"),
+        // elementInsideGridForQuizzes("#849ED9","reactive_nonmetals"),
+        // elementInsideGridForQuizzes("#849ED9","unknown_properties"),
+        // elementInsideGridForQuizzes("#849ED9","transition_metals"),
+        // elementInsideGridForQuizzes("#849ED9","noble_gases"),
+        // elementInsideGridForQuizzes("#849ED9","post_transition_metals"),
+        // elementInsideGridForQuizzes("#849ED9","lanthanides"),
+      ],
+    ),
   );
 }
-Widget elementInsideGridForQuizzes(String color,String name,BuildContext context,String category){
+
+Widget elementInsideGridForQuizzes(
+    String color, String name, BuildContext context, String category) {
   return InkWell(
-    onTap: ()=>{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> QuizzesPage(categoryName: category,)))
-    //   Navigator.push(
-    // context,
-    // MaterialPageRoute(builder: (context) => QuizzesPage()))
+    onTap: () => {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => QuizzesPage(
+                    categoryName: category,
+                  )))
+      //   Navigator.push(
+      // context,
+      // MaterialPageRoute(builder: (context) => QuizzesPage()))
     },
     child: Container(
       alignment: Alignment.center,
       width: 10.w,
       height: 10.h,
       decoration: BoxDecoration(
-        color: HexColor(color),
-borderRadius: BorderRadius.circular(20)
-      ),
+          color: HexColor(color), borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text(name,style:  GoogleFonts.poppins(
-            textStyle: TextStyle(
-color: Colors.white,
-              fontSize: 15.0.sp,
-            )),),
-      ),) ,
-
-
+        child: Text(
+          name,
+          style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 15.0.sp,
+          )),
+        ),
+      ),
+    ),
   );
-
 }
