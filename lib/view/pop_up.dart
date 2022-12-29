@@ -19,13 +19,12 @@ showPopUp(String title, String description, BuildContext context) {
             borderRadius: BorderRadius.circular(30),
           ),
           elevation: 0,
-          backgroundColor: Colors.transparent,
           child: Container(
             padding:
             EdgeInsets.only(top: 10, bottom: 10, right: 7, left: 7),
             width: double.infinity,
             decoration: BoxDecoration(
-                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.black87,
+                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade900,
                 borderRadius: BorderRadius.circular(30)),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               const Padding(
@@ -63,6 +62,7 @@ showPopUp(String title, String description, BuildContext context) {
                   style: GoogleFonts.poppins(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
+                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey.shade700: Colors.grey.shade400
                   ),
                 ),
               ),
@@ -75,7 +75,7 @@ showPopUp(String title, String description, BuildContext context) {
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 6.0,
-                    backgroundColor: HexColor("#AAA1C8"),
+                    backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#192A51"): HexColor("#849ED9"),
                   ),
                   child: Text(
                     "Done",

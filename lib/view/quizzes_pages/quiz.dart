@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Controller/chem_provider.dart';
+import '../../controller/theme_service.dart';
 
 class Quiz extends StatefulWidget {
   String summary;
@@ -55,7 +56,7 @@ class _QuizState extends State<Quiz> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.black,size: 30,),
+          icon: Icon(Icons.arrow_back_ios,color: Colors.black,size: 30,),
           onPressed: ()=>
           {
             providerChem.changeColorOfButtonInQuizPageForAllFalse(),
@@ -66,7 +67,9 @@ class _QuizState extends State<Quiz> {
           }
         ),
         // centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade500,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+        shadowColor: Colors.black,
         // elevation: 0.0,
         // title: Container(
         //   width: 5.5.w,

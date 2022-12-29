@@ -1,5 +1,6 @@
 import 'package:chem_x/Controller/auth.dart';
 import 'package:chem_x/Controller/chem_provider.dart';
+import 'package:chem_x/main.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -16,17 +17,6 @@ import 'dialog_sign_in.dart';
 import 'dialog_sign_up.dart';
 
 int? initScreen;
-
-
-// class Odeh extends StatelessWidget{
-//   @override
-//   Widget build(BuildContext context) {
-//   return MaterialApp(
-//     home: AuthO().haundleAuthState(),
-//   );
-//   }
-//
-// }
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -77,6 +67,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
     child: Padding(
       padding: EdgeInsets.only(left: 10.0.w, right: 10.0.w),
       child: Column(
+        textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -151,7 +142,10 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               child: Container(
                 height: 6.0.h,
                 width: double.infinity,
-                child: Row(mainAxisSize: MainAxisSize.max, children: [
+                child: Row(
+                    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
                   Text(
                     textProvider.google,
                     style: GoogleFonts.poppins(
@@ -191,7 +185,9 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               child: Container(
                 height: 6.0.h,
                 width: double.infinity,
-                child: Row(mainAxisSize: MainAxisSize.max, children: [
+                child: Row(
+                    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+                    mainAxisSize: MainAxisSize.max, children: [
                   Text(
                     textProvider.faceBook,
                     style: GoogleFonts.poppins(
@@ -220,11 +216,13 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
           ),
 
           Row(
+            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
             children: [
               Text(
-                "OR ",
+                languages.SignOring(),
                 style: TextStyle(color: Colors.black, fontSize: 12.sp),
               ),
+              SizedBox(width: 3),
               Expanded(
                 child: Container(
                   height: 0.3.h,
@@ -244,6 +242,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               context: context),
           spaceBetweenWidgets(MediaQuery.of(context).size.height),
           Row(
+            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
@@ -253,12 +252,19 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               ),
               InkWell(
                 onTap: () {
-                  if (textProvider.signUpOrSignIn == "Sign Up") {
+                  print(textProvider.signUpOrSignIn);
+                  if (textProvider.signUpOrSignIn == "Sign In" ||
+                      textProvider.signUpOrSignIn == 'تسجيل الدخول') {
                     print("all good");
-                    textProvider.oldUser();
-                  } else if (textProvider.signUpOrSignIn == "Sign In") {
                     textProvider.NewUser();
                   }
+                  else if (textProvider.signUpOrSignIn == "Sign Up" ||
+                      textProvider.signUpOrSignIn == 'اشترك الآن'){
+                    textProvider.oldUser();
+
+                  }
+                  else
+                    print("hahahahahahaaa");
                 },
                 child: Text(
                   " ${textProvider.signUpOrSignInClick}",
@@ -292,25 +298,30 @@ Widget appButtons(
           AuthO().signInwithGoogle();
         } else if (type == "faceBook") {
         } else if (type == "Email") {
-          if (textProvider.signUpOrSignIn == "Sign Up") {
+          if (textProvider.signUpOrSignIn == "Sign Up" ||
+              textProvider.signUpOrSignIn == 'اشترك الآن') {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return DialogSignUp();
                 });
-          } else {
+          } else if(textProvider.signUpOrSignIn == "Sign In" ||
+              textProvider.signUpOrSignIn == 'تسجيل الدخول'){
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return DialogSignIn();
                 });
           }
+          else return null;
         }
       },
       child: Container(
         height: 6.0.h,
         width: double.infinity,
-        child: Row(mainAxisSize: MainAxisSize.max, children: [
+        child: Row(
+            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+            mainAxisSize: MainAxisSize.max, children: [
           Text(
             text,
             style: GoogleFonts.poppins(

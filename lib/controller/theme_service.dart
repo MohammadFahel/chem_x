@@ -8,13 +8,15 @@ class ThemeService{
   ///Themes
   final lightTheme = ThemeData.light().copyWith(
     primaryColor: Colors.blueGrey.shade300,
-    appBarTheme: const AppBarTheme(),
+    appBarTheme: const AppBarTheme(color: Colors.white),
+    bottomAppBarTheme: const BottomAppBarTheme(color: Colors.white),
     dividerColor: Colors.black12,
   );
 
   final darkTheme = ThemeData.dark().copyWith(
     primaryColor: Colors.blue,
-    appBarTheme: const AppBarTheme(),
+    appBarTheme: const AppBarTheme(color: Colors.grey),
+    bottomAppBarTheme: const BottomAppBarTheme(color: Colors.grey),
     dividerColor: Colors.white54,
   );
 

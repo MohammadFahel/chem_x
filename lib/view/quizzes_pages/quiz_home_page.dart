@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../controller/theme_service.dart';
+
 class QuizzesPage extends StatefulWidget {
   String categoryName;
    QuizzesPage({Key? key,required this.categoryName}) : super(key: key);
@@ -25,12 +27,14 @@ _QuizzesPageState(this.categoryName);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.black,size: 30,),
+          icon: Icon(Icons.arrow_back_ios,color: Colors.black,size: 30,),
           onPressed: ()=> Navigator.pop(context),
         ),
         // centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0.0,
+        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade500,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+        shadowColor: Colors.black,
+        // elevation: 0.0,
         // title: Container(
         //   width: 5.5.w,
         //   height: 4.h,

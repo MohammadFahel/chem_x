@@ -3,18 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
-
+import 'language_service.dart';
 class TextProvider extends ChangeNotifier {
-
-  // ThemeData _themeData = darkMode? ThemeData.dark(): ThemeData.light();
-  // getTheme(){
-  //   return _themeData;
-  // }
-  // void setTheme(ThemeData theme){
-  //   _themeData = theme;
-  //   notifyListeners();
-  // }
-  //
 
   String niceToMetyouOrWelcomeBack = "Glad To Meet You!";
   String signUpOrSignIn = "Sign Up";
@@ -97,24 +87,24 @@ class TextProvider extends ChangeNotifier {
   }
 
   void oldUser() {
-    niceToMetyouOrWelcomeBack = "Welcome Back!";
-    signUpOrSignIn = "Sign In";
-    google = "Sign In With Google";
-    faceBook = "Sign In With FaceBook";
-    email = "Sign In With Email";
-    doYouHaveAnAccountOrNot = "Don't Have an account yet?";
-     signUpOrSignInClick="Sign Up";
+    niceToMetyouOrWelcomeBack = languages.SignWelocmeBack();
+    signUpOrSignIn = languages.SignSignin();
+    google = languages.SigninWithGoogle();
+    faceBook = languages.SigninWithFacebook();
+    email = languages.SigninWithEmail();
+    doYouHaveAnAccountOrNot = languages.SignWithNoAccount();
+     signUpOrSignInClick=languages.SignWithSignup();
     notifyListeners();
   }
 
   void NewUser() {
-    niceToMetyouOrWelcomeBack = "Glad To Meet You!";
-    signUpOrSignIn = "Sign Up";
-    google = "Sign Up With Google";
-    faceBook = "Sign Up With FaceBook";
-    email = "Sign Up With Email";
-    doYouHaveAnAccountOrNot = "Already have an account?";
-    signUpOrSignInClick="Sign In";
+    niceToMetyouOrWelcomeBack = languages.SignGladToMeetYou();
+    signUpOrSignIn = languages.SignSignup();
+    google = languages.SignupWithGoogle();
+    faceBook = languages.SignupWithFacebook();
+    email = languages.SignupWithEmail();
+    doYouHaveAnAccountOrNot = languages.SignWithAccount();
+    signUpOrSignInClick= languages.SignWithSignin();
     notifyListeners();
   }
   void facebookId(String x){

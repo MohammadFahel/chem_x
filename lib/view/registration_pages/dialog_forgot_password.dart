@@ -5,6 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../controller/theme_service.dart';
+import '../../main.dart';
+
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
 
@@ -38,31 +41,33 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Dialog(
-        insetPadding: EdgeInsets.all(10),
+        insetPadding: EdgeInsets.only(top: 40, right: 20, left: 20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
         elevation: 0,
-        backgroundColor: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.only(top: 3.h,bottom: 3.h,right: 7.w,left:7.w),
+          padding: EdgeInsets.only(top: 6.h,bottom: 3.h,right: 7.w,left:7.w),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(30)),
+              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade900,
+              borderRadius: BorderRadius.circular(30)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
+                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(
+                  Padding(
                     padding:  EdgeInsets.only(right: 5),
-                    child: Icon(Icons.mail_sharp),
+                    child: Icon(Icons.mail_sharp, color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,),
                   ),
                   Text(
-                    "Reset Your Password",
+                    languages.forgotPasswordTitle(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
+                          color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
                           fontSize: 15.0.sp,
                         )),
                   ),
@@ -80,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 3.h,
               ),
               TextFieldWidget(
-                  lable: "Email",
+                  lable: languages.dialogSigninEmailHint(),
                   keyy: _emailSignInDialogKey,
                   validator: "Email",
                   controller: emailController),
@@ -91,12 +96,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 3.h,
               ),
               ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                    MaterialStateProperty.all<Color>(HexColor("#192A51")),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)))),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#192A51"): HexColor("#849ED9"),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0))),
                 onPressed: () {
                   PasswordReset();
 
@@ -104,10 +107,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Confirm",
+                    languages.forgotPasswordConfirm(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-
                           fontSize: 15.0.sp,
                         )),
                   ),
@@ -118,10 +120,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    "Cancel",
+                    languages.forgotPasswordCancel(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          color: HexColor("#B90000"),
+                          color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
                           fontSize: 15.0.sp,
                         )),
                   )),
@@ -138,26 +140,29 @@ Widget TextFieldWidget(
       required GlobalKey<FormFieldState> keyy,
       required String validator,
       required TextEditingController controller}) {
-  return TextFormField(
-    obscureText: validator=="Password"? true :false,
-    controller: controller,
-    style: TextStyle(color: Colors.red),
-    key: keyy,
-    decoration: InputDecoration(
-      contentPadding: EdgeInsets.symmetric(vertical: 3.h,horizontal: 3.w),
-      label: Text(lable,style: TextStyle(fontSize: 10.sp),),
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(20)),
-      focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(20)),
+  return Directionality(
+    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+    child: TextFormField(
+      obscureText: validator=="Password"? true :false,
+      controller: controller,
+      style: TextStyle(color: Colors.red),
+      key: keyy,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 3.h,horizontal: 3.w),
+        label: Text(lable,style: TextStyle(fontSize: 10.sp, color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,),),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
+      ),
     ),
   );
 }

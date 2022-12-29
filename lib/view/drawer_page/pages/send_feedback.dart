@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../controller/theme_service.dart';
+import '../../../main.dart';
 
 class SendFeedback extends StatelessWidget {
 
@@ -23,17 +24,17 @@ class SendFeedback extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         elevation: 0,
-        backgroundColor: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.only(top: 50,bottom:50,right: 20,left: 20),
+          padding: EdgeInsets.only(top: 30,bottom:30,right: 20,left: 20),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.black87,
-              borderRadius: BorderRadius.circular(50)),
+              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade900,
+              borderRadius: BorderRadius.circular(25)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
+                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
@@ -41,7 +42,7 @@ class SendFeedback extends StatelessWidget {
                     child: Icon(Icons.send_outlined),
                   ),
                   Text(
-                    "Send Feedback",
+                   languages.feedbackEditTitle(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           fontSize: 20,
@@ -61,26 +62,29 @@ class SendFeedback extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              TextField(
-                controller: textAreaField,
-                keyboardType: TextInputType.multiline,
-                maxLines: 10,
-                decoration: InputDecoration(
-                    hintText: "Enter Your Message Here",
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
-                      borderRadius: BorderRadius.circular(20)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(20)),
-                  errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-                      borderRadius: BorderRadius.circular(20)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-                      borderRadius: BorderRadius.circular(20)),
-                ),
+              Directionality(
+                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+                child: TextField(
+                  controller: textAreaField,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                      hintText: languages.feedbackHintMessage(),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
+                        borderRadius: BorderRadius.circular(20)),
+                    errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
 
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -103,7 +107,7 @@ class SendFeedback extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
-                    "Submit",
+                    languages.feedbackSubmit(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           fontSize: 17.5,
@@ -116,7 +120,7 @@ class SendFeedback extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    "Cancel",
+                    languages.feedbackCancel(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
@@ -139,26 +143,29 @@ Widget TextFieldWidget(
       required GlobalKey<FormFieldState> keyy,
       required String validator,
       required TextEditingController controller}) {
-  return TextFormField(
-    obscureText: validator=="Password"? true :false,
-    controller: controller,
-    style: TextStyle(color: Colors.red),
-    key: keyy,
-    decoration: InputDecoration(
-      contentPadding: EdgeInsets.symmetric(vertical: 100,horizontal: 10),
-      label: Text(lable, style: TextStyle(fontSize: 10),),
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-          borderRadius: BorderRadius.circular(20)),
-      focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-          borderRadius: BorderRadius.circular(20)),
+  return Directionality(
+    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+    child: TextFormField(
+      obscureText: validator=="Password"? true :false,
+      controller: controller,
+      style: TextStyle(color: Colors.red),
+      key: keyy,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 100,horizontal: 10),
+        label: Text(lable, style: TextStyle(fontSize: 10),),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
+      ),
     ),
   );
 }

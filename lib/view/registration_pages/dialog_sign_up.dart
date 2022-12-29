@@ -1,4 +1,5 @@
 import 'package:chem_x/Controller/auth.dart';
+import 'package:chem_x/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,12 +9,22 @@ import 'package:string_validator/string_validator.dart';
 
 import '../../controller/theme_service.dart';
 
-class DialogSignUp extends StatelessWidget {
+class DialogSignUp extends StatefulWidget {
+  @override
+  State<DialogSignUp> createState() => _DialogSignUpState();
+}
+
+class _DialogSignUpState extends State<DialogSignUp> {
   final _emailSignUpDialogKey = GlobalKey<FormFieldState>();
+
   final _passwordSignUpDialogKey = GlobalKey<FormFieldState>();
+
   final _userNameSignUpDialogKey = GlobalKey<FormFieldState>();
+
   final userNameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final PasswordController = TextEditingController();
 
   @override
@@ -26,28 +37,30 @@ class DialogSignUp extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         elevation: 0,
-        backgroundColor: Colors.transparent,
         child: Container(
           padding:
               EdgeInsets.only(top: 3.h, bottom: 3.h, right: 7.w, left: 7.w),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.black87,
+              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade900,
               borderRadius: BorderRadius.circular(30)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
+                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(right: 5),
-                    child: Icon(Icons.mail_sharp),
+                    child: Icon(Icons.mail_sharp,
+                      color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,),
                   ),
                   Text(
-                    "Sign Up With Email",
+                    languages.dialogSignupWithEmail(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
+                          color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
                       fontSize: 15.0.sp,
                     )),
                   ),
@@ -65,7 +78,7 @@ class DialogSignUp extends StatelessWidget {
                 height: 3.h,
               ),
               TextFieldWidget(
-                  lable: "User Name",
+                  lable: languages.dialogSignupUserHint(),
                   keyy: _userNameSignUpDialogKey,
                   validator: "UserName",
                   controller: userNameController),
@@ -73,7 +86,7 @@ class DialogSignUp extends StatelessWidget {
                 height: 2.h,
               ),
               TextFieldWidget(
-                  lable: "Email",
+                  lable: languages.dialogSignupEmailHint(),
                   keyy: _emailSignUpDialogKey,
                   validator: "Email",
                   controller: emailController),
@@ -81,7 +94,7 @@ class DialogSignUp extends StatelessWidget {
                 height: 2.h,
               ),
               TextFieldWidget(
-                  lable: "Password",
+                  lable: languages.dialogSignuPasswordHint(),
                   keyy: _passwordSignUpDialogKey,
                   validator: "Password",
                   controller: PasswordController),
@@ -112,7 +125,7 @@ class DialogSignUp extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Sign Up",
+                    languages.dialogSignup(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                       fontSize: 15.0.sp,
@@ -125,7 +138,7 @@ class DialogSignUp extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    "Cancel",
+                    languages.dialogSignupCancel(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                       color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
@@ -145,63 +158,67 @@ Widget TextFieldWidget(
     required GlobalKey<FormFieldState> keyy,
     required String validator,
     required TextEditingController controller}) {
-  return TextFormField(
-    obscureText: validator == "Password" ? true : false,
-    controller: controller,
-    style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-    key: keyy,
-    decoration: InputDecoration(
-      contentPadding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
-      label: Text(
-        lable,
-        style: TextStyle(fontSize: 10.sp),
+  return Directionality(
+    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+    child: TextFormField(
+      obscureText: validator == "Password" ? true : false,
+      controller: controller,
+      style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+      key: keyy,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
+        label: Text(
+          lable,
+          style: TextStyle(fontSize: 10.sp,
+            color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
       ),
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-          borderRadius: BorderRadius.circular(20)),
-      focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-          borderRadius: BorderRadius.circular(20)),
+      validator: (text) {
+        if (validator == "UserName") {
+          if (text == null) {
+            return "please fill this field ";
+          } else if (text.isEmpty) {
+            return "please fill this field ";
+          } else if (!isAlpha(text.replaceAll(' ', ''))) {
+            return "User Name must be only litters";
+          }
+        } else if (validator == "Email") {
+          if (text == null) {
+            return "please fill this field ";
+          } else if (text.isEmpty) {
+            return "please fill this field ";
+          } else if (!RegExp(
+                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+              .hasMatch(text)) {
+            return "Please enter a valid email";
+          }
+        } else if (validator == "Password") {
+          print(text);
+          if (text == null) {
+            return "please fill this field ";
+          } else if (text.isEmpty) {
+            return "please fill this field ";
+          } else if (text.length <= 6) {
+            return "The password must be greater than 6 characters";
+          } else if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
+              .hasMatch(text)) {
+            return "Must contain an uppercase, lowercase letter, symbol";
+          }
+        }
+        return null;
+      },
     ),
-    validator: (text) {
-      if (validator == "UserName") {
-        if (text == null) {
-          return "please fill this field ";
-        } else if (text.isEmpty) {
-          return "please fill this field ";
-        } else if (!isAlpha(text.replaceAll(' ', ''))) {
-          return "User Name must be only litters";
-        }
-      } else if (validator == "Email") {
-        if (text == null) {
-          return "please fill this field ";
-        } else if (text.isEmpty) {
-          return "please fill this field ";
-        } else if (!RegExp(
-                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-            .hasMatch(text)) {
-          return "Please enter a valid email";
-        }
-      } else if (validator == "Password") {
-        print(text);
-        if (text == null) {
-          return "please fill this field ";
-        } else if (text.isEmpty) {
-          return "please fill this field ";
-        } else if (text.length <= 6) {
-          return "The password must be greater than 6 characters";
-        } else if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
-            .hasMatch(text)) {
-          return "Must contain an uppercase, lowercase letter, symbol";
-        }
-      }
-      return null;
-    },
   );
 }

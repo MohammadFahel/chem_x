@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chem_x/controller/language_service.dart';
 import 'package:chem_x/main.dart';
 import 'package:chem_x/module/facebook_info.dart';
 import 'package:chem_x/view/drawer_page/pages/change_language.dart';
@@ -21,6 +22,7 @@ import 'package:sizer/sizer.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../../Controller/auth.dart';
 import '../../Controller/chem_provider.dart';
+import '../../View/home_page.dart';
 import '../../controller/theme_service.dart';
 import '../../module/routing_navigator.dart';
 
@@ -37,14 +39,18 @@ class MyNavigationDrawer extends StatefulWidget {
 class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+
   @override
   void initState() {
     super.initState();
+    setState(() {
+      languages.getMyLanguages();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = languageList.first;
+
     var providerChem = Provider.of<TextProvider>(context, listen: true);
     return Drawer(
       child: SingleChildScrollView(
@@ -61,35 +67,42 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
               //     icon: Icons.account_circle_outlined,
               //     onPressed: () => onItemPressed(context, index: 0)),
               Row(
+                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
                 children: [
                   DrawerItem(
-                      name: 'Change Theme',
+                      name: languages.drawerChangeTheme(),
                       icon: Icons.dark_mode,
                       onPressed: () => onItemPressed(context, index: 2)),
-                  const SizedBox(width: 60),
+                  SizedBox(width: languages.getMyLanguages() == 'EN'? 40: 90),
                   Switch(
                     activeColor: HexColor('#AAA1C8'),
                     value: providerChem.isActive,
                     onChanged: (newValue){
                       providerChem.isActiveSwitch(newValue);
                       ThemeService().changeTheme();
+                      setState(() {
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => PeriodicTablePage()));
+
+                      });
                     },
                   )
                 ],
               ),
               const SizedBox(height: 15),
               DrawerItem(
-                  name: 'Send Feedback',
+                  name: languages.drawerFeedback(),
                   icon: Icons.favorite_outline,
                   onPressed: () => onItemPressed(context, index: 3)),
               const SizedBox(height: 15),
               Row(
+                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
                 children: [
                   DrawerItem(
-                      name: 'Change Language',
+                      name: languages.drawerChangeLanguage(),
                       icon: Icons.language,
                       onPressed: () => onItemPressed(context, index: 2)),
-                  const SizedBox(width: 40),
+                  SizedBox(width: languages.getMyLanguages() == 'EN'? 25: 100),
                   DropdownButton(
                     value: dropdownValue,
                     items: languageList
@@ -99,10 +112,17 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                         child: Text(value),
                       );
                     }).toList(),
-                    onChanged: (String? value) {
-                      // This is called when the user selects an item.
+                    onChanged: (newValue) async {
+
+                      SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                      pref.setString('myLanguages', newValue.toString());
+                      languages.setMyLanguages(newValue.toString());
+                      myLanguages = newValue.toString();
                       setState(() {
-                        dropdownValue = value!;
+                        dropdownValue = newValue.toString();
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => PeriodicTablePage()));
                       });
                     },
                   )
@@ -112,7 +132,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
               const Divider(thickness: 1, height: 10, color: Colors.grey),
               const SizedBox(height: 15),
               DrawerItem(
-                  name: 'Log out',
+                  name: languages.drawerLogout(),
                   icon: Icons.logout,
                   onPressed: () => onItemPressed(context, index: 4)),
             ],
@@ -149,7 +169,12 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
         //     context, MaterialPageRoute(builder: (context) => SendFeedback()));
         break;
       case 4:
-        AuthO().signOutUser();
+        setState(() {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PeriodicTablePage()));
+          AuthO().signOutUser();
+        });
+
         break;
     }
   }
@@ -187,7 +212,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 ),
                 SizedBox(height: 15),
                 InkWell(
-                    child: Text('Edit Profile >',
+                    child: Text(languages.drawerEditProfile(),
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                                 fontSize: 15,
@@ -231,7 +256,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             ),
             SizedBox(height: 15),
             InkWell(
-                child: Text('Edit Profile >',
+                child: Text(languages.drawerEditProfile(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                             fontSize: 15,
@@ -282,7 +307,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 ),
                 SizedBox(height: 15),
                 InkWell(
-                    child: Text('Edit Profile >',
+                    child: Text(languages.drawerEditProfile(),
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                                 fontSize: 15,
@@ -438,12 +463,14 @@ class DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20),
+      padding: EdgeInsets.only(left: 20, right: 20),
       child: InkWell(
         onTap: onPressed,
         child: SizedBox(
           height: 40,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
             children: [
               Icon(
                 icon,

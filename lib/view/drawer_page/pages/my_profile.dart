@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chem_x/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -51,14 +52,15 @@ class _MyProfileState extends State<MyProfile> {
         backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade500,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
-        title: const Text("Edit Profile",
+        title: Text(languages.profileEditTitle(),
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Colors.black,
             )),
         centerTitle: true,
-        leading: IconButton(
-          icon: Image.asset('assets/images/backbutton.png', width: 30),
+        leading:
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -87,7 +89,7 @@ class _MyProfileState extends State<MyProfile> {
                         return TextFieldWidget(
                           enable: false,
                           initialText: data["userName"],
-                          lable: "User Name",
+                          lable: languages.dialogSignupUserHint(),
                           keyy: _usernameKey,
                           validator: "UserName",
                         );
@@ -100,7 +102,7 @@ class _MyProfileState extends State<MyProfile> {
                 TextFieldWidget(
                   enable: false,
                   initialText: _auth!.email.toString(),
-                  lable: "Email",
+                  lable: languages.dialogSigninEmailHint(),
                   keyy: _emailKey,
                   validator: "Email",
                 ),
@@ -115,7 +117,7 @@ class _MyProfileState extends State<MyProfile> {
 
                 TextFieldWidget(
                   enable: true,
-                  lable: "Current Password",
+                  lable: languages.profileCurrentPassword(),
                   keyy: _currentPasswordKey,
                   validator: "Password",
                   controller: curruentPsswordController,
@@ -124,7 +126,7 @@ class _MyProfileState extends State<MyProfile> {
                 SizedBox(height: 15),
                 TextFieldWidget(
                     enable: true,
-                    lable: "New Password",
+                    lable: languages.profileNewPassword(),
                     keyy: _newPasswordKey,
                     validator: "Password",
                     controller: newPasswordController),
@@ -132,7 +134,7 @@ class _MyProfileState extends State<MyProfile> {
                 SizedBox(height: 15),
                 TextFieldWidget(
                     enable: true,
-                    lable: "New Password, again",
+                    lable: languages.profileReNewPassword(),
                     keyy: _againNewPasswordKey,
                     validator: "Password",
                     controller: againNewPasswordController),
@@ -168,7 +170,7 @@ class _MyProfileState extends State<MyProfile> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "Save Changes",
+                      languages.profileSaveChanges(),
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                         fontSize: 15.0,
@@ -182,7 +184,7 @@ class _MyProfileState extends State<MyProfile> {
                       Navigator.of(context).pop();
                     },
                     child: Text(
-                      "Cancel",
+                      languages.profileCancelChanges(),
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                         color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
@@ -276,7 +278,7 @@ class _MyProfileState extends State<MyProfile> {
                       backgroundColor: Colors.transparent,),
                     SizedBox(height: 10),
                     InkWell(
-                      child: Text("Change Photo", style: TextStyle(
+                      child: Text(languages.profileChangePhoto(), style: TextStyle(
                         color: ThemeService().getThemeMode() == ThemeMode.light? Colors.blueAccent: HexColor("#849ED9"),
                         decoration: TextDecoration.underline,
                       )),
@@ -320,68 +322,71 @@ Widget TextFieldWidget(
     TextEditingController? controller,
     String? initialText,
     required bool enable}) {
-  return TextFormField(
-    initialValue: initialText,
-    enabled: enable,
-    obscureText: validator == "Password" ? true : false,
-    controller: controller,
-    style: validator == "UserName" || validator == "Email"?
-    TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black54: Colors.grey):
-    TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white) ,
+  return Directionality(
+    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+    child: TextFormField(
+      initialValue: initialText,
+      enabled: enable,
+      obscureText: validator == "Password" ? true : false,
+      controller: controller,
+      style: validator == "UserName" || validator == "Email"?
+      TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black54: Colors.grey):
+      TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white) ,
 
-    decoration: InputDecoration(
-      contentPadding: EdgeInsets.all(20),
-      label: Text(lable, style: TextStyle(fontSize: 15)),
-      disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
-          borderRadius: BorderRadius.circular(20)),
-      errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-          borderRadius: BorderRadius.circular(20)),
-      focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
-          borderRadius: BorderRadius.circular(20)),
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(20),
+        label: Text(lable, style: TextStyle(fontSize: 15)),
+        disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(20)),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+
+
+      // validator: (text) {
+      //   if (validator == "UserName") {
+      //
+      //     if (text == null) {
+      //       return "please fill this field ";
+      //     } else if (text.isEmpty) {
+      //       return "please fill this field ";
+      //     } else if (!isAlpha(text)) {
+      //       return "User Name must not contain numbers";
+      //     }
+      //   } else if (validator == "Email") {
+      //
+      //     if (text == null) {
+      //       return "please fill this field ";
+      //     } else if (text.isEmpty) {
+      //       return "please fill this field ";
+      //     } else if (!isEmail(text)) {
+      //       return "Please enter a valid email";
+      //     }
+      //   } else if (validator == "Password") {
+      //     if (text == null) {
+      //       return "please fill this field ";
+      //     } else if (text.isEmpty) {
+      //       return "please fill this field ";
+      //     } else if (text.length < 6 ||
+      //         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+      //             .hasMatch(text)) {
+      //       print("i will cum my password22");
+      //       return "The password must be greater than 6 characters and contain an uppercase letter, lowercase letter and a symbol ";
+      //     }
+      //   }
+      //   return null;
+      // },
     ),
-
-
-    // validator: (text) {
-    //   if (validator == "UserName") {
-    //
-    //     if (text == null) {
-    //       return "please fill this field ";
-    //     } else if (text.isEmpty) {
-    //       return "please fill this field ";
-    //     } else if (!isAlpha(text)) {
-    //       return "User Name must not contain numbers";
-    //     }
-    //   } else if (validator == "Email") {
-    //
-    //     if (text == null) {
-    //       return "please fill this field ";
-    //     } else if (text.isEmpty) {
-    //       return "please fill this field ";
-    //     } else if (!isEmail(text)) {
-    //       return "Please enter a valid email";
-    //     }
-    //   } else if (validator == "Password") {
-    //     if (text == null) {
-    //       return "please fill this field ";
-    //     } else if (text.isEmpty) {
-    //       return "please fill this field ";
-    //     } else if (text.length < 6 ||
-    //         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-    //             .hasMatch(text)) {
-    //       print("i will cum my password22");
-    //       return "The password must be greater than 6 characters and contain an uppercase letter, lowercase letter and a symbol ";
-    //     }
-    //   }
-    //   return null;
-    // },
   );
 }
