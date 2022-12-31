@@ -207,8 +207,23 @@ class ElementPage extends StatelessWidget {
                   height: 150,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: HexColor("$myColor"), width: 2),
-                    color: HexColor("$myColor"),
+                    border: Border.all(color: HexColor("${myColor}"), width: 1.5),
+                    color: HexColor("${myColor}"),
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        HexColor("${myColor}").withOpacity(0.9),
+                        HexColor("${myColor}").withOpacity(0.4)
+                      ],
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10.0,
+                        spreadRadius:5.0,
+                      ),
+                    ],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

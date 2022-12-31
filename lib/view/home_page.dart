@@ -83,7 +83,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
             height: 1,
           ),
         ),
-
+        backgroundColor: Colors.grey.shade400,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         actions: [
@@ -94,13 +94,11 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
                 onPressed: () {
                   drawerIcon.currentState?.openEndDrawer();
                 },
-              
-              icon: Image.asset('assets/images/flask.png', color: Colors.black54)
-              // Icon(
-              //   Icons.assignment_turned_in,
-              //     color: Colors.black54,
-              //     size: 30
-              // ),
+              icon: Icon(
+                Icons.assignment_turned_in,
+                  color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.black54,
+                  size: 30
+              ),
                 // icon: const ImageIcon(
                 //   AssetImage("assets/images/flask.png"),
                 //   size: 50,
@@ -111,8 +109,8 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
         ],
         leading: IconButton(
 
-          icon: Icon(Icons.person_outline,
-              color: Colors.black54,
+          icon: Icon(Icons.person,
+              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.black54,
               size: 30),
           onPressed: (){
             drawerIcon.currentState?.openDrawer();
@@ -146,6 +144,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
             ]),
         child: BottomAppBar(
             elevation: 8,
+            color: Colors.grey.shade400,
             child: Padding(
               padding: EdgeInsets.all(10),
               child: SingleChildScrollView(
@@ -306,7 +305,6 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
       ),
     );
   }
-
 }
 
 CategoryContainer(String color) {
@@ -327,7 +325,7 @@ CategoryText(String category) {
       textStyle: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 15,
-          color: Colors.black54),
+          color: HexColor("#192A51")),
     ),
   );
 }

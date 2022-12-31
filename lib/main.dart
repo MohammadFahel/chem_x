@@ -11,24 +11,17 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'Controller/chem_provider.dart';
-import 'Controller/language_service.dart';
-import 'View/drawer_page/my_drawer.dart';
 import 'controller/darkMode_controller.dart';
 import 'view/home_page.dart';
 import 'view/periodic_table.dart';
 
-MyLanguages languages = MyLanguages();
-String dropdownValue = languageList.first;
 bool darkMode = false;
-String myLanguages = 'EN';
-
 void main() async {
 
-  // await GetStorage.init();
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  // myLanguages = await prefs.getString('myLanguages');
   initScreen = await prefs.getInt('initScreen');
   await prefs.setInt("initScreen", 1);
 
