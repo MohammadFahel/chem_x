@@ -83,7 +83,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
             height: 1,
           ),
         ),
-        backgroundColor: Colors.grey.shade400,
+        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         actions: [
@@ -94,11 +94,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
                 onPressed: () {
                   drawerIcon.currentState?.openEndDrawer();
                 },
-              icon: Icon(
-                Icons.assignment_turned_in,
-                  color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.black54,
-                  size: 30
-              ),
+                icon: Image.asset('assets/images/flask.png', color: Colors.black)
                 // icon: const ImageIcon(
                 //   AssetImage("assets/images/flask.png"),
                 //   size: 50,
@@ -109,8 +105,8 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
         ],
         leading: IconButton(
 
-          icon: Icon(Icons.person,
-              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.black54,
+          icon: Icon(Icons.person_outline,
+              color: Colors.black,
               size: 30),
           onPressed: (){
             drawerIcon.currentState?.openDrawer();
@@ -144,7 +140,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
             ]),
         child: BottomAppBar(
             elevation: 8,
-            color: Colors.grey.shade400,
+            color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey,
             child: Padding(
               padding: EdgeInsets.all(10),
               child: SingleChildScrollView(
