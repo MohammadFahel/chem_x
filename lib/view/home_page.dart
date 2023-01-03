@@ -309,6 +309,15 @@ CategoryContainer(String color) {
     height: 30,
     decoration: BoxDecoration(
       color: HexColor("$color"),
+      border: Border.all(color: HexColor("${color}"), width: 1.5),
+      gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomRight,
+        colors: [
+          HexColor("${color}").withOpacity(0.9),
+          HexColor("${color}").withOpacity(0.6)
+        ],
+      ),
       shape: BoxShape.circle,
     ),
   );
