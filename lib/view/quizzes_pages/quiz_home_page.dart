@@ -3,35 +3,46 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:chem_x/view/quizzes_pages/quiz.dart';
+import 'package:chem_x/view/quizzes_pages/quizzes_exam.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Controller/chem_provider.dart';
 import '../../controller/theme_service.dart';
 
 class QuizzesPage extends StatefulWidget {
   String categoryName;
-   QuizzesPage({Key? key,required this.categoryName}) : super(key: key);
+
+  QuizzesPage({Key? key, required this.categoryName}) : super(key: key);
 
   @override
-  _QuizzesPageState createState() => _QuizzesPageState(categoryName);
+  _QuizzesPageState createState() => _QuizzesPageState();
 }
 
 class _QuizzesPageState extends State<QuizzesPage> {
-  String categoryName;
-_QuizzesPageState(this.categoryName);
+
+
   @override
   Widget build(BuildContext context) {
+    var textProvider = Provider.of<TextProvider>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios,color: Colors.black,size: 30,),
-          onPressed: ()=> Navigator.pop(context),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+            size: 30,
+          ),
+          onPressed: () => Navigator.pop(context),
         ),
         // centerTitle: true,
-        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade500,
+        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light
+            ? Colors.white
+            : Colors.grey.shade500,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         // elevation: 0.0,
@@ -42,116 +53,145 @@ _QuizzesPageState(this.categoryName);
         //     ,fit: BoxFit.fill,)),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(bottom: 15,right: 15,left: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-
-             Padding(
-               padding: const EdgeInsets.only(bottom: 5,top: 10),
-               child: Container(
-                   width: 5.5.w,
-                   height: 4.h,
-                   child: Image.asset("assets/images/flask.png"
-                   ,fit: BoxFit.fill,)),
-             ),
-
-            Padding(
-              padding: EdgeInsets.only(bottom: 1.h),
-              child: Text(
-                "Quizzes",
-                style: TextStyle(fontSize: 12.sp,color: HexColor("#778198")),
+        padding: const EdgeInsets.only(bottom: 15, right: 15, left: 15),
+        child: Container(
+          width: double.infinity,
+          
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5, top: 10),
+                child: Container(
+                    width: 5.5.w,
+                    height: 4.h,
+                    child: Image.asset(
+                      "assets/images/flask.png",
+                      fit: BoxFit.fill,
+                    )),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 1.h),
+                child: Text(
+                  "Quizzes",
+                  style: TextStyle(fontSize: 12.sp, color: HexColor("#778198")),
+                ),
+              ),
+              Divider(
+                color: Colors.grey,
+                thickness: 2,
+              ),
+            Spacer(),
+              Text(textProvider.pointsForTrueAnswers==0?"You are attending the ${widget.categoryName} exam":"",style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold ),),
+              Text(textProvider.pointsForTrueAnswers ==0?"Press the button to start the exam": "Your score is "
+                  "${textProvider.pointsForTrueAnswers}/6 ", style: textProvider.pointsForTrueAnswers>0?TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold): TextStyle( ),),
+      ElevatedButton(     style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
 
-
-     Divider(color: Colors.grey,thickness: 2,),
-            SizedBox(
-              height: 1.5.h,
-            ),
-            QuizzesList(categoryName)
-
-          ],
+                 HexColor("#192A51")
+          )
+          ), onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  QuizzesExam(category: widget.categoryName),));
+              textProvider.pointsForExamToZeroValue();
+            }, child: Text(textProvider.pointsForTrueAnswers >0?"Start Again":"Start",style: TextStyle(fontSize: 15.sp),),
+      ),
+              Spacer(),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-Future<void> readJson() async {
-  // Read the file
-  final String response =
-  await rootBundle.loadString("assets/data/quizzesData.json");
-  final data = await json.decode(response);
-print(data);
-  // Parse the JSON string into a dart object
-  return data;
-}
-Widget QuizzesList(String category){
-
-  return FutureBuilder(
-    future: readJson() ,
-    builder: (context, snapshot) {
-      // print(snapshot.data);
-if(snapshot.hasData){
-  var list=snapshot.data as Map;
-  List myList=list["myelements"];
-
-  List myList2=myList.where((user) => user["category"]== category).toList();
-print(myList[0]["category"]);
-
-  // print(myList2[0][0]["category"]);
-  return Expanded(
-    child: GridView.builder(
-
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-      ),
-      padding: EdgeInsets.zero,
-        itemCount: myList2.length ,
-        itemBuilder: (context, index) {
-          return MaterialButton(onPressed: ()=> Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Quiz(summary: myList2[index]["summary"], index: index,
-                name:  myList2[index]["name"], options: [myList2[index]["name"],myList[Random().nextInt(118 - 0) + 0]["name"]
-                ,myList[Random().nextInt(118 - 0) + 0]["name"],myList[Random().nextInt(118 - 0) + 0]["name"]])),
-          ),
-          child: elementForListQuizzes(index),);
-
-    }),
-  );
-}else{
-  return const CircularProgressIndicator();
-}
-    });
+// Future<void> readJson() async {
+//   // Read the file
+//   final String response =
+//       await rootBundle.loadString("assets/data/quizzesData.json");
+//   final data = await json.decode(response);
+//   // Parse the JSON string into a dart object
+//   return data;
+// }
 
 
-}
-Widget elementForListQuizzes(int index){
-  return Container(
-    alignment: Alignment.center,
-    height:9.h,
-    width: 20.w,
-    decoration: BoxDecoration(
+//
+// Widget QuizzesList(String category) {
+//   return FutureBuilder(
+//       future: readJson(),
+//       builder: (context, snapshot) {
+//         // print(snapshot.data);
+//         if (snapshot.hasData) {
+//           var list = snapshot.data as Map;
+//           List myList = list["myelements"];
+//           List myList2 =
+//               myList.where((user) => user["category"] == category).toList();
+//           print(myList[0]["category"]);
+//
+//           // print(myList2[0][0]["category"]);
+//           return Expanded(
+//             child: GridView.builder(
+//                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                   crossAxisCount: 3,
+//                   crossAxisSpacing: 8,
+//                   mainAxisSpacing: 8,
+//                 ),
+//                 padding: EdgeInsets.zero,
+//                 itemCount: myList2.length,
+//                 itemBuilder: (context, index) {
+//                   return MaterialButton(
+//                     onPressed: () => Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                           builder: (context) => Quiz(
+//                                   summary: myList2[index]["summary"],
+//                                   index: index,
+//                                   name: myList2[index]["name"],
+//                                   options: [
+//                                     myList2[index]["name"],
+//                                     myList[Random().nextInt(118 - 0) + 0]
+//                                         ["name"],
+//                                     myList[Random().nextInt(118 - 0) + 0]
+//                                         ["name"],
+//                                     myList[Random().nextInt(118 - 0) + 0]
+//                                         ["name"]
+//                                   ])),
+//                     ),
+//                     child: elementForListQuizzes(index),
+//                   );
+//                 }),
+//           );
+//         } else {
+//           return const CircularProgressIndicator();
+//         }
+//       });
+// }
 
-      color: HexColor("#D9D9D9"),
-        border: Border.all(
-          color: HexColor("#5181FB"),
-          width: 2,
-        ),
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-    child:
-    // Row(
-    //   children: [
-        Text(" Quiz ${index+1}",style: TextStyle(color: HexColor("#626262")),),
-      //   const Spacer(),
-      //    Icon(Icons.arrow_forward_ios_rounded,color: HexColor("#5181FB") ,)
-    //   // ],
-    // ),
-  );
-}
+// Widget elementForListQuizzes(int index) {
+//   return Container(
+//     alignment: Alignment.center,
+//     height: 9.h,
+//     width: 20.w,
+//     decoration: BoxDecoration(
+//       color: HexColor("#D9D9D9"),
+//       border: Border.all(
+//         color: HexColor("#5181FB"),
+//         width: 2,
+//       ),
+//       borderRadius: BorderRadius.circular(10.0),
+//     ),
+//     child:
+//         // Row(
+//         //   children: [
+//         Text(
+//       " Quiz ${index + 1}",
+//       style: TextStyle(color: HexColor("#626262")),
+//     ),
+//     //   const Spacer(),
+//     //    Icon(Icons.arrow_forward_ios_rounded,color: HexColor("#5181FB") ,)
+//     //   // ],
+//     // ),
+//   );
+// }

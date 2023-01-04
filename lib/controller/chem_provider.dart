@@ -22,6 +22,27 @@ class TextProvider extends ChangeNotifier {
   bool isPressedButtonInQuizPageForC=false;
   bool isPressedButtonInQuizPageForD=false;
   bool isActive = false;
+  int currentPageForExamPage=0;
+  String answerInQuiz="";
+  int pointsForTrueAnswers=0;
+  void pointsForExamToZeroValue(){
+    pointsForTrueAnswers =0;
+    notifyListeners();
+  }
+
+  void pointsForExam(){
+    pointsForTrueAnswers++;
+    notifyListeners();
+  }
+  void quizAnswer(String name){
+    answerInQuiz =name;
+    notifyListeners();
+  }
+
+  void onPageExamChanged(int num){
+    currentPageForExamPage=num;
+    notifyListeners();
+  }
 
   void isActiveSwitch(bool x){
     if (x){
