@@ -32,7 +32,7 @@
       "ionization_energies": [
         1312
       ],
-      "cpk-hex": "ffffff",
+      "cpk-hex": "#2A4165",
       "image": {
         "title": "Vial of glowing ultrapure hydrogen, H2. Original size in cm: 1 x 5",
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Hydrogenglow.jpg",
@@ -74,7 +74,7 @@
         7298.1,
         11815
       ],
-      "cpk-hex": "cc80ff",
+      "cpk-hex": "#85CAC4",
       "image":{
         "title": "0.5 Grams Lithium under Argon. Original size of the largest piece in cm: 0.3 x 4",
         "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/0.5_grams_lithium_under_argon.jpg",
@@ -125,7 +125,7 @@
         141362,
         159076
       ],
-      "cpk-hex": "ab5cf2",
+      "cpk-hex": "#85CAC4",
       "image":{
         "title": "Na (Sodium) Metal",
         "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg",
@@ -185,7 +185,7 @@
         444880,
         476063
       ],
-      "cpk-hex": "8f40d4",
+      "cpk-hex": "#85CAC4",
       "image":{
         "title": "Potassium Pieces",
         "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Potassium.JPG",
@@ -237,7 +237,7 @@
         14500,
         26740
       ],
-      "cpk-hex": "702eb0",
+      "cpk-hex": "#85CAC4",
       "image":{
         "title": "Rubidium Metal Sample",
         "url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG",
@@ -283,7 +283,7 @@
         2234.3,
         3400
       ],
-      "cpk-hex": "57178f",
+      "cpk-hex": "#85CAC4",
       "image":{
         "title": "Cesium/Caesium metal",
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg",
@@ -328,7 +328,7 @@
       "ionization_energies": [
         380
       ],
-      "cpk-hex": "420066",
+      "cpk-hex": "#85CAC4",
       "image":{
         "title": "This is only an illustration, not francium itself.",
         "url": "https://images-of-elements.com/francium.jpg",
@@ -372,7 +372,7 @@
         14848.7,
         21006.6
       ],
-      "cpk-hex": "c2ff00",
+      "cpk-hex": "#622E39",
       "image":{
         "title": "Pure Beryllium bead, 2.5 grams. Original size in cm: 1 x 1.5",
         "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Beryllium_%28Be%29.jpg",
@@ -424,7 +424,7 @@
         169988,
         189368
       ],
-      "cpk-hex": "8aff00",
+      "cpk-hex": "#622E39",
       "image":{
         "title": "Magnesium crystals",
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Magnesium_crystals.jpg",
@@ -485,7 +485,7 @@
         494850,
         527762
       ],
-      "cpk-hex": "3dff00",
+      "cpk-hex": "#622E39",
       "image":{
         "title": "Calcium Grains, grain size about 1 mm",
         "url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Calcium.jpg",
@@ -538,7 +538,7 @@
         17100,
         31270
       ],
-      "cpk-hex": "00ff00",
+      "cpk-hex": "#622E39",
       "image":{
         "title": "Strontium Pieces under Paraffin Oil.",
         "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Strontium-1.jpg",
@@ -584,7 +584,7 @@
         965.2,
         3600
       ],
-      "cpk-hex": "00c900",
+      "cpk-hex": "#622E39",
       "image":{
         "title": "1.5 Grams Barium with a Grey Oxide Layer under Argon. Original size in cm: 0.7 x 1",
         "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Barium_%2856_Ba%29.jpg",
@@ -630,7 +630,7 @@
         509.3,
         979
       ],
-      "cpk-hex": "007d00",
+      "cpk-hex": "#622E39",
       "image":{
         "title": "Radium electroplated on a very small sample of copper foil and covered with polyurethane to prevent reaction with the air",
         "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Radium226.jpg",
@@ -693,7 +693,7 @@
         547530,
         582163
       ],
-      "cpk-hex": "e6e6e6",
+      "cpk-hex": "#622E39",
       "image":{
         "title": "Crystal of Scandium. About 1g",
         "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Scandium%2C_Sc.jpg",
@@ -747,7 +747,7 @@
         19900,
         36090
       ],
-      "cpk-hex": "94ffff",
+      "cpk-hex": "#433C65",
       "image":{
         "title": "6,21g Yttrium, Reinheit mindestens 99%.",
         "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Piece_of_Yttrium.jpg",
@@ -795,7 +795,7 @@
         4819,
         5940
       ],
-      "cpk-hex": "70d4ff",
+      "cpk-hex": "#433C65",
       "image":{
         "title": "1 cm Big Piece of Pure Lanthanum",
         "url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Lanthanum.jpg",

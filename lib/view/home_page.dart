@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:chem_x/View/periodic_table.dart';
 import 'package:chem_x/view/pop_up.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_category_page.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_home_page.dart';
+import 'package:chem_x/view/search_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -63,6 +67,17 @@ class PeriodicTableHomePage extends StatefulWidget {
 }
 
 class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
+  List<dynamic> _items = [];
+  String myColor = "#00000";
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response =
+    await rootBundle.loadString("assets/data/elementsData.json");
+    final data = await json.decode(response);
+    setState(() {
+      _items = data["myelements"];
+    });
+  }
   //final PageController _periodicTable = PageController(initialPage: 0);
   DatabaseReference ref = FirebaseDatabase.instance.ref(FirebaseAuth.instance.currentUser!.uid);
   @override
@@ -73,10 +88,11 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
     );
     return Scaffold(
       key: drawerIcon,
-
+      resizeToAvoidBottomInset:false,
       drawer: const MyNavigationDrawer(),
       endDrawer: const QuizDrawerPage(),
       appBar: AppBar(
+        title: Text('Periodic Table',style: TextStyle(color: Colors.black),),
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1),
           child: SizedBox(
@@ -87,21 +103,24 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         actions: [
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 0, bottom: 0, right: 7),
-            child: IconButton(
-                onPressed: () {
-                  drawerIcon.currentState?.openEndDrawer();
-                },
-                icon: Image.asset('assets/images/flask.png', color: Colors.black)
-                // icon: const ImageIcon(
-                //   AssetImage("assets/images/flask.png"),
-                //   size: 50,
-                //   color: Colors.black,
-                // )
-            ),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) =>  SearchBar()));
+              },
+              icon: Icon(Icons.search_rounded,color: Colors.black,size: 30,)),
+          IconButton(
+              onPressed: () {
+                drawerIcon.currentState?.openEndDrawer();
+              },
+              icon: Image.asset('assets/images/flask.png', color: Colors.black)
+              // icon: const ImageIcon(
+              //   AssetImage("assets/images/flask.png"),
+              //   size: 50,
+              //   color: Colors.black,
+              // )
           ),
+
         ],
         leading: IconButton(
 
@@ -124,10 +143,13 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
       //     //physics: const NeverScrollableScrollPhysics()
       //   ),
       // ),
+
       body: Padding(
         padding: EdgeInsets.all(10),
         child: PeriodicTable(),
       ),
+
+
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
@@ -301,7 +323,10 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
       ),
     );
   }
+
 }
+
+
 
 CategoryContainer(String color) {
   return Container(

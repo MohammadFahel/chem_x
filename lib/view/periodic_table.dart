@@ -51,16 +51,17 @@ class _PeriodicTableState extends State<PeriodicTable> {
     //     .toList();
     //
 
-    return GridView.builder(
+    return
+      GridView.builder(shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 9, crossAxisSpacing: 2, mainAxisSpacing: 10),
+          crossAxisCount: 9, crossAxisSpacing: 7, mainAxisSpacing: 7),
       scrollDirection: Axis.horizontal,
       itemCount: _items.length,
       itemBuilder: (_, index) {
+        print("mmmmmmmmmmmmmmmmmmmmm");
+        print(_items.length);
         if (_items[index] == null) {
-          return Container(
-            width: 100,
-          );
+          return Container();
         } else {
           myColor = "#00000";
           switch (_items[index]["category"]) {
@@ -244,3 +245,6 @@ class _PeriodicTableState extends State<PeriodicTable> {
     }
   }
 }
+
+
+
