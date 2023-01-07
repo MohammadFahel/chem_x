@@ -1,30 +1,17 @@
-import 'dart:io';
-
-import 'package:chem_x/controller/language_service.dart';
 import 'package:chem_x/main.dart';
-import 'package:chem_x/module/facebook_info.dart';
 import 'package:chem_x/view/drawer_page/pages/change_language.dart';
-import 'package:chem_x/view/drawer_page/pages/change_theme.dart';
 import 'package:chem_x/view/drawer_page/pages/my_profile.dart';
 import 'package:chem_x/view/drawer_page/pages/send_feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sizer/sizer.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import '../../Controller/auth.dart';
 import '../../Controller/chem_provider.dart';
 import '../../View/home_page.dart';
 import '../../controller/theme_service.dart';
-import '../../module/routing_navigator.dart';
 
 const List<String> languageList = <String>['EN', 'AR'];
 String profilePicture = "";
@@ -39,7 +26,6 @@ class MyNavigationDrawer extends StatefulWidget {
 class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
   @override
   void initState() {
     super.initState();
@@ -50,114 +36,107 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
 
   @override
   Widget build(BuildContext context) {
-
     var providerChem = Provider.of<TextProvider>(context, listen: true);
     return Drawer(
       child: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              headerWidget(),
-
-              const SizedBox(height: 15),
-              const Divider(thickness: 1, height: 10, color: Colors.grey),
-              const SizedBox(height: 15),
-              // DrawerItem(
-              //     name: 'My Account',
-              //     icon: Icons.account_circle_outlined,
-              //     onPressed: () => onItemPressed(context, index: 0)),
-              Row(
-                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
-                children: [
-                  DrawerItem(
-                      name: languages.drawerChangeTheme(),
-                      icon: Icons.dark_mode,
-                      onPressed: () => onItemPressed(context, index: 2)),
-                  SizedBox(width: languages.getMyLanguages() == 'EN'? 40: 90),
-                  Switch(
-                    activeColor: HexColor('#AAA1C8'),
-                    value: providerChem.isActive,
-                    onChanged: (newValue){
-                      providerChem.isActiveSwitch(newValue);
-                      ThemeService().changeTheme();
-                      setState(() {
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => PeriodicTablePage()));
-
-                      });
-                    },
-                  )
-                ],
-              ),
-              const SizedBox(height: 15),
-              DrawerItem(
-                  name: languages.drawerFeedback(),
-                  icon: Icons.favorite_outline,
-                  onPressed: () => onItemPressed(context, index: 3)),
-              const SizedBox(height: 15),
-              Row(
-                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
-                children: [
-                  DrawerItem(
-                      name: languages.drawerChangeLanguage(),
-                      icon: Icons.language,
-                      onPressed: () => onItemPressed(context, index: 2)),
-                  SizedBox(width: languages.getMyLanguages() == 'EN'? 25: 100),
-                  DropdownButton(
-                    value: dropdownValue,
-                    items: languageList
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) async {
-
-                      SharedPreferences pref =
-                      await SharedPreferences.getInstance();
-                      pref.setString('myLanguages', newValue.toString());
-                      languages.setMyLanguages(newValue.toString());
-                      myLanguages = newValue.toString();
-                      setState(() {
-                        dropdownValue = newValue.toString();
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => PeriodicTablePage()));
-                      });
-                    },
-                  )
-                ],
-              ),
-              const SizedBox(height: 15),
-              const Divider(thickness: 1, height: 10, color: Colors.grey),
-              const SizedBox(height: 15),
-              DrawerItem(
-                  name: languages.drawerLogout(),
-                  icon: Icons.logout,
-                  onPressed: () => onItemPressed(context, index: 4)),
-            ],
-          ),
+        child: Column(
+          children: [
+            headerWidget(),
+            const SizedBox(height: 15),
+            const Divider(thickness: 1, height: 10, color: Colors.grey),
+            const SizedBox(height: 15),
+            Row(
+              textDirection: languages.getMyLanguages() == 'EN'
+                  ? TextDirection.ltr
+                  : TextDirection.rtl,
+              children: [
+                DrawerItem(
+                    name: languages.drawerChangeTheme(),
+                    icon: Icons.dark_mode,
+                    onPressed: () => onItemPressed(context, index: 2)),
+                SizedBox(width: languages.getMyLanguages() == 'EN' ? 40 : 90),
+                Switch(
+                  activeColor: HexColor('#AAA1C8'),
+                  value: providerChem.isActive,
+                  onChanged: (newValue) {
+                    providerChem.isActiveSwitch(newValue);
+                    ThemeService().changeTheme();
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PeriodicTablePage()));
+                    });
+                  },
+                )
+              ],
+            ),
+            const SizedBox(height: 15),
+            DrawerItem(
+                name: languages.drawerFeedback(),
+                icon: Icons.favorite_outline,
+                onPressed: () => onItemPressed(context, index: 3)),
+            const SizedBox(height: 15),
+            Row(
+              textDirection: languages.getMyLanguages() == 'EN'
+                  ? TextDirection.ltr
+                  : TextDirection.rtl,
+              children: [
+                DrawerItem(
+                    name: languages.drawerChangeLanguage(),
+                    icon: Icons.language,
+                    onPressed: () => onItemPressed(context, index: 2)),
+                SizedBox(width: languages.getMyLanguages() == 'EN' ? 25 : 100),
+                DropdownButton(
+                  value: dropdownValue,
+                  items: languageList
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) async {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    pref.setString('myLanguages', newValue.toString());
+                    languages.setMyLanguages(newValue.toString());
+                    myLanguages = newValue.toString();
+                    setState(() {
+                      dropdownValue = newValue.toString();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PeriodicTablePage()));
+                    });
+                  },
+                )
+              ],
+            ),
+            const SizedBox(height: 15),
+            const Divider(thickness: 1, height: 10, color: Colors.grey),
+            const SizedBox(height: 15),
+            DrawerItem(
+                name: languages.drawerLogout(),
+                icon: Icons.logout,
+                onPressed: () => onItemPressed(context, index: 4)),
+          ],
         ),
       ),
     );
   }
 
   void onItemPressed(BuildContext context, {required int index}) {
-    // Navigator.pop(context);
-
     switch (index) {
       case 0:
-        // Navigator.pushNamed(context, myProfileRoute);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MyProfile()));
         break;
       case 1:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ChangeLanguage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ChangeLanguage()));
         break;
       case 2:
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => const ChangeTheme()));
         break;
       case 3:
         showDialog(
@@ -165,13 +144,13 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             builder: (BuildContext context) {
               return SendFeedback();
             });
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => SendFeedback()));
         break;
       case 4:
         setState(() {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => PeriodicTablePage()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const PeriodicTablePage()));
           AuthO().signOutUser();
         });
 
@@ -183,38 +162,42 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     if (_auth.currentUser!.providerData[0].providerId.contains("facebook")) {
       return Container(
           height: 200,
-          padding: EdgeInsets.only(top: 20.0),
+          padding: const EdgeInsets.only(top: 20.0),
           child: Consumer<TextProvider>(builder: (context, data, child) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.only(bottom: 10),
+                    margin: const EdgeInsets.only(bottom: 10),
                     height: 100,
                     child: CircleAvatar(
                       radius: 50.0,
                       backgroundImage:
-                      NetworkImage(data.data['pic'].toString()),
+                          NetworkImage(data.data['pic'].toString()),
                       backgroundColor: Colors.transparent,
-                    )
-                ),
+                    )),
                 Text(
                   data.data['name'].toString(),
-                  style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+                  style: TextStyle(
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
                       fontSize: 20),
                 ),
                 Text(
                   data.data['email'].toString(),
                   style: TextStyle(
-                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey[600]: Colors.grey[100],
+                    color: ThemeService().getThemeMode() == ThemeMode.light
+                        ? Colors.grey[600]
+                        : Colors.grey[100],
                     fontSize: 14,
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 InkWell(
                     child: Text(languages.drawerEditProfile(),
                         style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.blueAccent,
                                 fontWeight: FontWeight.w500))),
@@ -228,37 +211,41 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
         .contains("google")) {
       return Container(
         height: 200,
-        padding: EdgeInsets.only(top: 20.0),
+        padding: const EdgeInsets.only(top: 20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 height: 100,
                 child: CircleAvatar(
                   radius: 50.0,
                   backgroundImage:
-                  NetworkImage(_auth.currentUser!.photoURL.toString()),
+                      NetworkImage(_auth.currentUser!.photoURL.toString()),
                   backgroundColor: Colors.transparent,
-                )
-            ),
+                )),
             Text(
               _auth.currentUser!.displayName.toString(),
-              style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+              style: TextStyle(
+                  color: ThemeService().getThemeMode() == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,
                   fontSize: 20),
             ),
             Text(
               _auth.currentUser!.email.toString(),
               style: TextStyle(
-                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey[600]: Colors.grey[100],
+                color: ThemeService().getThemeMode() == ThemeMode.light
+                    ? Colors.grey[600]
+                    : Colors.grey[100],
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             InkWell(
                 child: Text(languages.drawerEditProfile(),
                     style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                             fontSize: 15,
                             color: Colors.blueAccent,
                             fontWeight: FontWeight.w500))),
@@ -269,47 +256,47 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
         ),
       );
     } else {
-      DatabaseReference ref =
-          FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
       return Container(
           height: 250,
-          padding: EdgeInsets.only(top: 20.0),
+          padding: const EdgeInsets.only(top: 20.0),
           child: Consumer<TextProvider>(builder: (context, data, child) {
-            // return Text(data.data['someKey'].toString());
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.only(bottom: 10),
+                    margin: const EdgeInsets.only(bottom: 10),
                     height: 100,
                     child: CircleAvatar(
                       radius: 50.0,
                       backgroundImage:
                           NetworkImage(data.userData['photo'].toString()),
                       backgroundColor: Colors.transparent,
-                    )
-                    ),
-                SizedBox(
+                    )),
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                   data.userData['userName'].toString(),
-                  style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+                  style: TextStyle(
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
                       fontSize: 20),
                 ),
                 Text(
                   data.userData['email'].toString(),
                   style: TextStyle(
-                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey[600]: Colors.grey[100]
-                    ,
+                    color: ThemeService().getThemeMode() == ThemeMode.light
+                        ? Colors.grey[600]
+                        : Colors.grey[100],
                     fontSize: 14,
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 InkWell(
                     child: Text(languages.drawerEditProfile(),
                         style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.blueAccent,
                                 fontWeight: FontWeight.w500))),
@@ -322,131 +309,6 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     }
   }
 }
-
-// Widget headerWidget() {
-//   return Text("erg");
-//   if (_auth.currentUser!.providerData[0].providerId.contains("facebook")) {
-//     return Container(
-//         color: HexColor('#AAA1C8'),
-//         width: double.infinity,
-//         height: 200,
-//         padding: EdgeInsets.only(top: 20.0),
-//         child: Consumer<TextProvider>(builder: (context, data, child) {
-//           // return Text(data.data['someKey'].toString());
-//           return Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Container(
-//                 margin: EdgeInsets.only(bottom: 10),
-//                 height: 70,
-//                 child: Image.network(data.data['pic'].toString()),
-//               ),
-//               Text(
-//                 data.data['name'].toString(),
-//                 style: TextStyle(color: Colors.white, fontSize: 20),
-//               ),
-//               Text(
-//                 data.data['email'].toString(),
-//                 style: TextStyle(
-//                   color: Colors.grey[200],
-//                   fontSize: 14,
-//                 ),
-//               ),
-//             ],
-//           );
-//         }));
-//   } else if (_auth.currentUser!.providerData[0].providerId.contains("google")) {
-//     return Container(
-//       color: HexColor('#AAA1C8'),
-//       width: double.infinity,
-//       height: 200,
-//       padding: EdgeInsets.only(top: 20.0),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Container(
-//             margin: EdgeInsets.only(bottom: 10),
-//             height: 70,
-//             child: Container(
-//               margin: EdgeInsets.only(bottom: 10),
-//               height: 70,
-//               child: Image.network(_auth.currentUser!.photoURL.toString()),
-//             ),
-//           ),
-//           Text(
-//             _auth.currentUser!.displayName.toString(),
-//             style: TextStyle(color: Colors.white, fontSize: 20),
-//           ),
-//           Text(
-//             _auth.currentUser!.email.toString(),
-//             style: TextStyle(
-//               color: Colors.grey[200],
-//               fontSize: 14,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   } else {
-//     DatabaseReference ref =
-//         FirebaseDatabase.instance.ref().child(_auth.currentUser!.uid);
-//     return Container(
-//         color: HexColor('#AAA1C8'),
-//         width: double.infinity,
-//         height: 200,
-//         padding: EdgeInsets.only(top: 20.0),
-//         child: Consumer<TextProvider>(builder: (context, data, child) {
-//           // return Text(data.data['someKey'].toString());
-//           return Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Container(
-//                 margin: EdgeInsets.only(bottom: 10),
-//                 height: 70,
-//                 child: Image.network(data.userData['photo'].toString()),
-//               ),
-//               InkWell(
-//                 child: Text("Add new Photo"),
-//                 onTap: () async {
-//                   ImagePicker imagePicker = ImagePicker();
-//                   XFile? file =
-//                       await imagePicker.pickImage(source: ImageSource.gallery);
-//                   if (file == null) return;
-//                   Reference referenceRoot =
-//                       FirebaseStorage.instance.ref().child("userImage");
-//                   Reference referenceUploadImage =
-//                       referenceRoot.child(_auth.currentUser!.uid);
-//                   try {
-//                     await referenceUploadImage.putFile(File(file!.path));
-//                     profilePicture =
-//                         await referenceUploadImage.getDownloadURL();
-//                     await ref.update({
-//                       "photo": profilePicture,
-//                     });
-//                   } catch (e) {
-//                     print(e);
-//                   }
-//                 },
-//               ),
-//               SizedBox(
-//                 height: 10,
-//               ),
-//               Text(
-//                 data.userData['userName'].toString(),
-//                 style: TextStyle(color: Colors.white, fontSize: 20),
-//               ),
-//               Text(
-//                 data.userData['email'].toString(),
-//                 style: TextStyle(
-//                   color: Colors.grey[200],
-//                   fontSize: 14,
-//                 ),
-//               ),
-//             ],
-//           );
-//         }));
-//   }
-// }
 
 class DrawerItem extends StatelessWidget {
   const DrawerItem(
@@ -463,27 +325,34 @@ class DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: InkWell(
         onTap: onPressed,
         child: SizedBox(
           height: 40,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+            textDirection: languages.getMyLanguages() == 'EN'
+                ? TextDirection.ltr
+                : TextDirection.rtl,
             children: [
               Icon(
                 icon,
                 size: 20,
-                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+                color: ThemeService().getThemeMode() == ThemeMode.light
+                    ? Colors.black
+                    : Colors.white,
               ),
               const SizedBox(width: 20),
               Text(name,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
-                      textStyle:
-                          TextStyle(fontSize: 15,
-                            color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,)))
+                      textStyle: TextStyle(
+                    fontSize: 15,
+                    color: ThemeService().getThemeMode() == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  )))
             ],
           ),
         ),

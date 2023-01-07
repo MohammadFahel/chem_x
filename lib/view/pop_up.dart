@@ -1,12 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:math' as math;
-
 import '../controller/theme_service.dart';
 
 showPopUp(String title, String description, BuildContext context) {
@@ -14,33 +8,34 @@ showPopUp(String title, String description, BuildContext context) {
       context: context,
       builder: (context) {
         return Dialog(
-          insetPadding: EdgeInsets.all(20),
+          insetPadding: const EdgeInsets.all(20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
           elevation: 0,
           child: Container(
             padding:
-            EdgeInsets.only(top: 10, bottom: 10, right: 7, left: 7),
+                const EdgeInsets.only(top: 10, bottom: 10, right: 7, left: 7),
             width: double.infinity,
             decoration: BoxDecoration(
-                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade900,
+                color: ThemeService().getThemeMode() == ThemeMode.light
+                    ? Colors.white
+                    : Colors.grey.shade900,
                 borderRadius: BorderRadius.circular(30)),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               const Padding(
-                padding: const EdgeInsets.only(right: 20, left: 20),
+                padding: EdgeInsets.only(right: 20, left: 20),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.only(right: 10),
                   ),
                   Text(
-                    "$title",
+                    title,
                     style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ],
               ),
@@ -58,12 +53,13 @@ showPopUp(String title, String description, BuildContext context) {
               Padding(
                 padding: const EdgeInsets.only(right: 10, left: 10),
                 child: Text(
-                  "$description",
+                  description,
                   style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey.shade700: Colors.grey.shade400
-                  ),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? Colors.grey.shade700
+                          : Colors.grey.shade400),
                 ),
               ),
               const SizedBox(
@@ -75,15 +71,18 @@ showPopUp(String title, String description, BuildContext context) {
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 6.0,
-                    backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#192A51"): HexColor("#849ED9"),
+                    backgroundColor:
+                        ThemeService().getThemeMode() == ThemeMode.light
+                            ? HexColor("#192A51")
+                            : HexColor("#849ED9"),
                   ),
                   child: Text(
                     "Done",
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 13.0,
-                        )),
+                      color: Colors.white,
+                      fontSize: 13.0,
+                    )),
                   ))
             ]),
           ),

@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 
-
-class ThemeService{
+class ThemeService {
   ///Themes
   final lightTheme = ThemeData.light().copyWith(
     primaryColor: Colors.blueGrey.shade300,

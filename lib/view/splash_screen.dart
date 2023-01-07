@@ -7,7 +7,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 import 'on_boarding_screen.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -20,16 +19,21 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        const Duration(seconds: 3),
-        () => initScreen == 0 || initScreen == null ?   Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => OnBoardingScreen1()),
-        ) : Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => AuthO().haundleAuthState()),
-        ),
+      const Duration(seconds: 3),
+      () => initScreen == 0 || initScreen == null
+          ? Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const OnBoardingScreen1()),
+            )
+          : Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AuthO().haundleAuthState()),
+            ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,37 +45,36 @@ class _SplashScreenState extends State<SplashScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomRight,
                 colors: [Color(0xffaaa1c8), Color(0xffebebeb)])),
-        child:
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset("assets/images/chemxlogo.png",
-                            height: 15.h, width: 20.w),
-                        SizedBox(width: 2.5.w),
-                        Text(
-                          "ChemX",
-                          style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  fontSize: 25.0.sp, color: HexColor("#192A51"))),
-                        ),
-                      ],
-                    ),
-                        Text(
-                          "The easy way to learn\nPeriodic Table",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  fontSize: 17.5.sp, color: HexColor("#494949"))),
-                        ),
-              SizedBox(height: 20.h),
-              CircularProgressIndicator(
-                color: HexColor("#192A51"),
-              ),
-                  ],
-              ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/chemxlogo.png",
+                    height: 15.h, width: 20.w),
+                SizedBox(width: 2.5.w),
+                Text(
+                  "ChemX",
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                          fontSize: 25.0.sp, color: HexColor("#192A51"))),
+                ),
+              ],
+            ),
+            Text(
+              "The easy way to learn\nPeriodic Table",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  textStyle:
+                      TextStyle(fontSize: 17.5.sp, color: HexColor("#494949"))),
+            ),
+            SizedBox(height: 20.h),
+            CircularProgressIndicator(
+              color: HexColor("#192A51"),
+            ),
+          ],
+        ),
       ),
     );
   }

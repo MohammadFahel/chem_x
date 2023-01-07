@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../view/drawer_page/pages/my_profile.dart';
 import '../view/drawer_page/pages/send_feedback.dart';
-import '../view/on_boarding_screen.dart';
-import '../view/splash_screen.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
@@ -21,14 +18,12 @@ class AppRouter {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Error'),
+          title: const Text('Error'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('ERROR'),
         ),
       );
     });
   }
 }
-
-

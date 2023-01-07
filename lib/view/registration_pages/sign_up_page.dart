@@ -1,17 +1,13 @@
+// ignore_for_file: non_constant_identifier_names, curly_braces_in_flow_control_structures, avoid_print
+
 import 'package:chem_x/Controller/auth.dart';
 import 'package:chem_x/Controller/chem_provider.dart';
 import 'package:chem_x/main.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
-import '../../View/home_page.dart';
 import '../../controller/theme_service.dart';
 import 'dialog_sign_in.dart';
 import 'dialog_sign_up.dart';
@@ -32,15 +28,14 @@ class MyHomePage extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(n++);
-
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/signup_in.png"), fit: BoxFit.cover)),
+                image: AssetImage("assets/images/signup_in.png"),
+                fit: BoxFit.cover)),
         child: CustomScrollView(slivers: [
           SliverFillRemaining(
             hasScrollBody: false,
@@ -61,13 +56,17 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
   var textProvider = Provider.of<TextProvider>(context);
   return Container(
     decoration: BoxDecoration(
-        color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade400,
-        borderRadius: BorderRadius.only(
+        color: ThemeService().getThemeMode() == ThemeMode.light
+            ? Colors.white
+            : Colors.grey.shade400,
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
     child: Padding(
       padding: EdgeInsets.only(left: 10.0.w, right: 10.0.w),
       child: Column(
-        textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+        textDirection: languages.getMyLanguages() == 'EN'
+            ? TextDirection.ltr
+            : TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -94,7 +93,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               ],
             ),
           ),
-          Padding(padding: EdgeInsets.all(10)),
+          const Padding(padding: EdgeInsets.all(10)),
 
           Container(
             height: 0.2.h,
@@ -120,9 +119,10 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               textProvider.signUpOrSignIn,
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
-                fontSize: 15.0.sp,
-                color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey: Colors.black54
-              )),
+                      fontSize: 15.0.sp,
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? Colors.grey
+                          : Colors.black54)),
             ),
           ),
 
@@ -134,41 +134,40 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)))),
               onPressed: () {
-                
-                print("hi");
                 AuthO().signInwithGoogle();
                 textProvider.loguser();
               },
-              child: Container(
+              child: SizedBox(
                 height: 6.0.h,
                 width: double.infinity,
                 child: Row(
-                    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+                    textDirection: languages.getMyLanguages() == 'EN'
+                        ? TextDirection.ltr
+                        : TextDirection.rtl,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                  Text(
-                    textProvider.google,
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                      fontSize: 15.0.sp,
-                      color: Colors.white,
-                    )),
-                  ), // <-- Text
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Spacer(),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      child: Image.asset(
-                        "assets/images/googlelogo.png",
-                        width: 30,
-                        height: 30,
-                      )),
-                ]),
+                      Text(
+                        textProvider.google,
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                          fontSize: 15.0.sp,
+                          color: Colors.white,
+                        )),
+                      ), // <-- Text
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Spacer(),
+                      Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
+                          child: Image.asset(
+                            "assets/images/googlelogo.png",
+                            width: 30,
+                            height: 30,
+                          )),
+                    ]),
               )),
-          //  appButtons(color: "#849ED9", text:text.google , image: "assets/googlelogo.png",type: "google"),
           SizedBox(
             height: 2.0.h,
           ),
@@ -182,33 +181,36 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               onPressed: () {
                 AuthO().signInWithFacebook(context);
               },
-              child: Container(
+              child: SizedBox(
                 height: 6.0.h,
                 width: double.infinity,
                 child: Row(
-                    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
-                    mainAxisSize: MainAxisSize.max, children: [
-                  Text(
-                    textProvider.faceBook,
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                      fontSize: 15.0.sp,
-                      color: Colors.white,
-                    )),
-                  ), // <-- Text
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Spacer(),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      child: Image.asset(
-                        "assets/images/facebooklogo.png",
-                        width: 30,
-                        height: 30,
-                      )),
-                ]),
+                    textDirection: languages.getMyLanguages() == 'EN'
+                        ? TextDirection.ltr
+                        : TextDirection.rtl,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        textProvider.faceBook,
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                          fontSize: 15.0.sp,
+                          color: Colors.white,
+                        )),
+                      ), // <-- Text
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Spacer(),
+                      Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
+                          child: Image.asset(
+                            "assets/images/facebooklogo.png",
+                            width: 30,
+                            height: 30,
+                          )),
+                    ]),
               )),
           //   appButtons(color: "#192A51", text: text.faceBook, image: "assets/facebooklogo.png",type: "faceBook"),
           SizedBox(
@@ -216,13 +218,15 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
           ),
 
           Row(
-            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+            textDirection: languages.getMyLanguages() == 'EN'
+                ? TextDirection.ltr
+                : TextDirection.rtl,
             children: [
               Text(
                 languages.SignOring(),
                 style: TextStyle(color: Colors.black, fontSize: 12.sp),
               ),
-              SizedBox(width: 3),
+              const SizedBox(width: 3),
               Expanded(
                 child: Container(
                   height: 0.3.h,
@@ -242,13 +246,18 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               context: context),
           spaceBetweenWidgets(MediaQuery.of(context).size.height),
           Row(
-            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+            textDirection: languages.getMyLanguages() == 'EN'
+                ? TextDirection.ltr
+                : TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 textProvider.doYouHaveAnAccountOrNot,
-                style: TextStyle(fontSize: 12.0.sp,
-                    color: ThemeService().getThemeMode() == ThemeMode.light? Colors.grey: Colors.black54),
+                style: TextStyle(
+                    fontSize: 12.0.sp,
+                    color: ThemeService().getThemeMode() == ThemeMode.light
+                        ? Colors.grey
+                        : Colors.black54),
               ),
               InkWell(
                 onTap: () {
@@ -257,13 +266,10 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       textProvider.signUpOrSignIn == 'تسجيل الدخول') {
                     print("all good");
                     textProvider.NewUser();
-                  }
-                  else if (textProvider.signUpOrSignIn == "Sign Up" ||
-                      textProvider.signUpOrSignIn == 'اشترك الآن'){
+                  } else if (textProvider.signUpOrSignIn == "Sign Up" ||
+                      textProvider.signUpOrSignIn == 'اشترك الآن') {
                     textProvider.oldUser();
-
-                  }
-                  else
+                  } else
                     print("hahahahahahaaa");
                 },
                 child: Text(
@@ -305,44 +311,47 @@ Widget appButtons(
                 builder: (BuildContext context) {
                   return DialogSignUp();
                 });
-          } else if(textProvider.signUpOrSignIn == "Sign In" ||
-              textProvider.signUpOrSignIn == 'تسجيل الدخول'){
+          } else if (textProvider.signUpOrSignIn == "Sign In" ||
+              textProvider.signUpOrSignIn == 'تسجيل الدخول') {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return DialogSignIn();
+                  return const DialogSignIn();
                 });
-          }
-          else return null;
+          } else
+            return;
         }
       },
-      child: Container(
+      child: SizedBox(
         height: 6.0.h,
         width: double.infinity,
         child: Row(
-            textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
-            mainAxisSize: MainAxisSize.max, children: [
-          Text(
-            text,
-            style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-              fontSize: 15.0.sp,
-              color: Colors.white,
-            )),
-          ), // <-- Text
-          SizedBox(
-            width: 5,
-          ),
-          Spacer(),
-          Container(
-              decoration:
-                  BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-              child: Image.asset(
-                image,
-                width: 30,
-                height: 30,
-              )),
-        ]),
+            textDirection: languages.getMyLanguages() == 'EN'
+                ? TextDirection.ltr
+                : TextDirection.rtl,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                text,
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                  fontSize: 15.0.sp,
+                  color: Colors.white,
+                )),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              const Spacer(),
+              Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: Image.asset(
+                    image,
+                    width: 30,
+                    height: 30,
+                  )),
+            ]),
       ));
 }
 

@@ -1,14 +1,11 @@
-import 'dart:math';
+// ignore_for_file: must_be_immutable
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../Controller/chem_provider.dart';
-import '../../controller/theme_service.dart';
 
 class Quiz extends StatefulWidget {
   String summary;
@@ -32,7 +29,6 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   int pointNumber = 0;
-
   Set<int> numbers = {0, 1, 2, 3};
 
 // Convert the set to a list and shuffle it
@@ -40,7 +36,6 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
-    // double height = MediaQuery.of(context).size.height;
     var providerChem = Provider.of<TextProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -67,7 +62,7 @@ class _QuizState extends State<Quiz> {
               height: 2.h,
             ),
             Consumer<TextProvider>(builder: (context, myData, child) {
-              return Container(
+              return SizedBox(
                 height: 6.5.h,
                 child: ElevatedButton(
                   style: ButtonStyle(
@@ -92,7 +87,8 @@ class _QuizState extends State<Quiz> {
                         backgroundColor: HexColor("#192A51"),
                         child: Text(
                           "A",
-                          style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 18.sp),
                         ),
                       ),
                       SizedBox(
@@ -103,14 +99,15 @@ class _QuizState extends State<Quiz> {
                         style: TextStyle(
                             color: HexColor("#626262"), fontSize: 15.sp),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       myData.isPressedButtonInQuizPageForA
                           ? IconButton(
                               onPressed: () => {
-                                    myData.changeColorOfButtonInQuizPageForFalse(
-                                        "A")
+                                    myData
+                                        .changeColorOfButtonInQuizPageForFalse(
+                                            "A")
                                   },
-                              icon: Icon(Icons.close_outlined))
+                              icon: const Icon(Icons.close_outlined))
                           : Container()
                     ],
                   ),
@@ -122,7 +119,7 @@ class _QuizState extends State<Quiz> {
               height: 2.h,
             ),
             Consumer<TextProvider>(builder: (context, myData, child) {
-              return Container(
+              return SizedBox(
                 height: 6.5.h,
                 child: ElevatedButton(
                   style: ButtonStyle(
@@ -147,7 +144,8 @@ class _QuizState extends State<Quiz> {
                         backgroundColor: HexColor("#192A51"),
                         child: Text(
                           "B",
-                          style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 18.sp),
                         ),
                       ),
                       SizedBox(
@@ -158,14 +156,15 @@ class _QuizState extends State<Quiz> {
                         style: TextStyle(
                             color: HexColor("#626262"), fontSize: 15.sp),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       myData.isPressedButtonInQuizPageForB
                           ? IconButton(
                               onPressed: () => {
-                                    myData.changeColorOfButtonInQuizPageForFalse(
-                                        "B")
+                                    myData
+                                        .changeColorOfButtonInQuizPageForFalse(
+                                            "B")
                                   },
-                              icon: Icon(Icons.close_outlined))
+                              icon: const Icon(Icons.close_outlined))
                           : Container()
                     ],
                   ),
@@ -176,7 +175,7 @@ class _QuizState extends State<Quiz> {
               height: 2.h,
             ),
             Consumer<TextProvider>(builder: (context, myData, child) {
-              return Container(
+              return SizedBox(
                 height: 6.5.h,
                 child: ElevatedButton(
                   style: ButtonStyle(
@@ -201,7 +200,8 @@ class _QuizState extends State<Quiz> {
                         backgroundColor: HexColor("#192A51"),
                         child: Text(
                           "C",
-                          style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 18.sp),
                         ),
                       ),
                       SizedBox(
@@ -212,14 +212,15 @@ class _QuizState extends State<Quiz> {
                         style: TextStyle(
                             color: HexColor("#626262"), fontSize: 15.sp),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       myData.isPressedButtonInQuizPageForC
                           ? IconButton(
                               onPressed: () => {
-                                    myData.changeColorOfButtonInQuizPageForFalse(
-                                        "C")
+                                    myData
+                                        .changeColorOfButtonInQuizPageForFalse(
+                                            "C")
                                   },
-                              icon: Icon(Icons.close_outlined))
+                              icon: const Icon(Icons.close_outlined))
                           : Container()
                     ],
                   ),
@@ -230,7 +231,7 @@ class _QuizState extends State<Quiz> {
               height: 2.h,
             ),
             Consumer<TextProvider>(builder: (context, myData, child) {
-              return Container(
+              return SizedBox(
                 height: 6.5.h,
                 child: ElevatedButton(
                   style: ButtonStyle(
@@ -255,7 +256,8 @@ class _QuizState extends State<Quiz> {
                         backgroundColor: HexColor("#192A51"),
                         child: Text(
                           "D",
-                          style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 18.sp),
                         ),
                       ),
                       SizedBox(
@@ -266,14 +268,15 @@ class _QuizState extends State<Quiz> {
                         style: TextStyle(
                             color: HexColor("#626262"), fontSize: 15.sp),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       myData.isPressedButtonInQuizPageForD
                           ? IconButton(
                               onPressed: () => {
-                                    myData.changeColorOfButtonInQuizPageForFalse(
-                                        "D")
+                                    myData
+                                        .changeColorOfButtonInQuizPageForFalse(
+                                            "D")
                                   },
-                              icon: Icon(Icons.close_outlined))
+                              icon: const Icon(Icons.close_outlined))
                           : Container()
                     ],
                   ),
@@ -288,23 +291,20 @@ class _QuizState extends State<Quiz> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: MaterialButton(
-                onPressed: () =>
+                onPressed: () => {
+                  if (providerChem.answerInQuiz == widget.name)
                     {
-                      if(providerChem.answerInQuiz == widget.name){
-                        providerChem.pointsForExam(),
-                      },
-
-                      if(widget.currentPage==5){
-                        Navigator.pop(context)
-                      }else
-                      widget.pageController.jumpToPage(widget.currentPage + 1),
-
-                      providerChem.changeColorOfButtonInQuizPageForFalse("D"),
-                providerChem.changeColorOfButtonInQuizPageForFalse("B"),
-                providerChem.changeColorOfButtonInQuizPageForFalse("C"),
-                providerChem.changeColorOfButtonInQuizPageForFalse("A"),
-
+                      providerChem.pointsForExam(),
                     },
+                  if (widget.currentPage == 5)
+                    {Navigator.pop(context)}
+                  else
+                    widget.pageController.jumpToPage(widget.currentPage + 1),
+                  providerChem.changeColorOfButtonInQuizPageForFalse("D"),
+                  providerChem.changeColorOfButtonInQuizPageForFalse("B"),
+                  providerChem.changeColorOfButtonInQuizPageForFalse("C"),
+                  providerChem.changeColorOfButtonInQuizPageForFalse("A"),
+                },
                 child: Container(
                   height: 7.h,
                   width: double.infinity,
@@ -314,11 +314,10 @@ class _QuizState extends State<Quiz> {
                   ),
                   child: Center(
                       child: Text(
-                        widget.currentPage==5?"SUBMIT": "Next Question",
-                    style: TextStyle(color: HexColor("#192A51"), fontSize: 15.sp),
-                  )
-
-                  ),
+                    widget.currentPage == 5 ? "SUBMIT" : "Next Question",
+                    style:
+                        TextStyle(color: HexColor("#192A51"), fontSize: 15.sp),
+                  )),
                 ),
               ),
             )

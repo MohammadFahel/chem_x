@@ -7,7 +7,10 @@ class ChangeLanguage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Change Language',style: TextStyle(fontSize: 100),),
+        title: const Text(
+          'Change Language',
+          style: TextStyle(fontSize: 100),
+        ),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),

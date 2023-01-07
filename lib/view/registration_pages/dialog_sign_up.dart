@@ -1,6 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:chem_x/Controller/auth.dart';
 import 'package:chem_x/main.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -16,15 +17,10 @@ class DialogSignUp extends StatefulWidget {
 
 class _DialogSignUpState extends State<DialogSignUp> {
   final _emailSignUpDialogKey = GlobalKey<FormFieldState>();
-
   final _passwordSignUpDialogKey = GlobalKey<FormFieldState>();
-
   final _userNameSignUpDialogKey = GlobalKey<FormFieldState>();
-
   final userNameController = TextEditingController();
-
   final emailController = TextEditingController();
-
   final PasswordController = TextEditingController();
 
   @override
@@ -42,25 +38,35 @@ class _DialogSignUpState extends State<DialogSignUp> {
               EdgeInsets.only(top: 3.h, bottom: 3.h, right: 7.w, left: 7.w),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey.shade900,
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.white
+                  : Colors.grey.shade900,
               borderRadius: BorderRadius.circular(30)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
-                textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+                textDirection: languages.getMyLanguages() == 'EN'
+                    ? TextDirection.ltr
+                    : TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: Icon(Icons.mail_sharp,
-                      color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,),
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Icon(
+                      Icons.mail_sharp,
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
                   ),
                   Text(
                     languages.dialogSignupWithEmail(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white,
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
                       fontSize: 15.0.sp,
                     )),
                   ),
@@ -103,11 +109,13 @@ class _DialogSignUpState extends State<DialogSignUp> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#192A51"): HexColor("#849ED9"),
+                    backgroundColor:
+                        ThemeService().getThemeMode() == ThemeMode.light
+                            ? HexColor("#192A51")
+                            : HexColor("#849ED9"),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0))),
                 onPressed: () {
-
                   if (_userNameSignUpDialogKey.currentState != null &&
                       _emailSignUpDialogKey.currentState != null &&
                       _passwordSignUpDialogKey.currentState != null) {
@@ -141,7 +149,9 @@ class _DialogSignUpState extends State<DialogSignUp> {
                     languages.dialogSignupCancel(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                      color: ThemeService().getThemeMode() == ThemeMode.light? HexColor("#B90000"): Colors.redAccent,
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? HexColor("#B90000")
+                          : Colors.redAccent,
                       fontSize: 15.0.sp,
                     )),
                   )),
@@ -159,30 +169,52 @@ Widget TextFieldWidget(
     required String validator,
     required TextEditingController controller}) {
   return Directionality(
-    textDirection: languages.getMyLanguages() == 'EN'? TextDirection.ltr: TextDirection.rtl,
+    textDirection: languages.getMyLanguages() == 'EN'
+        ? TextDirection.ltr
+        : TextDirection.rtl,
     child: TextFormField(
       obscureText: validator == "Password" ? true : false,
       controller: controller,
-      style: TextStyle(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+      style: TextStyle(
+          color: ThemeService().getThemeMode() == ThemeMode.light
+              ? Colors.black
+              : Colors.white),
       key: keyy,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
         label: Text(
           lable,
-          style: TextStyle(fontSize: 10.sp,
-            color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+          style: TextStyle(
+              fontSize: 10.sp,
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
         ),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white , width: 2),
+            borderSide: BorderSide(
+                color: ThemeService().getThemeMode() == ThemeMode.light
+                    ? Colors.black
+                    : Colors.white,
+                width: 2),
             borderRadius: BorderRadius.circular(20)),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white, width: 2),
+            borderSide: BorderSide(
+                color: ThemeService().getThemeMode() == ThemeMode.light
+                    ? Colors.black
+                    : Colors.white,
+                width: 2),
             borderRadius: BorderRadius.circular(20)),
         errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderSide: BorderSide(
+                color: ThemeService().getThemeMode() == ThemeMode.light
+                    ? Colors.black
+                    : Colors.white),
             borderRadius: BorderRadius.circular(20)),
         focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ThemeService().getThemeMode() == ThemeMode.light? Colors.black: Colors.white),
+            borderSide: BorderSide(
+                color: ThemeService().getThemeMode() == ThemeMode.light
+                    ? Colors.black
+                    : Colors.white),
             borderRadius: BorderRadius.circular(20)),
       ),
       validator: (text) {

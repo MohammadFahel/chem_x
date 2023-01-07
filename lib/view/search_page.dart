@@ -1,6 +1,6 @@
-import 'dart:convert';
+// ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -19,12 +19,12 @@ class _SearchBarState extends State<SearchBar> {
   List<dynamic> _items = [];
   List<dynamic> _itemsToDesplay = [];
   String myColor = "#00000";
-  var _controller = TextEditingController();
+  final _controller = TextEditingController();
 
   // Fetch content from the json file
   Future<void> readJson() async {
     final String response =
-    await rootBundle.loadString("assets/data/quizzesData.json");
+        await rootBundle.loadString("assets/data/quizzesData.json");
     final data = await json.decode(response);
     setState(() {
       _items = data["myelements"];
@@ -40,61 +40,63 @@ class _SearchBarState extends State<SearchBar> {
       return const Center(child: CircularProgressIndicator());
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Search for specific element", style: TextStyle(color: Colors.black)),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.black,
-          onPressed: () => Navigator.pop(context),
+        appBar: AppBar(
+          title: const Text("Search for specific element",
+              style: TextStyle(color: Colors.black)),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context),
+          ),
+          backgroundColor: ThemeService().getThemeMode() == ThemeMode.light
+              ? Colors.white
+              : Colors.grey,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+          shadowColor: Colors.black,
         ),
-        backgroundColor: ThemeService().getThemeMode() == ThemeMode.light? Colors.white: Colors.grey,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
-        shadowColor: Colors.black,
-      ),
-
-      body: ListView.builder(
-          itemBuilder: (context, index){
-            return index == 0? AppBarSearch(): ViewData(index-1);
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            return index == 0 ? AppBarSearch() : ViewData(index - 1);
           },
-          itemCount: _itemsToDesplay.length+1,
-      )
-
-
-    );
+          itemCount: _itemsToDesplay.length + 1,
+        ));
   }
 
-  AppBarSearch(){
+  AppBarSearch() {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Container(
         width: double.infinity,
         height: 40,
         decoration: BoxDecoration(
-            color:
-            ThemeService().getThemeMode() == ThemeMode.light?  Colors.grey.shade200:  Colors.grey.shade800,
+            color: ThemeService().getThemeMode() == ThemeMode.light
+                ? Colors.grey.shade200
+                : Colors.grey.shade800,
             borderRadius: BorderRadius.circular(10)),
         child: Center(
           child: TextField(
             controller: _controller,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 fillColor: Colors.redAccent,
                 prefixIconColor: Colors.redAccent,
                 focusColor: Colors.yellow,
                 iconColor: Colors.lightGreen,
-                suffixIcon: IconButton(onPressed: () {
-                  _controller.clear();
-                  setState(() {
-                  readJson();
-                  });
-                  }, icon: const Icon(Icons.clear)),
+                suffixIcon: IconButton(
+                    onPressed: () {
+                      _controller.clear();
+                      setState(() {
+                        readJson();
+                      });
+                    },
+                    icon: const Icon(Icons.clear)),
                 hintText: 'Search...',
-                border: InputBorder.none
-            ),
+                border: InputBorder.none),
             onChanged: (changeText) {
               changeText = changeText.toLowerCase();
               setState(() {
-                _itemsToDesplay = _items.where((item){
+                _itemsToDesplay = _items.where((item) {
                   var itemTitle = item['name'].toLowerCase();
                   return itemTitle.contains(changeText);
                 }).toList();
@@ -106,75 +108,26 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 
-  ViewData(counter){
-     return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                 // Text(_itemsToDesplay[counter]['name']),
-                 // SizedBox(height: 5),
-                  Container(
-                    // decoration: BoxDecoration(
-                    //   borderRadius: BorderRadius.circular(10),
-                    //   border: Border.all(color: HexColor("${myColor}"), width: 1.5),
-                    //   color: HexColor("${myColor}"),
-                    //   gradient: LinearGradient(
-                    //     begin: Alignment.topRight,
-                    //     end: Alignment.bottomRight,
-                    //     colors: [
-                    //       HexColor("${myColor}").withOpacity(0.9),
-                    //       HexColor("${myColor}").withOpacity(0.6)
-                    //     ],
-                    //   ),
-                    //   boxShadow: const [
-                    //     BoxShadow(
-                    //       color: Colors.black12,
-                    //       blurRadius: 10.0,
-                    //       spreadRadius: 5.0,
-                    //     ),
-                    //   ],
-                    // ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Row(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     const SizedBox(
-                        //       width: 5,
-                        //     ),
-                        //     Text(
-                        //       "${_items[counter]["number"]}",
-                        //       style: const TextStyle(color: Colors.white),
-                        //     ),
-                        //     const SizedBox(
-                        //       width: 20,
-                        //     ),
-                        //   ],
-                        // ),
-                        myElementInSearch(counter),
-                        // Text(_items[counter]["symbol"],
-                        //     style: const TextStyle(
-                        //         fontSize: 15,
-                        //         color: Colors.white,
-                        //         fontWeight: FontWeight.bold)),
-                        // Text(_items[counter]["name"],
-                        //     style: const TextStyle(
-                        //         fontSize: 7.5,
-                        //         fontWeight: FontWeight.bold,
-                        //         color: Colors.white)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+  ViewData(counter) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                myElementInSearch(counter),
+              ],
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 
-  myElementInSearch(counterElement){
+  myElementInSearch(counterElement) {
     myColor = "#00000";
     switch (_itemsToDesplay[counterElement]["category"]) {
       case "noble gas":
@@ -211,58 +164,39 @@ class _SearchBarState extends State<SearchBar> {
         myColor = colors.lanthanides;
         break;
     }
-    print(myColor);
-    print(_items[counterElement]['category']);
     return GestureDetector(
       onTap: () {
-        // print(_items[index]['category']);
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ElementPage(
-                atomicMass: _itemsToDesplay[counterElement]["atomic_mass"] == null
+                atomicMass: _itemsToDesplay[counterElement]["atomic_mass"] ==
+                        null
                     ? 0.0
                     : _itemsToDesplay[counterElement]["atomic_mass"].toDouble(),
-                appearance: _itemsToDesplay[counterElement]["appearance"] == null
-                    ? ""
-                    : _itemsToDesplay[counterElement]["appearance"],
+                appearance: _itemsToDesplay[counterElement]["appearance"] ?? "",
                 boil: _itemsToDesplay[counterElement]["boil"] == null
                     ? 0.0
                     : _itemsToDesplay[counterElement]["boil"].toDouble(),
-                category: _itemsToDesplay[counterElement]["category"] == null
-                    ? ""
-                    : _itemsToDesplay[counterElement]["category"],
+                category: _itemsToDesplay[counterElement]["category"] ?? "",
                 density: _itemsToDesplay[counterElement]["density"] == null
                     ? 0.0
                     : _itemsToDesplay[counterElement]["density"].toDouble(),
-                discoveredBy: _itemsToDesplay[counterElement]["discovered_by"] == null
-                    ? ""
-                    : _itemsToDesplay[counterElement]["discovered_by"],
+                discoveredBy:
+                    _itemsToDesplay[counterElement]["discovered_by"] ?? "",
                 melt: _itemsToDesplay[counterElement]["melt"] == null
                     ? 0.0
                     : _itemsToDesplay[counterElement]["melt"].toDouble(),
                 molarHeat: _itemsToDesplay[counterElement]["molar_heat"] == null
                     ? 0.0
                     : _itemsToDesplay[counterElement]["molar_heat"].toDouble(),
-                namedBy: _itemsToDesplay[counterElement]["named_by"] == null
-                    ? ""
-                    : _itemsToDesplay[counterElement]["named_by"],
-                number: _itemsToDesplay[counterElement]["number"] == null
-                    ? 0
-                    : _itemsToDesplay[counterElement]["number"],
-                period: _itemsToDesplay[counterElement]["period"] == null
-                    ? 0
-                    : _itemsToDesplay[counterElement]["period"],
-                phase: _itemsToDesplay[counterElement]["phase"] == null
-                    ? 0
-                    : _itemsToDesplay[counterElement]["phase"],
-                summary: _itemsToDesplay[counterElement]["summary"] == null
-                    ? ""
-                    : _itemsToDesplay[counterElement]["summary"],
+                namedBy: _itemsToDesplay[counterElement]["named_by"] ?? "",
+                number: _itemsToDesplay[counterElement]["number"] ?? 0,
+                period: _itemsToDesplay[counterElement]["period"] ?? 0,
+                phase: _itemsToDesplay[counterElement]["phase"] ?? 0,
+                summary: _itemsToDesplay[counterElement]["summary"] ?? "",
                 myColor: colors.unknown_properties,
-                symbol: _itemsToDesplay[counterElement]["symbol"] == null
-                    ? ""
-                    : _itemsToDesplay[counterElement]["symbol"],
+                symbol: _itemsToDesplay[counterElement]["symbol"] ?? "",
                 name: _itemsToDesplay[counterElement]["name"],
               ),
             ));
@@ -272,14 +206,14 @@ class _SearchBarState extends State<SearchBar> {
         width: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: HexColor("${myColor}"), width: 1.5),
-          color: HexColor("${myColor}"),
+          border: Border.all(color: HexColor(myColor), width: 1.5),
+          color: HexColor(myColor),
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomRight,
             colors: [
-              HexColor("${myColor}").withOpacity(0.9),
-              HexColor("${myColor}").withOpacity(0.6)
+              HexColor(myColor).withOpacity(0.9),
+              HexColor(myColor).withOpacity(0.6)
             ],
           ),
           boxShadow: const [
@@ -301,9 +235,7 @@ class _SearchBarState extends State<SearchBar> {
                 ),
                 Text(
                   "${_itemsToDesplay[counterElement]["number"]}",
-                  style: const TextStyle(
-                      fontSize: 17.5,
-                      color: Colors.white),
+                  style: const TextStyle(fontSize: 17.5, color: Colors.white),
                 ),
                 const SizedBox(
                   width: 20,
