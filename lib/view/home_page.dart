@@ -130,7 +130,7 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
           },
         ),
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
         child: PeriodicTable(),
       ),

@@ -1,12 +1,17 @@
+import 'package:chem_x/Module/single_element_data.dart';
+import 'package:chem_x/View/element_tile.dart';
+import 'package:chem_x/module/single_element_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'element_page.dart';
 import 'home_page.dart' as colors;
 import 'package:hexcolor/hexcolor.dart';
+import 'package:glassmorphism/glassmorphism.dart';
 
 class PeriodicTable extends StatefulWidget {
-  const PeriodicTable({Key? key}) : super(key: key);
+  PeriodicTable({Key? key}) : super(key: key);
 
   // final periodicList = rootBundle
   //     .loadString("assets/data/elementsData.json")
@@ -21,7 +26,6 @@ class PeriodicTable extends StatefulWidget {
 class _PeriodicTableState extends State<PeriodicTable> {
   List<dynamic> _items = [];
   String myColor = "#00000";
-
   // Fetch content from the json file
   Future<void> readJson() async {
     final String response =
@@ -33,13 +37,29 @@ class _PeriodicTableState extends State<PeriodicTable> {
   }
 
   _buildTable(List elements) {
-    return GridView.builder(
-      shrinkWrap: true,
+    // final forGrid = elements
+    //     .map(
+    //       (element) => elements != null
+    //           ? ElementTile(element: element!)
+    //           : Container(
+    //               margin: EdgeInsets.all(1.w),
+    //               decoration: BoxDecoration(
+    //                 borderRadius: BorderRadius.circular(10),
+    //               ),
+    //             ),
+    //     )
+    //     .toList();
+    //
+
+    return
+      GridView.builder(shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 9, crossAxisSpacing: 7, mainAxisSpacing: 7),
       scrollDirection: Axis.horizontal,
       itemCount: _items.length,
       itemBuilder: (_, index) {
+        print("mmmmmmmmmmmmmmmmmmmmm");
+        print(_items.length);
         if (_items[index] == null) {
           return Container();
         } else {
@@ -79,9 +99,11 @@ class _PeriodicTableState extends State<PeriodicTable> {
               myColor = colors.lanthanides;
               break;
           }
-
+          print(myColor);
+          print(_items[index]['category']);
           return GestureDetector(
             onTap: () {
+              // print(_items[index]['category']);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -89,28 +111,46 @@ class _PeriodicTableState extends State<PeriodicTable> {
                       atomicMass: _items[index]["atomic_mass"] == null
                           ? 0.0
                           : _items[index]["atomic_mass"].toDouble(),
-                      appearance: _items[index]["appearance"] ?? "",
+                      appearance: _items[index]["appearance"] == null
+                          ? ""
+                          : _items[index]["appearance"],
                       boil: _items[index]["boil"] == null
                           ? 0.0
                           : _items[index]["boil"].toDouble(),
-                      category: _items[index]["category"] ?? "",
+                      category: _items[index]["category"] == null
+                          ? ""
+                          : _items[index]["category"],
                       density: _items[index]["density"] == null
                           ? 0.0
                           : _items[index]["density"].toDouble(),
-                      discoveredBy: _items[index]["discovered_by"] ?? "",
+                      discoveredBy: _items[index]["discovered_by"] == null
+                          ? ""
+                          : _items[index]["discovered_by"],
                       melt: _items[index]["melt"] == null
                           ? 0.0
                           : _items[index]["melt"].toDouble(),
                       molarHeat: _items[index]["molar_heat"] == null
                           ? 0.0
                           : _items[index]["molar_heat"].toDouble(),
-                      namedBy: _items[index]["named_by"] ?? "",
-                      number: _items[index]["number"] ?? 0,
-                      period: _items[index]["period"] ?? 0,
-                      phase: _items[index]["phase"] ?? 0,
-                      summary: _items[index]["summary"] ?? "",
+                      namedBy: _items[index]["named_by"] == null
+                          ? ""
+                          : _items[index]["named_by"],
+                      number: _items[index]["number"] == null
+                          ? 0
+                          : _items[index]["number"],
+                      period: _items[index]["period"] == null
+                          ? 0
+                          : _items[index]["period"],
+                      phase: _items[index]["phase"] == null
+                          ? 0
+                          : _items[index]["phase"],
+                      summary: _items[index]["summary"] == null
+                          ? ""
+                          : _items[index]["summary"],
                       myColor: _items[index]["cpk-hex"],
-                      symbol: _items[index]["symbol"] ?? "",
+                      symbol: _items[index]["symbol"] == null
+                          ? ""
+                          : _items[index]["symbol"],
                       name: _items[index]["name"],
                     ),
                   ));
@@ -118,14 +158,14 @@ class _PeriodicTableState extends State<PeriodicTable> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: HexColor(myColor), width: 1.5),
-                color: HexColor(myColor),
+                border: Border.all(color: HexColor("${myColor}"), width: 1.5),
+                color: HexColor("${myColor}"),
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomRight,
                   colors: [
-                    HexColor(myColor).withOpacity(0.9),
-                    HexColor(myColor).withOpacity(0.6)
+                    HexColor("${myColor}").withOpacity(0.9),
+                    HexColor("${myColor}").withOpacity(0.6)
                   ],
                 ),
                 boxShadow: const [
@@ -136,6 +176,28 @@ class _PeriodicTableState extends State<PeriodicTable> {
                   ),
                 ],
               ),
+
+              // borderRadius: 10,
+              // blur: 20,
+              // width: 20,
+              // height: 20,
+              // border: 0,
+              // linearGradient: LinearGradient(
+              //   begin: Alignment.topRight,
+              //   end: Alignment.bottomRight,
+              //   colors: [
+              //     HexColor("${myColor}").withOpacity(0.9),
+              //     HexColor("${myColor}").withOpacity(0.6)
+              //   ],
+              // ),
+              // borderGradient: LinearGradient(
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              //   colors: [
+              //     HexColor("${myColor}").withOpacity(0.9),
+              //     HexColor("${myColor}").withOpacity(0.5),
+              //   ],
+              // ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -161,7 +223,7 @@ class _PeriodicTableState extends State<PeriodicTable> {
                           fontWeight: FontWeight.bold)),
                   Text(_items[index]["name"],
                       style: const TextStyle(
-                          fontSize: 7.5,
+                          fontSize: 6.5,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
                 ],
@@ -183,3 +245,6 @@ class _PeriodicTableState extends State<PeriodicTable> {
     }
   }
 }
+
+
+

@@ -105,62 +105,68 @@ class ElementPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: HexColor(myColor), width: 1.5),
-                    color: HexColor(myColor),
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        HexColor(myColor).withOpacity(0.9),
-                        HexColor(myColor).withOpacity(0.4)
-                      ],
-                    ),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 10.0,
-                        spreadRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "$number",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 20),
-                          ),
+            Padding(
+              padding: EdgeInsets.only(left: 25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: HexColor(myColor), width: 1.5),
+                      color: HexColor(myColor),
+                      gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          HexColor(myColor).withOpacity(0.9),
+                          HexColor(myColor).withOpacity(0.4)
                         ],
                       ),
-                      Text(symbol,
-                          style: GoogleFonts.poppins(
-                              fontSize: 45,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)),
-                      Text(name,
-                          style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    ],
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10.0,
+                          spreadRadius: 5.0,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "$number",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        Text(symbol,
+                            style: GoogleFonts.poppins(
+                                fontSize: 45,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                        Text(name,
+                            style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(width: 10,),
+                  Image.asset("assets/images/${name}.png",
+                      height: 200, width: 200)
+                ],
+              ),
             ),
             Container(
               color: Colors.white,
