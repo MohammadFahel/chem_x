@@ -26,6 +26,7 @@ class TextProvider extends ChangeNotifier {
   int currentPageForExamPage = 0;
   String answerInQuiz = "";
   int pointsForTrueAnswers = 0;
+  String dropDownValue = "";
 
   void pointsForExamToZeroValue() {
     pointsForTrueAnswers = 0;
@@ -136,4 +137,10 @@ class TextProvider extends ChangeNotifier {
     AuthO().haundleAuthState();
     notifyListeners();
   }
+
+  void onChangedDDLAdmin(String NewValue) {
+    dropDownValue = NewValue;
+    notifyListeners();
+  }
+
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:chem_x/view/pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -162,7 +164,7 @@ class ElementPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(width: 10,),
+                  const SizedBox(width: 10,),
                   Image.asset("assets/images/${name}.png",
                       height: 200, width: 200)
                 ],

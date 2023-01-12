@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Controller/auth.dart';
 import '../../Controller/chem_provider.dart';
+import '../../View/admin_pages/admin_select_category.dart';
 import '../../View/home_page.dart';
 import '../../controller/theme_service.dart';
 
@@ -114,6 +115,8 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
               ],
             ),
             const SizedBox(height: 15),
+            DrawerItem(name: "CRUD Operation", icon: Icons.admin_panel_settings, onPressed:() => onItemPressed(context, index: 2)),
+            const SizedBox(height: 15),
             const Divider(thickness: 1, height: 10, color: Colors.grey),
             const SizedBox(height: 15),
             DrawerItem(
@@ -137,6 +140,10 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
             MaterialPageRoute(builder: (context) => const ChangeLanguage()));
         break;
       case 2:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const CRUDOperations()));
         break;
       case 3:
         showDialog(
