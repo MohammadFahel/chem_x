@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sizer/sizer.dart';
 
+import '../../Module/single_element_data.dart';
 import '../../controller/theme_service.dart';
 import '../../main.dart';
 
@@ -31,9 +33,17 @@ class _CreateQuizState extends State<CreateQuiz> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         centerTitle: true,
-        title: const Text("Create New Quiz",
-          style: TextStyle(color: Colors.black)
-        ),
+        title: Row(
+            children: [
+              SizedBox(width: 13.w),
+              const Text("Create New Quiz", style: TextStyle(color: Colors.black)),
+              SizedBox(width: 2.w),
+              const Icon(
+                  Icons.add,
+                  color: Colors.black
+              ),
+
+            ]),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
@@ -56,9 +66,9 @@ class _CreateQuizState extends State<CreateQuiz> {
                             : Colors.white,
                       ))),
               const SizedBox(height: 15),
-              MyTextFieldWidget(14, addQuestionField, "Enter New Question Here.."),
+              MyTextFieldWidget(10, addQuestionField, "Enter New Question Here.."),
               const SizedBox(height: 20),
-              const Divider(thickness: 1, height: 10, color: Colors.grey),
+              const Divider(thickness: 1, height: 12, color: Colors.grey),
               const SizedBox(height: 15),
               Text("Write The Correct Answer",
                   style: GoogleFonts.poppins(
@@ -70,7 +80,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                       ))),
               const SizedBox(height: 15),
               MyTextFieldWidget(1, addAnswerField, "Enter The Correct Message Here.."),
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor:
@@ -80,7 +90,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0))),
                 onPressed: ()  {
-
+                  Myelements.addNewQuiz(addQuestionField.toString(), addAnswerField.toString());
                 },
                 child: Padding(
                   padding:
@@ -89,11 +99,25 @@ class _CreateQuizState extends State<CreateQuiz> {
                     languages.feedbackSubmit(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          fontSize: 17.5,
+                          fontSize: 15.sp,
                         )),
                   ),
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    languages.profileCancelChanges(),
+                    style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          color: ThemeService().getThemeMode() == ThemeMode.light
+                              ? HexColor("#B90000")
+                              : Colors.redAccent,
+                          fontSize: 14.sp,
+                        )),
+                  )),
             ],
           ),
         ),
@@ -106,7 +130,9 @@ Widget MyTextFieldWidget(int maxValue, TextEditingController myController, Strin
   return TextField(
     controller: myController,
     keyboardType: TextInputType.multiline,
-    maxLines: maxValue,
+    minLines: maxValue,
+    maxLines: null,
+    textInputAction: TextInputAction.done,
     decoration: InputDecoration(
       hintText: myMessage,
       enabledBorder: OutlineInputBorder(

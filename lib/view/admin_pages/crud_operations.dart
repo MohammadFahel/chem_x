@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:chem_x/view/admin_pages/read_quizzes.dart';
+import 'package:chem_x/view/admin_pages/update_quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -72,18 +73,11 @@ class _CRUDPageState extends State<CRUDPage> {
                       .where((user) => user["category"] == widget.categoryName)
                       .toList();
                   return ListView.separated(
-                    itemCount: 6,
+                    itemCount: myList2.length,
                     itemBuilder: (BuildContext context, int index) {
                       String elementName = myList2[index]["name"];
                       return ListTile(
                           leading: viewElementDesgin(myList2, index),
-                          // IconButton(
-                          //     icon: Icon(Icons.delete),
-                          //     onPressed: () {
-                          //       setState(() {
-                          //         myList2.removeAt(index);
-                          //       });
-                          //     }),
                           trailing: myPopUpMenuWidget(myList2, index, context),
                           title: Text("This quiz for $elementName element"));
                     }, separatorBuilder: (BuildContext context, int index) { return const Divider(thickness: 1, height: 10, color: Colors.grey); },
@@ -134,6 +128,14 @@ class _CRUDPageState extends State<CRUDPage> {
                       name: myNewList[count]["name"],
                     )));
       } else if (value == 1) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => UpdateQuiz(
+                  summary: myNewList[count]["summary"],
+                  name: myNewList[count]["name"],
+                )));
+
         print("Edit Quizzzzzzzz.");
       } else if (value == 2) {
         setState(() {
