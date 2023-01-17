@@ -229,12 +229,15 @@ class _QuizzesPageState extends State<QuizzesPage> {
                       style: TextStyle(
                           fontSize: 15.sp, fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                     "Press the button to start the exam"
-                        ,
-                      style:TextStyle(
-                          fontSize: 15.sp, fontWeight: FontWeight.bold)
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text(
+                       "Press the button to start the exam"
+                          ,
+                        style:TextStyle(
+                            fontSize: 12.sp, fontWeight: FontWeight.bold)
 
+                      ),
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
