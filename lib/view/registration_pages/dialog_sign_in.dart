@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:chem_x/Controller/auth.dart';
+import 'package:chem_x/Controller/firebase_controller.dart';
 import 'package:chem_x/main.dart';
 import 'package:chem_x/view/registration_pages/dialog_forgot_password.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +126,7 @@ class _DialogSignInState extends State<DialogSignIn> {
                     if (_emailSignInDialogKey.currentState!.validate() &&
                         _passwordSignInDialogKey.currentState!.validate()) {
                       Navigator.of(context).pop();
-                      AuthO().signInWithEmailAndPassword(context,
+                      FirebaseController().signInWithEmailAndPassword(context,
                           email: emailController.text,
                           password: PasswordController.text);
                     }

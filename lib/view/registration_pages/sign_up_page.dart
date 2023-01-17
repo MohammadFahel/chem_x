@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, curly_braces_in_flow_control_structures, avoid_print
 
-import 'package:chem_x/Controller/auth.dart';
+import 'package:chem_x/Controller/firebase_controller.dart';
 import 'package:chem_x/Controller/chem_provider.dart';
 import 'package:chem_x/main.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +134,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)))),
               onPressed: () {
-                AuthO().signInwithGoogle();
+                FirebaseController().signInwithGoogle();
                 textProvider.loguser();
               },
               child: SizedBox(
@@ -179,7 +179,7 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)))),
               onPressed: () {
-                AuthO().signInWithFacebook(context);
+                FirebaseController().signInWithFacebook(context);
               },
               child: SizedBox(
                 height: 6.0.h,
@@ -301,7 +301,7 @@ Widget appButtons(
       onPressed: () {
         if (type == "google") {
           print("what");
-          AuthO().signInwithGoogle();
+          FirebaseController().signInwithGoogle();
         } else if (type == "faceBook") {
         } else if (type == "Email") {
           if (textProvider.signUpOrSignIn == "Sign Up" ||

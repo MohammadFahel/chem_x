@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:chem_x/controller/auth.dart';
+import 'package:chem_x/controller/firebase_controller.dart';
 import 'package:chem_x/view/registration_pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
           : Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => AuthO().haundleAuthState()),
+                  builder: (context) => FirebaseController().haundleAuthState()),
             ),
     );
   }

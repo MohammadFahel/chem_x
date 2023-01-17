@@ -1,7 +1,6 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 import 'package:chem_x/view/quizzes_pages/quiz_home_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +40,7 @@ class _QuizDrawerPageState extends State<QuizDrawerPage> {
                 style: TextStyle(fontSize: 12.sp, color: HexColor("#778198")),
               ),
             ),
-            const Divider(
+            Divider(
               color: Colors.grey,
               thickness: 2,
             ),
@@ -62,6 +61,7 @@ Future<void> readJson() async {
       await rootBundle.loadString("assets/data/quizzesData.json");
   final data = await json.decode(response);
   print(data);
+  // Parse the JSON string into a dart object
   return data;
 }
 
@@ -93,6 +93,26 @@ Widget quizzesCategory(BuildContext context) {
             context, "post-transition metal"),
         elementInsideGridForQuizzes(
             "#004A77", "Lanthanides", context, "lanthanide"),
+        // elementInsideGridForQuizzes("#D5C6E0","alkali_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","metalloids"),
+        // elementInsideGridForQuizzes("#D5C6E0","actinides"),
+        // elementInsideGridForQuizzes("#D5C6E0","alkaline_earth_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","reactive_nonmetals"),
+        // elementInsideGridForQuizzes("#D5C6E0","unknown_properties"),
+        // elementInsideGridForQuizzes("#D5C6E0","transition_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","noble_gases"),
+        // elementInsideGridForQuizzes("#D5C6E0","post_transition_metals"),
+        // elementInsideGridForQuizzes("#D5C6E0","lanthanides"),
+        // elementInsideGridForQuizzes("#849ED9","alkali_metals"),
+        // elementInsideGridForQuizzes("#849ED9","metalloids"),
+        // elementInsideGridForQuizzes("#849ED9","actinides"),
+        // elementInsideGridForQuizzes("#849ED9","alkaline_earth_metals"),
+        // elementInsideGridForQuizzes("#849ED9","reactive_nonmetals"),
+        // elementInsideGridForQuizzes("#849ED9","unknown_properties"),
+        // elementInsideGridForQuizzes("#849ED9","transition_metals"),
+        // elementInsideGridForQuizzes("#849ED9","noble_gases"),
+        // elementInsideGridForQuizzes("#849ED9","post_transition_metals"),
+        // elementInsideGridForQuizzes("#849ED9","lanthanides"),
       ],
     ),
   );
@@ -121,9 +141,9 @@ Widget elementInsideGridForQuizzes(
           name,
           style: GoogleFonts.poppins(
               textStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0.sp,
-          )),
+                color: Colors.white,
+                fontSize: 15.0.sp,
+              )),
         ),
       ),
     ),

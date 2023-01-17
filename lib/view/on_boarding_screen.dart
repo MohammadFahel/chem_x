@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../Controller/auth.dart';
+import '../Controller/firebase_controller.dart';
 
 class OnBoardingScreen1 extends StatefulWidget {
   const OnBoardingScreen1({Key? key}) : super(key: key);
@@ -218,7 +218,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AuthO().haundleAuthState()),
+                    builder: (context) => FirebaseController().haundleAuthState()),
               );
             }
           },

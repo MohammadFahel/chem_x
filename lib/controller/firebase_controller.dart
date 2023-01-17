@@ -12,7 +12,7 @@ import 'package:sizer/sizer.dart';
 import '../View/home_page.dart';
 import '../view/registration_pages/sign_up_page.dart';
 
-class AuthO {
+class FirebaseController {
   final _firebaseAuth = FirebaseAuth.instance;
 
   haundleAuthState() {
@@ -123,6 +123,23 @@ class AuthO {
           break;
       }
     }
+  }
+
+  addOrUpdateUserDataOdExams(String category,
+      {int? score,
+      String? question,
+      List<String>? options,
+      String? rightAnswer
+      ,int? questionNumber}) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref(_firebaseAuth.currentUser!.uid)
+        .child(category);
+    await ref.update({
+      if (score != null) "score": "$score",
+      "question$questionNumber": question,
+      "options$questionNumber": options,
+      "rightAnswer$questionNumber": rightAnswer
+    });
   }
 
   signInwithGoogle() async {

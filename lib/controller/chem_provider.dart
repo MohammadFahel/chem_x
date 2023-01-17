@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
-import 'package:chem_x/Controller/auth.dart';
+import 'package:chem_x/Controller/firebase_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
@@ -27,6 +27,25 @@ class TextProvider extends ChangeNotifier {
   String answerInQuiz = "";
   int pointsForTrueAnswers = 0;
   String dropDownValue = "";
+  bool startedExamOrNot=false;
+  void startedExam(){
+    startedExamOrNot=true;
+    notifyListeners();
+  }
+  bool _onBackspacePressed = true;
+  bool get onBackspacePressed => _onBackspacePressed;
+  final drawerKey = GlobalKey<ScaffoldState>();
+
+  void openFirstDrawer() {
+    if(drawerKey.currentState != null){
+      drawerKey.currentState!.openDrawer();
+    }
+  }
+  void setBackspacePressed() {
+    _onBackspacePressed = false;
+    notifyListeners();
+  }
+
 
   void pointsForExamToZeroValue() {
     pointsForTrueAnswers = 0;
@@ -134,7 +153,7 @@ class TextProvider extends ChangeNotifier {
   }
 
   void loguser() {
-    AuthO().haundleAuthState();
+   FirebaseController().haundleAuthState();
     notifyListeners();
   }
 

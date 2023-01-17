@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Controller/auth.dart';
+import '../../Controller/firebase_controller.dart';
 import '../../Controller/chem_provider.dart';
 import '../../View/admin_pages/admin_select_category.dart';
 import '../../View/home_page.dart';
@@ -158,7 +158,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
               context,
               MaterialPageRoute(
                   builder: (context) => const PeriodicTablePage()));
-          AuthO().signOutUser();
+          FirebaseController().signOutUser();
         });
 
         break;
@@ -267,51 +267,56 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
           height: 250,
           padding: const EdgeInsets.only(top: 20.0),
           child: Consumer<TextProvider>(builder: (context, data, child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    height: 100,
-                    child: CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage:
-                          NetworkImage(data.userData['photo'].toString()),
-                      backgroundColor: Colors.transparent,
-                    )),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  data.userData['userName'].toString(),
-                  style: TextStyle(
-                      color: ThemeService().getThemeMode() == ThemeMode.light
-                          ? Colors.black
-                          : Colors.white,
-                      fontSize: 20),
-                ),
-                Text(
-                  data.userData['email'].toString(),
-                  style: TextStyle(
-                    color: ThemeService().getThemeMode() == ThemeMode.light
-                        ? Colors.grey[600]
-                        : Colors.grey[100],
-                    fontSize: 14,
+            if(data.userData == {}){
+              return CircularProgressIndicator();
+            }else{
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      height: 100,
+                      child: CircleAvatar(
+                        radius: 50.0,
+                        backgroundImage:
+                        NetworkImage(data.userData['photo'].toString()),
+                        backgroundColor: Colors.transparent,
+                      )),
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                const SizedBox(height: 15),
-                InkWell(
-                    child: Text(languages.drawerEditProfile(),
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.blueAccent,
-                                fontWeight: FontWeight.w500))),
-                    onTap: () {
-                      onItemPressed(context, index: 0);
-                    }),
-              ],
-            );
+                  Text(
+                    data.userData['userName'].toString(),
+                    style: TextStyle(
+                        color: ThemeService().getThemeMode() == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white,
+                        fontSize: 20),
+                  ),
+                  Text(
+                    data.userData['email'].toString(),
+                    style: TextStyle(
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? Colors.grey[600]
+                          : Colors.grey[100],
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  InkWell(
+                      child: Text(languages.drawerEditProfile(),
+                          style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.blueAccent,
+                                  fontWeight: FontWeight.w500))),
+                      onTap: () {
+                        onItemPressed(context, index: 0);
+                      }),
+                ],
+              );
+            }
+
           }));
     }
   }

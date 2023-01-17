@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:chem_x/controller/firebase_controller.dart';
 import 'package:chem_x/view/quizzes_pages/quiz.dart';
+import 'package:chem_x/view/quizzes_pages/quiz_QuestionViewResutls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,10 +16,10 @@ import '../../controller/count_down_timer.dart';
 import '../../controller/theme_service.dart';
 import 'dialog_are_you_sure_you_want_to_get_out.dart';
 
-class QuizzesExam extends StatefulWidget {
+class QuizzesExamView extends StatefulWidget {
   String category;
 
-  QuizzesExam({
+  QuizzesExamView({
     required this.category,
   });
 
@@ -26,7 +27,7 @@ class QuizzesExam extends StatefulWidget {
   _QuizzesExamState createState() => _QuizzesExamState();
 }
 
-class _QuizzesExamState extends State<QuizzesExam>
+class _QuizzesExamState extends State<QuizzesExamView>
     with SingleTickerProviderStateMixin {
   var textProvider;
   late PageController pageController;
@@ -69,8 +70,6 @@ class _QuizzesExamState extends State<QuizzesExam>
   @override
   void dispose() {
     if (_controller.isAnimating || _controller.isCompleted) {
-      FirebaseController().addOrUpdateUserDataOdExams(widget.category,
-          score: providerToGetinfoToDispose.pointsForTrueAnswers);
       _controller.dispose();
     }
 
@@ -83,7 +82,7 @@ class _QuizzesExamState extends State<QuizzesExam>
 
   Future<bool> _onBackPressed() async {
     final backButtonProvider =
-        Provider.of<TextProvider>(context, listen: false);
+    Provider.of<TextProvider>(context, listen: false);
     if (!backButtonProvider.onBackspacePressed) {
       return Future.value(false);
     }
@@ -95,46 +94,44 @@ class _QuizzesExamState extends State<QuizzesExam>
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
 
-    return WillPopScope(
-        onWillPop: _onBackPressed,
-        child: Scaffold(
-            // appBar: AppBar(
-            //   leading: IconButton(
-            //     icon: Icon(
-            //       Icons.arrow_back_ios,
-            //       color: Colors.black,
-            //       size: 30,
-            //     ),
-            //     onPressed: () => Navigator.pop(context),
-            //   ),
-            //   // centerTitle: true,
-            //   backgroundColor: ThemeService().getThemeMode() == ThemeMode.light
-            //       ? Colors.white
-            //       : Colors.grey.shade500,
-            //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
-            //   shadowColor: Colors.black,
-            //   // elevation: 0.0,
-            //   // title: Container(
-            //   //   width: 5.5.w,
-            //   //   height: 4.h,
-            //   //   child: Image.asset("assets/images/flask.png"
-            //   //     ,fit: BoxFit.fill,)),
-            // ),
+    return  Scaffold(
+          // appBar: AppBar(
+          //   leading: IconButton(
+          //     icon: Icon(
+          //       Icons.arrow_back_ios,
+          //       color: Colors.black,
+          //       size: 30,
+          //     ),
+          //     onPressed: () => Navigator.pop(context),
+          //   ),
+          //   // centerTitle: true,
+          //   backgroundColor: ThemeService().getThemeMode() == ThemeMode.light
+          //       ? Colors.white
+          //       : Colors.grey.shade500,
+          //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+          //   shadowColor: Colors.black,
+          //   // elevation: 0.0,
+          //   // title: Container(
+          //   //   width: 5.5.w,
+          //   //   height: 4.h,
+          //   //   child: Image.asset("assets/images/flask.png"
+          //   //     ,fit: BoxFit.fill,)),
+          // ),
             body:
-                //     GestureDetector(
-                //     onTap: () {
-                //   FocusScope.of(context).requestFocus(new FocusNode());
-                // },
-                // child:
-                examsPages(widget.category, pageController, context,
-                    _controller, x)));
+            //     GestureDetector(
+            //     onTap: () {
+            //   FocusScope.of(context).requestFocus(new FocusNode());
+            // },
+            // child:
+            examsPages(widget.category, pageController, context,
+                _controller, x));
   }
 }
 
 Future<void> readJson() async {
   // Read the file
   final String response =
-      await rootBundle.loadString("assets/data/quizzesData.json");
+  await rootBundle.loadString("assets/data/quizzesData.json");
   final data = await json.decode(response);
   // Parse the JSON string into a dart object
   return data;
@@ -149,25 +146,14 @@ Widget examsPages(
     int x) {
   var textProvider = Provider.of<TextProvider>(context, listen: false);
   print("1");
-  return FutureBuilder(
-      future: readJson(),
-      builder: (context, snapshot) {
-        // print(snapshot.data);
-        if (snapshot.hasData) {
-          var list = snapshot.data as Map;
-          List myList = list["myelements"];
-          List myList2 =
-              myList.where((user) => user["category"] == category).toList();
-          print(myList[0]["category"]);
-
+  return Consumer<TextProvider>(
+  builder: (context,data,child) {
           return Padding(
             padding: EdgeInsets.only(top: 10.h, right: 2.w, left: 2.w),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Row(
-                    children: [
                       Consumer<TextProvider>(builder: (context, myData, child) {
                         return Container(
                           alignment: Alignment.center,
@@ -180,27 +166,12 @@ Widget examsPages(
                             "Question ${myData.currentPageForExamPage + 1}",
                             style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
-                              fontSize: 15.0.sp,
-                            )),
+                                  fontSize: 15.0.sp,
+                                )),
                           ),
                         );
                       }),
-                      Spacer(),
-                      Container(
-                          alignment: Alignment.center,
-                          height: 5.5.h,
-                          width: 30.w,
-                          decoration: BoxDecoration(
-                              color: HexColor("#F87171"),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Countdown(
-                            animation: StepTween(
-                              begin: 120,
-                              end: 0,
-                            ).animate(_controller),
-                          ))
-                    ],
-                  ),
+
                   SizedBox(
                     height: 1.w,
                   ),
@@ -216,97 +187,116 @@ Widget examsPages(
                       },
                       controller: pageController,
                       children: [
-                        Quiz(
+                      QuizView(
+                      category: category,
+                      summary: data.userData[category]["question0"],
+                      index: 1,
+                      name: data.userData[category]["rightAnswer0"],
+                      options: [
+                        data.userData[category]["options0"][0],
+                        data.userData[category]["options0"][1],
+                        data.userData[category]["options0"][2],
+                        data.userData[category]["options0"][3],
+                      ],
+                      pageController: pageController,
+                      currentPage: 0,
+                    ),
+                        data.userData[category]["question1"] != null ?
+                        QuizView(
                           category: category,
-                          summary: myList2[0]["summary"],
+                          summary: data.userData[category]["question1"],
                           index: 1,
-                          name: myList2[0]["name"],
+                          name: data.userData[category]["rightAnswer1"],
                           options: [
-                            myList2[0]["name"],
-                            myList[x]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                          ],
-                          pageController: pageController,
-                          currentPage: 0,
-                        ), // first quiz page
-                        Quiz(
-                          category: category,
-                          summary: myList2[1]["summary"],
-                          index: 2,
-                          name: myList2[1]["name"],
-                          options: [
-                            myList2[1]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"]
+                            data.userData[category]["options1"][0],
+                            data.userData[category]["options1"][1],
+                            data.userData[category]["options1"][2],
+                            data.userData[category]["options1"][3],
                           ],
                           pageController: pageController,
                           currentPage: 1,
+                        ) : const Center(
+                          child: Text("You didn't answer this question",
+                            style: TextStyle(fontSize: 20),),
                         ), // second quiz page
-                        Quiz(
+                        data.userData[category]["question2"] != null ?
+                        QuizView(
                           category: category,
-                          summary: myList2[2]["summary"],
-                          index: 3,
-                          name: myList2[2]["name"],
+                          summary: data.userData[category]["question2"],
+                          index: 1,
+                          name: data.userData[category]["rightAnswer2"],
                           options: [
-                            myList2[2]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"]
+                            data.userData[category]["options2"][0],
+                            data.userData[category]["options2"][1],
+                            data.userData[category]["options2"][2],
+                            data.userData[category]["options2"][3],
                           ],
                           pageController: pageController,
                           currentPage: 2,
+                        ) : const Center(
+                          child: Text("You didn't answer this question",
+                            style: TextStyle(fontSize: 20),),
                         ), //
-                        Quiz(
+                        data.userData[category]["question3"] != null ?
+                        QuizView(
                           category: category,
-                          summary: myList2[3]["summary"],
-                          index: 4,
-                          name: myList2[3]["name"],
+                          summary: data.userData[category]["question3"],
+                          index: 1,
+                          name: data.userData[category]["rightAnswer3"],
                           options: [
-                            myList2[3]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"]
+                            data.userData[category]["options3"][0],
+                            data.userData[category]["options3"][1],
+                            data.userData[category]["options3"][2],
+                            data.userData[category]["options3"][3],
                           ],
                           pageController: pageController,
                           currentPage: 3,
+                        ) : const Center(
+                          child: Text("You didn't answer this question",
+                            style: TextStyle(fontSize: 20),),
                         ),
-                        Quiz(
+                        data.userData[category]["question4"] != null ?
+                        QuizView(
                           category: category,
-                          summary: myList2[4]["summary"],
-                          index: 5,
-                          name: myList2[4]["name"],
+                          summary: data.userData[category]["question4"],
+                          index: 1,
+                          name: data.userData[category]["rightAnswer4"],
                           options: [
-                            myList2[4]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"]
+                            data.userData[category]["options4"][0],
+                            data.userData[category]["options4"][1],
+                            data.userData[category]["options4"][2],
+                            data.userData[category]["options4"][3],
                           ],
                           pageController: pageController,
                           currentPage: 4,
+                        ) : const Center(
+                          child: Text("You didn't answer this question",
+                            style: TextStyle(fontSize: 20),),
                         ),
-                        Quiz(
+                        data.userData[category]["question5"] != null ?
+                        QuizView(
                           category: category,
-                          summary: myList2[5]["summary"],
-                          index: 6,
-                          name: myList2[5]["name"],
+                          summary: data.userData[category]["question5"],
+                          index: 1,
+                          name: data.userData[category]["rightAnswer5"],
                           options: [
-                            myList2[5]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"],
-                            myList[Random().nextInt(118 - 0) + 0]["name"]
+                            data.userData[category]["options5"][0],
+                            data.userData[category]["options5"][1],
+                            data.userData[category]["options5"][2],
+                            data.userData[category]["options5"][3],
                           ],
                           pageController: pageController,
                           currentPage: 5,
+                        ) : const Center(
+                          child: Text("You didn't answer this question",
+                            style: TextStyle(fontSize: 20),),
                         ), //// third quiz page
                       ],
                     ),
                   ),
                 ]),
           );
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      });
+        });
+
+
 }

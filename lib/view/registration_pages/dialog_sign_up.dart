@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:chem_x/Controller/auth.dart';
+import 'package:chem_x/Controller/firebase_controller.dart';
 import 'package:chem_x/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -123,7 +123,7 @@ class _DialogSignUpState extends State<DialogSignUp> {
                         _emailSignUpDialogKey.currentState!.validate() &&
                         _passwordSignUpDialogKey.currentState!.validate()) {
                       Navigator.of(context).pop();
-                      AuthO().createUserWithEmailAndPassword(context,
+                      FirebaseController().createUserWithEmailAndPassword(context,
                           userName: userNameController.text,
                           email: emailController.text,
                           password: PasswordController.text);

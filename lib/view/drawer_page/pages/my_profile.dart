@@ -10,7 +10,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
-import 'package:chem_x/Controller/auth.dart';
+import 'package:chem_x/Controller/firebase_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../Controller/chem_provider.dart';
 import '../../../controller/theme_service.dart';
@@ -73,7 +73,7 @@ class _MyProfileState extends State<MyProfile> {
               ChangeUserPhoto(),
               const SizedBox(height: 25),
               FutureBuilder(
-                  future: AuthO().getUserData(),
+                  future: FirebaseController().getUserData(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       var data = snapshot.data as Map;
@@ -130,7 +130,7 @@ class _MyProfileState extends State<MyProfile> {
                 onPressed: () {
                   if (newPasswordController.text ==
                       againNewPasswordController.text) {
-                    AuthO().userChangePassword(currentPasswordController.text,
+                    FirebaseController().userChangePassword(currentPasswordController.text,
                         newPasswordController.text);
                     Navigator.of(context).pop();
                   } else {
