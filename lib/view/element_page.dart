@@ -108,7 +108,7 @@ class ElementPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 25),
+              padding: EdgeInsets.only(left: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
