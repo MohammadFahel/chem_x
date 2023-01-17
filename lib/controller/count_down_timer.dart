@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class Countdown extends AnimatedWidget {
   Animation<int> animation;
@@ -18,7 +19,7 @@ class Countdown extends AnimatedWidget {
 
     return Text(
       timerText,
-      style: const TextStyle(fontSize: 40, color: Colors.white),
+      style:  TextStyle(fontSize: 20.sp, color: Colors.white),
     );
   }
 }
