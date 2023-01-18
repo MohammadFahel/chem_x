@@ -209,6 +209,9 @@ class _PeriodicTableState extends State<PeriodicTable> {
                       ),
                       Text(
                         "${_items[index]["number"]}",
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: false,
                         style: const TextStyle(color: Colors.white),
                       ),
                       const SizedBox(
@@ -217,13 +220,19 @@ class _PeriodicTableState extends State<PeriodicTable> {
                     ],
                   ),
                   Text(_items[index]["symbol"],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      softWrap: false,
                       style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
                           fontWeight: FontWeight.bold)),
                   Text(_items[index]["name"],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      softWrap: false,
                       style: const TextStyle(
-                          fontSize: 6.5,
+                          fontSize: 9,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
                 ],
