@@ -43,6 +43,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
             children: [OnboardingPage1(), OnboardingPage2()],
           ),
         ),
+
         ChangeStateButton()
       ],
     ));
@@ -247,7 +248,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                     )),
         ),
         SizedBox(
-          height: 5.h,
+          height: 3.h,
         )
       ],
     );

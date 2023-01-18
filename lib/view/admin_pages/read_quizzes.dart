@@ -56,13 +56,13 @@ class _ReadQuizzesState extends State<ReadQuizzes> {
                     fontSize: 15.0.sp,
                   )),
                 ),
-                Text(
-                  "What is the name of this chemical element?",
-                  style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                    fontSize: 15.0.sp,
-                  )),
-                ),
+                // Text(
+                //   "What is the name of this chemical element?",
+                //   style: GoogleFonts.poppins(
+                //       textStyle: TextStyle(
+                //     fontSize: 15.0.sp,
+                //   )),
+                // ),
                 SizedBox(
                   height: 2.h,
                 ),

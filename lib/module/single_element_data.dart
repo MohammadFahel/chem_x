@@ -160,8 +160,6 @@ class Myelements {
     }
     return data;
   }
-  
-
 }
 
 
@@ -186,25 +184,3 @@ class Image {
     return data;
   }
 }
-
-// void updateJsonFile() async {
-//   // Read the JSON file
-//   final file = File('assets/data/elementsData.json');
-//   final jsonString = await file.readAsString();
-//   final jsonMap = jsonDecode(jsonString);
-//
-//   // Convert the JSON map to a MyModel object
-//   final myModel = MyModel.fromJson(jsonMap);
-//
-//   // Make the necessary changes to the object
-//   myModel.name = 'New Name';
-//
-//   // Convert the MyModel object back to a JSON map
-//   final updatedJsonMap = myModel.toJson();
-//
-//   // Write the updated JSON map back to the file
-//   await file.writeAsString(jsonEncode(updatedJsonMap));
-// }
-//
-
-

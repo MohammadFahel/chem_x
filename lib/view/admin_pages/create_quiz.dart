@@ -4,24 +4,28 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Module/single_element_data.dart';
+import '../../View/admin_pages/crud_operations.dart';
+import '../../controller/admin_firebase_crud.dart';
 import '../../controller/theme_service.dart';
 import '../../main.dart';
-
-final addQuestionController = TextEditingController();
-TextEditingController addQuestionField = TextEditingController();
-final addAnswerController = TextEditingController();
-TextEditingController addAnswerField = TextEditingController();
+import '../../module/elements_model_for_quizzes.dart';
 
 class CreateQuiz extends StatefulWidget {
-  const CreateQuiz({Key? key}) : super(key: key);
+  String category;
+
+  CreateQuiz({Key? key, required this.category}) : super(key: key);
 
   @override
   _CreateQuizState createState() => _CreateQuizState();
 }
 
 class _CreateQuizState extends State<CreateQuiz> {
-
-
+  TextEditingController addQuestionField = TextEditingController();
+  TextEditingController addAnswerCorrectField = TextEditingController();
+  TextEditingController addAnswerTwoField = TextEditingController();
+  TextEditingController addAnswerThreeField = TextEditingController();
+  TextEditingController addAnswerFourField = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +37,20 @@ class _CreateQuizState extends State<CreateQuiz> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
         shadowColor: Colors.black,
         centerTitle: true,
-        title: Row(
-            children: [
-              SizedBox(width: 13.w),
-              const Text("Create New Quiz", style: TextStyle(color: Colors.black)),
-              SizedBox(width: 2.w),
-              const Icon(
-                  Icons.add,
-                  color: Colors.black
-              ),
-
-            ]),
+        title: Row(children: [
+          SizedBox(width: 13.w),
+          const Text("Create New Quiz", style: TextStyle(color: Colors.black)),
+          SizedBox(width: 2.w),
+          const Icon(Icons.add, color: Colors.black),
+        ]),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        CRUDPage(categoryName: widget.category)));
           },
         ),
       ),
@@ -60,63 +63,120 @@ class _CreateQuizState extends State<CreateQuiz> {
               Text("Write New Question",
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(
-                        fontSize: 15,
-                        color: ThemeService().getThemeMode() == ThemeMode.light
-                            ? Colors.black
-                            : Colors.white,
-                      ))),
+                    fontSize: 15,
+                    color: ThemeService().getThemeMode() == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  ))),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [],
+                ),
+              ),
               const SizedBox(height: 15),
-              MyTextFieldWidget(10, addQuestionField, "Enter New Question Here.."),
+              myAddTextFieldQuestion(
+                  10, addQuestionField, "Enter New Question Here.."),
               const SizedBox(height: 20),
               const Divider(thickness: 1, height: 12, color: Colors.grey),
               const SizedBox(height: 15),
-              Text("Write The Correct Answer",
+              Text("Write Four Answers For This Question",
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(
-                        fontSize: 15,
-                        color: ThemeService().getThemeMode() == ThemeMode.light
-                            ? Colors.black
-                            : Colors.white,
-                      ))),
-              const SizedBox(height: 15),
-              MyTextFieldWidget(1, addAnswerField, "Enter The Correct Message Here.."),
+                    fontSize: 15,
+                    color: ThemeService().getThemeMode() == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  ))),
+              const SizedBox(height: 10),
+              myAddTextFieldAnswer(
+                  1, addAnswerCorrectField, "Enter The Correct Answer Here.."),
+              const SizedBox(height: 10),
+              myAddTextFieldAnswerTwo(
+                  1, addAnswerTwoField, "Enter The Second Answer Here.."),
+              const SizedBox(height: 10),
+              myAddTextFieldAnswerThree(
+                  1, addAnswerThreeField, "Enter The Third Answer Here.."),
+              const SizedBox(height: 10),
+              myAddTextFieldAnswerFour(
+                  1, addAnswerFourField, "Enter The Fourth Answer Here.."),
               const SizedBox(height: 40),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor:
-                    ThemeService().getThemeMode() == ThemeMode.light
-                        ? HexColor("#192A51")
-                        : HexColor("#849ED9"),
+                        ThemeService().getThemeMode() == ThemeMode.light
+                            ? HexColor("#192A51")
+                            : HexColor("#849ED9"),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0))),
-                onPressed: ()  {
-                  Myelements.addNewQuiz(addQuestionField.toString(), addAnswerField.toString());
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    print("are you mohammaddddddd????");
+                    var response = await FirebaseCrud.addElement(
+                      elementCategory: widget.category.toString(),
+                      elementQuestion: addQuestionField.text,
+                      elementsCorrectAnswer: addAnswerCorrectField.text,
+                      elementAnswerTwo: addAnswerTwoField.text,
+                      elementAnswerThree: addAnswerThreeField.text,
+                      elementAnswerFour: addAnswerFourField.text,
+                    );
+
+                    if (response.code != 200) {
+                      print("is it seccessfully?????");
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text(response.message.toString()),
+                            );
+                          });
+                    } else {
+                      print("is it faillll?????");
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text(response.message.toString()),
+                            );
+                          });
+                    }
+                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>  CRUDPage(categoryName: widget.category)
+                      ));
                 },
                 child: Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
                     languages.feedbackSubmit(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          fontSize: 15.sp,
-                        )),
+                      fontSize: 15.sp,
+                    )),
                   ),
                 ),
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CRUDPage(categoryName: widget.category)));
+                    // Navigator.of(context).pop();
                   },
                   child: Text(
                     languages.profileCancelChanges(),
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          color: ThemeService().getThemeMode() == ThemeMode.light
-                              ? HexColor("#B90000")
-                              : Colors.redAccent,
-                          fontSize: 14.sp,
-                        )),
+                      color: ThemeService().getThemeMode() == ThemeMode.light
+                          ? HexColor("#B90000")
+                          : Colors.redAccent,
+                      fontSize: 14.sp,
+                    )),
                   )),
             ],
           ),
@@ -126,8 +186,169 @@ class _CreateQuizState extends State<CreateQuiz> {
   }
 }
 
-Widget MyTextFieldWidget(int maxValue, TextEditingController myController, String myMessage){
-  return TextField(
+Widget myAddTextFieldQuestion(
+    int maxValue, TextEditingController myController, String myMessage) {
+  return TextFormField(
+    controller: myController,
+    keyboardType: TextInputType.multiline,
+    minLines: maxValue,
+    maxLines: null,
+    textInputAction: TextInputAction.done,
+    decoration: InputDecoration(
+      hintText: myMessage,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+      focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+    ),
+  );
+}
+
+Widget myAddTextFieldAnswer(
+    int maxValue, TextEditingController myController, String myMessage) {
+  return TextFormField(
+    controller: myController,
+    keyboardType: TextInputType.multiline,
+    minLines: maxValue,
+    maxLines: null,
+    textInputAction: TextInputAction.done,
+    decoration: InputDecoration(
+      hintText: myMessage,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+      focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+    ),
+  );
+}
+
+Widget myAddTextFieldAnswerTwo(
+    int maxValue, TextEditingController myController, String myMessage) {
+  return TextFormField(
+    controller: myController,
+    keyboardType: TextInputType.multiline,
+    minLines: maxValue,
+    maxLines: null,
+    textInputAction: TextInputAction.done,
+    decoration: InputDecoration(
+      hintText: myMessage,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+      focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+    ),
+  );
+}
+
+Widget myAddTextFieldAnswerThree(
+    int maxValue, TextEditingController myController, String myMessage) {
+  return TextFormField(
+    controller: myController,
+    keyboardType: TextInputType.multiline,
+    minLines: maxValue,
+    maxLines: null,
+    textInputAction: TextInputAction.done,
+    decoration: InputDecoration(
+      hintText: myMessage,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+      focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ThemeService().getThemeMode() == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white),
+          borderRadius: BorderRadius.circular(20)),
+    ),
+  );
+}
+
+Widget myAddTextFieldAnswerFour(
+    int maxValue, TextEditingController myController, String myMessage) {
+  return TextFormField(
     controller: myController,
     keyboardType: TextInputType.multiline,
     minLines: maxValue,

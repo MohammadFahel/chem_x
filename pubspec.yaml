@@ -50,6 +50,8 @@ dependencies:
   get: ^4.6.1
   get_storage: ^2.0.3
   glassmorphism: ^3.0.0
+  cloud_firestore: ^4.3.1
+
 
 
 
@@ -101,6 +103,7 @@ flutter:
     - assets/images/myProfile.png
     - assets/data/elementsData.json
     - assets/data/quizzesData.json
+    - assets/data/adminQuizzesData.json
     - assets/images/profile5.png
     - assets/images/editProfile.png
     - assets/images/backbutton.png

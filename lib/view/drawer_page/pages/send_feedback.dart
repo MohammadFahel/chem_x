@@ -19,7 +19,7 @@ class SendFeedback extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Dialog(
-        insetPadding: EdgeInsets.only(top: 100, right: 20, left: 20),
+        insetPadding: EdgeInsets.only(top: 75, right: 20, left: 20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),

@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:chem_x/view/quizzes_pages/dialog_are_you_sure_you_want_to_get_out.dart';
 import 'package:chem_x/view/quizzes_pages/quiz.dart';
 import 'package:chem_x/view/quizzes_pages/quizzes_exam.dart';
+import 'package:chem_x/view/quizzes_pages/quizzes_exam_from_admin.dart';
 import 'package:chem_x/view/quizzes_pages/view_exam_result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -135,9 +136,13 @@ class _QuizzesPageState extends State<QuizzesPage> {
                       "Your score is "
                           "${value.userData[widget.categoryName]["score"]}/6 ",
                        style:TextStyle(
-                          fontSize: 15.sp, fontWeight: FontWeight.bold)
+                          fontSize: 17.sp, fontWeight: FontWeight.bold)
 
-                    ),Row(
+                    ),
+                    SizedBox(
+                     height: 2.h,
+                    ),
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -160,7 +165,7 @@ class _QuizzesPageState extends State<QuizzesPage> {
                           ),
                         ),
                         SizedBox(
-                          width: 1.w,
+                          width: 2.w,
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
@@ -182,7 +187,25 @@ class _QuizzesPageState extends State<QuizzesPage> {
                         ),
                       ],
                     ),
-
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.blueAccent)
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  QuizzesExamAdmin(category: widget.categoryName),
+                            ));
+                        // textProvider.pointsForExamToZeroValue();
+                      },
+                      child: Text(
+                        "Try Quick Quizzes",
+                        style: TextStyle(fontSize: 15.sp),
+                      ),
+                    ),
                     Spacer(),
                   ],
                 ),
