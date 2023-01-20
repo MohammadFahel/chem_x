@@ -313,6 +313,7 @@ class _QuizState extends State<Quiz> {
                 {
                   if(providerChem.answerInQuiz == widget.name){
                     providerChem.pointsForExam(),
+                    FirebaseController().userAnsweredTrueOrWhat(widget.currentPage, true)
                   },
 
                   if(widget.currentPage==5){

@@ -3,8 +3,8 @@ import 'package:chem_x/View/element_tile.dart';
 import 'package:chem_x/module/single_element_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sizer/sizer.dart';
 import 'dart:convert';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'element_page.dart';
 import 'home_page.dart' as colors;
 import 'package:hexcolor/hexcolor.dart';
@@ -156,6 +156,8 @@ class _PeriodicTableState extends State<PeriodicTable> {
                   ));
             },
             child: Container(
+              width: 10.w,
+              height: 10.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: HexColor("${myColor}"), width: 1.5),

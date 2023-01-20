@@ -8,7 +8,7 @@ import 'dart:math' as math;
 
 import '../controller/theme_service.dart';
 
-class ElementPage extends StatelessWidget {
+class ElementPage extends StatefulWidget {
   final String summary,
       appearance,
       category,
@@ -40,6 +40,31 @@ class ElementPage extends StatelessWidget {
       required this.symbol,
       required this.name})
       : super(key: key);
+
+  @override
+  State<ElementPage> createState() => _ElementPageState();
+}
+
+class _ElementPageState extends State<ElementPage> with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  double rotationAngle=0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    animationController=AnimationController(vsync: this,duration:const Duration(seconds: 10));
+    animationController.repeat(reverse: true);
+    animationController.addListener(() {
+      setState(() {
+        rotationAngle=animationController.value*10;
+      });
+    });
+  }
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,14 +142,14 @@ class ElementPage extends StatelessWidget {
                     height: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: HexColor(myColor), width: 1.5),
-                      color: HexColor(myColor),
+                      border: Border.all(color: HexColor(widget.myColor), width: 1.5),
+                      color: HexColor(widget.myColor),
                       gradient: LinearGradient(
                         begin: Alignment.topRight,
                         end: Alignment.bottomRight,
                         colors: [
-                          HexColor(myColor).withOpacity(0.9),
-                          HexColor(myColor).withOpacity(0.4)
+                          HexColor(widget.myColor).withOpacity(0.9),
+                          HexColor(widget.myColor).withOpacity(0.4)
                         ],
                       ),
                       boxShadow: const [
@@ -145,18 +170,18 @@ class ElementPage extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              "$number",
+                              "${widget.number}",
                               style: GoogleFonts.poppins(
                                   color: Colors.white, fontSize: 20),
                             ),
                           ],
                         ),
-                        Text(symbol,
+                        Text(widget.symbol,
                             style: GoogleFonts.poppins(
                                 fontSize: 45,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold)),
-                        Text(name,
+                        Text(widget.name,
                             style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -165,8 +190,11 @@ class ElementPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10,),
-                  Image.asset("assets/images/${name}.png",
-                      height: 200, width: 200)
+                  Transform.rotate(
+                    angle: rotationAngle,
+                    child: Image.asset("assets/images/${widget.name}.png",
+                        height: 200, width: 200),
+                  )
                 ],
               ),
             ),
@@ -186,38 +214,38 @@ class ElementPage extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      buildColumn("Summary", summary, true, summary),
-                      buildColumn("Category", category, false, category),
-                      appearance.isNotEmpty
+                      buildColumn("Summary", widget.summary, true, widget.summary),
+                      buildColumn("Category", widget.category, false, widget.category),
+                      widget.appearance.isNotEmpty
                           ? buildColumn(
-                              "Appearance", appearance, false, appearance)
+                              "Appearance", widget.appearance, false, widget.appearance)
                           : const SizedBox(
                               height: 0.0,
                             ),
                       buildColumn(
                           "Atomic Mass",
-                          "${atomicMass.toStringAsFixed(3)} Da (Dalton)",
+                          "${widget.atomicMass.toStringAsFixed(3)} Da (Dalton)",
                           true,
                           "Atomic mass, the quantity of matter contained in an atom of an element. It is expressed as a multiple of one-twelfth the mass of the carbon-12 atom, 1.992646547 × 10−23 gram, which is assigned an atomic mass of 12 units."),
-                      buildColumn("Boiling Point", "$boil K", true,
+                      buildColumn("Boiling Point", "${widget.boil} K", true,
                           "Boiling is the process by which a liquid turns into a vapor when it is heated to its boiling point. The change from a liquid phase to a gaseous phase occurs when the vapor pressure of the liquid is equal to the atmospheric pressure exerted on the liquid."),
-                      buildColumn("Density", "$density Kg/m\u00B3", true,
+                      buildColumn("Density", "${widget.density} Kg/m\u00B3", true,
                           "Density is the measurement of how tightly a material is packed together. It is defined as the mass per unit volume. Density Symbol: D or ρ Density Formula: ρ = m/V, where ρ is the density, m is the mass of the object and V is the volume of the object."),
-                      buildColumn("Melting Point", "$melt K", true,
+                      buildColumn("Melting Point", "${widget.melt} K", true,
                           "Melting, change of a solid into a liquid when heat is applied. In a pure crystalline solid, this process occurs at a fixed temperature called the melting point; an impure solid generally melts over a range of temperatures below the melting point of the principal component."),
-                      buildColumn("Molar Heat", "$molarHeat J/mol °C", true,
+                      buildColumn("Molar Heat", "${widget.molarHeat} J/mol °C", true,
                           "Molar heat capacity is defined as the amount of heat required to raise 1 mole of a substance by 1 degree Kelvin."),
-                      buildColumn("Period", period, false, ""),
-                      buildColumn("Phase", phase, true,
+                      buildColumn("Period", widget.period, false, ""),
+                      buildColumn("Phase", widget.phase, true,
                           "There are four phases in chemistry: solid, liquid, gas, and plasma."),
-                      namedBy.isNotEmpty
-                          ? buildColumn("Named By", namedBy, false, "")
+                      widget.namedBy.isNotEmpty
+                          ? buildColumn("Named By", widget.namedBy, false, "")
                           : const SizedBox(
                               height: 0.0,
                             ),
-                      discoveredBy.isNotEmpty
+                      widget.discoveredBy.isNotEmpty
                           ? buildColumn(
-                              "Discovered By", discoveredBy, false, "")
+                              "Discovered By", widget.discoveredBy, false, "")
                           : const SizedBox(
                               height: 0.0,
                             ),

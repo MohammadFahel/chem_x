@@ -141,11 +141,12 @@ class _CreateQuizState extends State<CreateQuiz> {
                           });
                     }
                   }
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  CRUDPage(categoryName: widget.category)
-                      ));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) =>  CRUDPage(categoryName: widget.category)
+                  //     ));
+                  Navigator.of(context).pop();
                 },
                 child: Padding(
                   padding:
@@ -161,12 +162,12 @@ class _CreateQuizState extends State<CreateQuiz> {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CRUDPage(categoryName: widget.category)));
-                    // Navigator.of(context).pop();
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) =>
+                    //             CRUDPage(categoryName: widget.category)));
+                    Navigator.of(context).pop();
                   },
                   child: Text(
                     languages.profileCancelChanges(),

@@ -125,12 +125,19 @@ class FirebaseController {
     }
   }
 
+  userAnsweredTrueOrWhat(int? questionNumber, bool answeredTrueOrWhat) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref(_firebaseAuth.currentUser!.uid)
+        .child("trueAnswers");
+    await ref.update({"question$questionNumber": answeredTrueOrWhat});
+  }
+
   addOrUpdateUserDataOdExams(String category,
       {int? score,
       String? question,
       List<String>? options,
-      String? rightAnswer
-      ,int? questionNumber}) async {
+      String? rightAnswer,
+      int? questionNumber}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref(_firebaseAuth.currentUser!.uid)
         .child(category);

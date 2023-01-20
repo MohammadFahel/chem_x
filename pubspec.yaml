@@ -51,6 +51,7 @@ dependencies:
   get_storage: ^2.0.3
   glassmorphism: ^3.0.0
   cloud_firestore: ^4.3.1
+  lottie: ^2.2.0
 
 
 
@@ -108,6 +109,9 @@ flutter:
     - assets/images/editProfile.png
     - assets/images/backbutton.png
     - assets/images/
+    - assets/animation/chemical-test-tube.json
+    - assets/animation/congratulation-success-batch.json
+    - assets/animation/try-again.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

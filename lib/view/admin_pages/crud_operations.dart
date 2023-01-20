@@ -49,31 +49,31 @@ class _CRUDPageState extends State<CRUDPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CRUDOperations()
-                ));
-            // Navigator.of(context).pop();
+          //   Navigator.push(
+          //       // context,
+          //       // MaterialPageRoute(
+          //       //     builder: (context) => CRUDOperations()
+          //       // ));
+            Navigator.of(context).pop();
           },
         ),
         actions: [
           IconButton(
               onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => CreateQuiz(category: widget.categoryName)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CreateQuiz(category: widget.categoryName)));
 
-                Navigator.pushAndRemoveUntil<dynamic>(
-                  context,
-                  MaterialPageRoute<dynamic>(
-                    builder: (BuildContext context) =>
-                        CreateQuiz(category: widget.categoryName),
-                  ),
-                      (route) =>
-                  false, //if you want to disable back feature set to false
-                );
+                // Navigator.pushAndRemoveUntil<dynamic>(
+                //   context,
+                //   MaterialPageRoute<dynamic>(
+                //     builder: (BuildContext context) =>
+                //         CreateQuiz(category: widget.categoryName),
+                //   ),
+                //       (route) =>
+                //   false, //if you want to disable back feature set to false
+                // );
               },
               icon: const Icon(Icons.add),
               color: Colors.black,

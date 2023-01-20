@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../Controller/chem_provider.dart';
 import '../../controller/theme_service.dart';
 import '../home_page.dart';
@@ -27,25 +27,19 @@ class QuizzesPage extends StatefulWidget {
   _QuizzesPageState createState() => _QuizzesPageState();
 }
 
-class _QuizzesPageState extends State<QuizzesPage> {
-  // _handleKeyEvent(RawKeyEvent event) {
-  //   if (event is RawKeyDownEvent) {
-  //     if (event.logicalKey.keyId == LogicalKeyboardKey.backspace.keyId) {
-  //       Navigator.of(context).pushReplacement(
-  //           MaterialPageRoute(builder: (BuildContext context) => PeriodicTableHomePage()));
-  //     }
-  //   }
-  // }
+class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
   @override
   void initState() {
+    _animationController=AnimationController(vsync: this,duration:const Duration(seconds: 2));
+    _animationController.repeat(reverse: true);
     // RawKeyboard.instance.addListener(_handleKeyEvent);
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    // RawKeyboard.instance.removeListener(_handleKeyEvent);
+   _animationController.dispose();
     super.dispose();
   }
 
@@ -130,7 +124,14 @@ class _QuizzesPageState extends State<QuizzesPage> {
                       color: Colors.grey,
                       thickness: 2,
                     ),
-                    Spacer(),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Lottie.asset(
+                        int.parse(value.userData[widget.categoryName]["score"]) >= 3?"assets/animation/congratulation-success-batch.json":"assets/animation/try-again.json",
+                        controller:_animationController ,
+                        width: double.infinity ,
+                        height: 25.h ),
 
                     Text(
                       "Your score is "

@@ -39,12 +39,13 @@ class _CRUDOperationsState extends State<CRUDOperations> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>  PeriodicTablePage()
-                ));
-            // Navigator.of(context).pop();
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) =>  PeriodicTablePage()
+            //     ));
+
+            Navigator.of(context).pop();
           },
         ),
         actions: [
