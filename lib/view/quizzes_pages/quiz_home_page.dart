@@ -246,7 +246,17 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                       color: Colors.grey,
                       thickness: 2,
                     ),
-                    Spacer(),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                     Lottie.asset(
+                          "assets/animation/chemical-test-tube.json",
+                          controller:_animationController ,
+                          width: double.infinity ,
+                          height: 25.h ),
+                    SizedBox(
+                      height: 3.h,
+                    ),
                     Text(
                     "You are attending the ${widget.categoryName} exam"
                           ,
