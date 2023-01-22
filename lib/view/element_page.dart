@@ -86,8 +86,8 @@ class _ElementPageState extends State<ElementPage>
     buildColumn(String title, dynamic content, bool desc, String description) {
       return Column(
         children: [
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: 15.h,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Text(
@@ -97,7 +97,7 @@ class _ElementPageState extends State<ElementPage>
             ),
             desc
                 ? showButton(context, title, description)
-                : const SizedBox(width: 5)
+                : SizedBox(width: 5.w)
           ]),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -184,8 +184,8 @@ class _ElementPageState extends State<ElementPage>
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 5,
+                      SizedBox(
+                        height: 5.h,
                       ),
                       buildColumn(
                           "Summary", widget.summary, true, widget.summary),
@@ -194,8 +194,8 @@ class _ElementPageState extends State<ElementPage>
                       widget.appearance.isNotEmpty
                           ? buildColumn("Appearance", widget.appearance, false,
                               widget.appearance)
-                          : const SizedBox(
-                              height: 0.0,
+                          : SizedBox(
+                              height: 0.0.h,
                             ),
                       buildColumn(
                           "Atomic Mass",
@@ -221,17 +221,17 @@ class _ElementPageState extends State<ElementPage>
                           "There are four phases in chemistry: solid, liquid, gas, and plasma."),
                       widget.namedBy.isNotEmpty
                           ? buildColumn("Named By", widget.namedBy, false, "")
-                          : const SizedBox(
-                              height: 0.0,
+                          : SizedBox(
+                              height: 0.0.h,
                             ),
                       widget.discoveredBy.isNotEmpty
                           ? buildColumn(
                               "Discovered By", widget.discoveredBy, false, "")
-                          : const SizedBox(
-                              height: 0.0,
+                          : SizedBox(
+                              height: 0.0.h,
                             ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: 15.h,
                       ),
                     ],
                   ),
