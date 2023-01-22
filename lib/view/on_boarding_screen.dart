@@ -216,11 +216,16 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                   duration: const Duration(milliseconds: 800),
                   curve: Curves.easeInOutQuint);
             } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => FirebaseController().haundleAuthState()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => FirebaseController().haundleAuthState()),
+              // );
+
+              Navigator.pushAndRemoveUntil(context,     MaterialPageRoute(
+                  builder: (context) => FirebaseController().haundleAuthState()), (r){
+                return false;
+              });
             }
           },
           child: AnimatedContainer(
