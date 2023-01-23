@@ -1,10 +1,9 @@
-import 'package:chem_x/controller/theme_service.dart';
+import 'package:chem_x/view_model/chem_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../Controller/chem_provider.dart';
-import '../view/splash_screen.dart';
+import '../view/splash_screen_pages/splash_screen.dart';
 
 class RunAppWithDarkMode extends StatelessWidget {
   const RunAppWithDarkMode({Key? key}) : super(key: key);
@@ -16,9 +15,9 @@ class RunAppWithDarkMode extends StatelessWidget {
         child: Sizer(builder: (context, orientation, deviceType) {
           return OverlaySupport.global(
             child: MaterialApp(
-                theme: ThemeService().lightTheme,
-                darkTheme: ThemeService().darkTheme,
-                themeMode: ThemeService().getThemeMode(),
+            //    theme: ThemeData.dark(),
+              darkTheme: ThemeData.dark(),
+              //  themeMode: ThemeService().getThemeMode(),
                 debugShowCheckedModeBanner: false,
                 home: const RunSplashScreen()),
           );

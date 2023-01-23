@@ -3,22 +3,16 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../../Controller/chem_provider.dart';
-import '../../Module/single_element_data.dart';
 import '../../View/admin_pages/crud_operations.dart';
-import '../../controller/admin_firebase_crud.dart';
-import '../../controller/theme_service.dart';
+import '../../../view_model/theme_service.dart';
 import '../../main.dart';
-import '../quizzes_pages/quiz_category_page.dart';
-import 'admin_select_category.dart';
+import '../../model/json_quizzes.dart';
+import '../../view_model/admin_firebase_crud.dart';
 
 Myelements? updateJson;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -166,7 +160,6 @@ class _UpdateQuizState extends State<UpdateQuiz> {
                           // summary: editQuestionController.text
                       );
                       if (response.code != 200) {
-                        print(widget.idForElement);
                         showDialog(
                             context: context,
                             builder: (context) {

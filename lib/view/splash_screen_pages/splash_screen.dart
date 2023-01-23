@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:chem_x/controller/firebase_controller.dart';
 import 'package:chem_x/view/registration_pages/sign_up_page.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
-import 'on_boarding_screen.dart';
+import '../on_boarding_pages/on_boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

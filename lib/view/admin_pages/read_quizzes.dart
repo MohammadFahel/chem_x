@@ -3,11 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../view_model/chem_provider.dart';
+import '../../../view_model/theme_service.dart';
 
-import '../../Controller/chem_provider.dart';
-import '../../controller/theme_service.dart';
-import '../quizzes_pages/quiz_category_page.dart';
-import 'admin_select_category.dart';
 
 class ReadQuizzes extends StatefulWidget {
   String name;

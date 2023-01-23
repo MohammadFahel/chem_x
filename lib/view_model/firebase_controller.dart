@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:chem_x/Controller/chem_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +8,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../View/home_page.dart';
+import '../View/periodic_table_pages/home_page.dart';
 import '../view/registration_pages/sign_up_page.dart';
+import 'package:chem_x/view_model/chem_provider.dart';
 
 class FirebaseController {
   final _firebaseAuth = FirebaseAuth.instance;

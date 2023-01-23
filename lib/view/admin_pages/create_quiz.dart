@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../Module/single_element_data.dart';
 import '../../View/admin_pages/crud_operations.dart';
-import '../../controller/admin_firebase_crud.dart';
-import '../../controller/theme_service.dart';
 import '../../main.dart';
-import '../../module/elements_model_for_quizzes.dart';
+import '../../../view_model/theme_service.dart';
+import '../../view_model/admin_firebase_crud.dart';
+
 
 class CreateQuiz extends StatefulWidget {
   String category;
@@ -111,7 +109,6 @@ class _CreateQuizState extends State<CreateQuiz> {
                         borderRadius: BorderRadius.circular(18.0))),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    print("are you mohammaddddddd????");
                     var response = await FirebaseCrud.addElement(
                       elementCategory: widget.category.toString(),
                       elementQuestion: addQuestionField.text,
@@ -122,7 +119,6 @@ class _CreateQuizState extends State<CreateQuiz> {
                     );
 
                     if (response.code != 200) {
-                      print("is it seccessfully?????");
                       showDialog(
                           context: context,
                           builder: (context) {
@@ -131,7 +127,6 @@ class _CreateQuizState extends State<CreateQuiz> {
                             );
                           });
                     } else {
-                      print("is it faillll?????");
                       showDialog(
                           context: context,
                           builder: (context) {

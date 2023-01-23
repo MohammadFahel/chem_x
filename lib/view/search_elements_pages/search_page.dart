@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '../View/element_page.dart';
-import '../controller/theme_service.dart';
-import 'home_page.dart' as colors;
+import '../../view_model/theme_service.dart';
+import 'package:chem_x/view/periodic_table_pages/home_page.dart' as colors;
+
+import '../periodic_table_pages/element_page.dart';
+
 
 class SearchBar extends StatefulWidget {
   const SearchBar({Key? key}) : super(key: key);

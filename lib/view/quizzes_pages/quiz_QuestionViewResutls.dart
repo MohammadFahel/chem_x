@@ -1,15 +1,12 @@
-import 'dart:math';
 
-import 'package:chem_x/controller/firebase_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../view_model/chem_provider.dart';
 
-import '../../Controller/chem_provider.dart';
-import '../../controller/theme_service.dart';
 
 class QuizView extends StatefulWidget {
   String category;

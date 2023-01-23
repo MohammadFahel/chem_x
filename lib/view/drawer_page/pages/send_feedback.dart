@@ -5,7 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '../../../controller/theme_service.dart';
+import '../../../view_model/theme_service.dart';
 import '../../../main.dart';
 
 class SendFeedback extends StatelessWidget {

@@ -14,9 +14,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:lottie/lottie.dart';
-import '../../Controller/chem_provider.dart';
-import '../../controller/theme_service.dart';
-import '../home_page.dart';
+import '../../view_model/chem_provider.dart';
+import '../../view_model/theme_service.dart';
+import '../periodic_table_pages/home_page.dart';
 
 class QuizzesPage extends StatefulWidget {
   String categoryName;
@@ -63,6 +63,8 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
         onWillPop: _onBackPressed,
         child: Scaffold(
           appBar: AppBar(
+            centerTitle: true,
+            title: Text("Home Page Quizzes",style: const TextStyle(color: Colors.black)),
             leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,

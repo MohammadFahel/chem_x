@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../controller/theme_service.dart';
+import '../../view_model/theme_service.dart';
+
 
 showPopUp(String title, String description, BuildContext context) {
   return showDialog(

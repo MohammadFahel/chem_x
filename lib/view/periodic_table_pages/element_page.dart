@@ -1,13 +1,14 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-import 'package:chem_x/view/pop_up.dart';
+import 'package:chem_x/view/periodic_table_pages/pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:math' as math;
 
-import '../controller/theme_service.dart';
+import '../../view_model/theme_service.dart';
+
 
 class ElementPage extends StatefulWidget {
   final String summary,

@@ -1,4 +1,3 @@
-import 'package:chem_x/controller/firebase_controller.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +8,10 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
+import 'package:chem_x/view_model/firebase_controller.dart';
+import '../../view_model/chem_provider.dart';
+import '../../view_model/theme_service.dart';
 
-import '../../Controller/chem_provider.dart';
-import '../../controller/theme_service.dart';
 showPopUpInExam(String category,BuildContext context) {
   return showDialog(
       context: context,

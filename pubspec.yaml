@@ -112,6 +112,8 @@ flutter:
     - assets/animation/chemical-test-tube.json
     - assets/animation/congratulation-success-batch.json
     - assets/animation/try-again.json
+    - assets/images/doneIcon.png
+    - assets/images/canceled.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

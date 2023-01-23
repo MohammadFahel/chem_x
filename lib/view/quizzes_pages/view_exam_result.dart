@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:chem_x/controller/firebase_controller.dart';
-import 'package:chem_x/view/quizzes_pages/quiz.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_QuestionViewResutls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,11 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../Controller/chem_provider.dart';
-import '../../controller/count_down_timer.dart';
-import '../../controller/theme_service.dart';
+import '../../view_model/chem_provider.dart';
 import 'dialog_are_you_sure_you_want_to_get_out.dart';
+
 
 class QuizzesExamView extends StatefulWidget {
   String category;
@@ -145,7 +141,6 @@ Widget examsPages(
 
     int x) {
   var textProvider = Provider.of<TextProvider>(context, listen: false);
-  print("1");
   return Consumer<TextProvider>(
   builder: (context,data,child) {
           return Padding(

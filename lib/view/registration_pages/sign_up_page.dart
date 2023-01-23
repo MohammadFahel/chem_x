@@ -1,14 +1,14 @@
 // ignore_for_file: non_constant_identifier_names, curly_braces_in_flow_control_structures, avoid_print
 
-import 'package:chem_x/Controller/firebase_controller.dart';
-import 'package:chem_x/Controller/chem_provider.dart';
+import 'package:chem_x/view_model/chem_provider.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
 import 'package:chem_x/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../controller/theme_service.dart';
+import '../../view_model/theme_service.dart';
 import 'dialog_sign_in.dart';
 import 'dialog_sign_up.dart';
 
@@ -261,10 +261,8 @@ Widget ContainerForSignInAndSignUp(BuildContext context) {
               ),
               InkWell(
                 onTap: () {
-                  print(textProvider.signUpOrSignIn);
                   if (textProvider.signUpOrSignIn == "Sign In" ||
                       textProvider.signUpOrSignIn == 'تسجيل الدخول') {
-                    print("all good");
                     textProvider.NewUser();
                   } else if (textProvider.signUpOrSignIn == "Sign Up" ||
                       textProvider.signUpOrSignIn == 'اشترك الآن') {
@@ -300,7 +298,6 @@ Widget appButtons(
                   borderRadius: BorderRadius.circular(18.0)))),
       onPressed: () {
         if (type == "google") {
-          print("what");
           FirebaseController().signInwithGoogle();
         } else if (type == "faceBook") {
         } else if (type == "Email") {

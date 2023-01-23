@@ -10,10 +10,10 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
-import 'package:chem_x/Controller/firebase_controller.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../Controller/chem_provider.dart';
-import '../../../controller/theme_service.dart';
+import '../../../view_model/chem_provider.dart';
+import '../../../view_model/theme_service.dart';
 import '../my_drawer.dart';
 
 class MyProfile extends StatefulWidget {

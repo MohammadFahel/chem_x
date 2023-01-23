@@ -1,17 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:chem_x/view/admin_pages/read_quizzes.dart';
-import 'package:chem_x/view/admin_pages/update_quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '../../View/home_page.dart';
-import '../../View/quizzes_pages/quiz_category_page.dart';
-import '../../controller/theme_service.dart';
-import '../../main.dart';
-import '../quizzes_pages/quiz_home_page.dart';
-import 'create_quiz.dart';
+import '../../../view_model/theme_service.dart';
 import 'crud_operations.dart';
 
 

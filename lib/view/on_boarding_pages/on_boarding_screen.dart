@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../Controller/firebase_controller.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
 
 class OnBoardingScreen1 extends StatefulWidget {
   const OnBoardingScreen1({Key? key}) : super(key: key);

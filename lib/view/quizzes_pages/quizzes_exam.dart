@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:chem_x/controller/firebase_controller.dart';
 import 'package:chem_x/view/quizzes_pages/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,10 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../Controller/chem_provider.dart';
-import '../../controller/count_down_timer.dart';
-import '../../controller/theme_service.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
+import '../../view_model/chem_provider.dart';
+import '../../view_model/count_down_timer.dart';
 import 'dialog_are_you_sure_you_want_to_get_out.dart';
 
 class QuizzesExam extends StatefulWidget {
@@ -158,10 +156,9 @@ Widget examsPages(
           List myList = list["myelements"];
           List myList2 =
               myList.where((user) => user["category"] == category).toList();
-          print(myList[0]["category"]);
 
           return Padding(
-            padding: EdgeInsets.only(top: 10.h, right: 2.w, left: 2.w),
+            padding: EdgeInsets.only(top: 5.h, right: 2.w, left: 2.w),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,

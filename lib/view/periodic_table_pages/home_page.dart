@@ -1,10 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, unused_field
 
 import 'dart:convert';
-import 'package:chem_x/View/periodic_table.dart';
-import 'package:chem_x/view/pop_up.dart';
+import 'package:chem_x/view/periodic_table_pages/periodic_table.dart';
+import 'package:chem_x/view/periodic_table_pages/pop_up.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_category_page.dart';
-import 'package:chem_x/view/search_page.dart';
+import 'package:chem_x/view_model/chem_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +13,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../Controller/chem_provider.dart';
-import '../controller/theme_service.dart';
-import 'admin_pages/admin_select_category.dart';
-import 'drawer_page/my_drawer.dart';
-
+import 'package:chem_x/view_model/firebase_controller.dart';
+import '../../view_model/theme_service.dart';
+import '../drawer_page/my_drawer.dart';
+import '../search_elements_pages/search_page.dart';
 const String alkali_metals = "#85CAC4";
 const String metalloids = "#8C692B";
 const String actinides = "#8C4D2D";
@@ -41,6 +40,7 @@ class PeriodicTablePage extends StatefulWidget {
 class _PeriodicTablePageState extends State<PeriodicTablePage> {
   @override
   Widget build(BuildContext context) {
+
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(

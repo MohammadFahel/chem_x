@@ -9,11 +9,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../Controller/firebase_controller.dart';
-import '../../Controller/chem_provider.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
+import '../../View/periodic_table_pages/home_page.dart';
+import '../../view_model/chem_provider.dart';
 import '../../View/admin_pages/admin_select_category.dart';
-import '../../View/home_page.dart';
-import '../../controller/theme_service.dart';
+import '../../view_model/theme_service.dart';
 
 const List<String> languageList = <String>['EN', 'AR'];
 String profilePicture = "";

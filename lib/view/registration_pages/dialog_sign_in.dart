@@ -1,13 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:chem_x/Controller/firebase_controller.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
 import 'package:chem_x/main.dart';
 import 'package:chem_x/view/registration_pages/dialog_forgot_password.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
-import '../../controller/theme_service.dart';
+import '../../view_model/theme_service.dart';
 
 class DialogSignIn extends StatefulWidget {
   const DialogSignIn({Key? key}) : super(key: key);

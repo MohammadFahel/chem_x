@@ -9,15 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../View/element_page.dart';
-import '../../controller/admin_firebase_crud.dart';
-import '../../controller/theme_service.dart';
-import '../quizzes_pages/quiz.dart';
-import '../quizzes_pages/quiz_category_page.dart';
-import 'admin_select_category.dart';
+import '../../../view_model/theme_service.dart';
+import '../../view_model/admin_firebase_crud.dart';
 import 'create_quiz.dart';
-import 'package:chem_x/view/home_page.dart' as colors;
+import 'package:chem_x/view/periodic_table_pages/home_page.dart' as colors;
 
 class CRUDPage extends StatefulWidget {
   String categoryName;
@@ -181,7 +176,6 @@ class _CRUDPageState extends State<CRUDPage> {
                       elementAnswerFour: elementAnswerFour,
                     )));
 
-        print("Edit Quizzzzzzzz.");
       } else if (value == 2) {
           var response =
               await FirebaseCrud.deleteElement(elementId: idElement);

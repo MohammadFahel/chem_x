@@ -1,14 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:chem_x/Controller/firebase_controller.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
 import 'package:chem_x/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 import 'package:string_validator/string_validator.dart';
-
-import '../../controller/theme_service.dart';
+import '../../view_model/theme_service.dart';
 
 class DialogSignUp extends StatefulWidget {
   @override
@@ -237,7 +236,6 @@ Widget TextFieldWidget(
             return "Please enter a valid email";
           }
         } else if (validator == "Password") {
-          print(text);
           if (text == null) {
             return "please fill this field ";
           } else if (text.isEmpty) {

@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:chem_x/controller/firebase_controller.dart';
-import 'package:chem_x/view/quizzes_pages/quiz.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +9,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../Controller/chem_provider.dart';
+import '../../view_model/chem_provider.dart';
 import '../../View/quizzes_pages/quiz_home_page.dart';
-import '../../controller/admin_firebase_crud.dart';
-import '../../controller/count_down_timer.dart';
-import '../../controller/theme_service.dart';
+import '../../view_model/admin_firebase_crud.dart';
+import '../../view_model/theme_service.dart';
 import '../admin_pages/read_quizzes.dart';
-import '../admin_pages/update_quiz.dart';
 import 'dialog_are_you_sure_you_want_to_get_out.dart';
-import 'package:chem_x/view/home_page.dart' as colors;
+import 'package:chem_x/view/periodic_table_pages/home_page.dart' as colors;
+
 
 class QuizzesExamAdmin extends StatefulWidget {
   String category;
@@ -108,8 +104,8 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
           shadowColor: Colors.black,
           centerTitle: true,
-          title: Text("Question bank",
-              style: const TextStyle(color: Colors.black)),
+          title: const Text("Question Bank",
+              style: TextStyle(color: Colors.black)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
             onPressed: () {
@@ -132,8 +128,12 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
                     padding: const EdgeInsets.only(top: 10.0),
                     child: ListView(
                       children: snapshot.data!.docs.map((e) {
-                        count++;
                         if (e["element_category"] == widget.category) {
+                          var lastElement = "";
+                          if (e["element_correct_answer"] != lastElement)
+                            count++;
+                          lastElement = e["element_correct_answer"];
+
                           return Container(
                             height: 12.h,
                             alignment: Alignment.center,
@@ -144,7 +144,9 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
                                   SizedBox(
                                     height: 8.h,
                                     child: ListTile(
-                                      title: Text("This question for ${e["element_category"]} category",    style: GoogleFonts.poppins(
+                                      leading: viewElementDesgin(
+                                          widget.category, e["element_correct_answer"]),
+                                      title: Text("Question no. ${count}",    style: GoogleFonts.poppins(
                                           textStyle: TextStyle(
                                             fontSize: 18,
                                             color: ThemeService().getThemeMode() == ThemeMode.light
@@ -196,7 +198,7 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
                 }
                 return Container(
                   alignment: Alignment.center,
-                  child: CircularProgressIndicator(),
+                  child: const CircularProgressIndicator(),
                 );
               }));
   }
@@ -208,7 +210,7 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
         PopupMenuItem<int>(
             value: 0,
             child: Row(
-              children: [
+              children: const [
                 Icon(Icons.remove_red_eye),
                 SizedBox(width: 5),
                 Text("View"),
@@ -217,7 +219,7 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
         PopupMenuItem<int>(
             value: 1,
             child: Row(
-              children: [
+              children: const [
                 Icon(Icons.edit),
                 SizedBox(width: 5),
                 Text("Edit"),
@@ -252,7 +254,6 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
         //               category: widget.category,
         //             )));
 
-        print("Edit Quizzzzzzzz.");
       } else if (value == 2) {
         var response = await FirebaseCrud.deleteElement(elementId: idElement);
         if (response.code != 200) {
@@ -330,7 +331,7 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
           ],
         ),
         alignment: Alignment.center,
-        child: Text(elementName,
+        child: Text("??",
             style: TextStyle(
                 fontSize: 8.sp,
                 fontWeight: FontWeight.bold,
@@ -338,4 +339,6 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
       ),
     );
   }
+
 }
+

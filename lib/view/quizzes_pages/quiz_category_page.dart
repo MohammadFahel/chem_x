@@ -60,7 +60,6 @@ Future<void> readJson() async {
   final String response =
       await rootBundle.loadString("assets/data/quizzesData.json");
   final data = await json.decode(response);
-  print(data);
   // Parse the JSON string into a dart object
   return data;
 }

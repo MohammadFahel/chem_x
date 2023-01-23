@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../module/elements_model_for_quizzes.dart';
-import '../module/response_firebase_element.dart';
+import '../model/response_firebase_element.dart';
+
+
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _Collection = _firestore.collection('admin_CRUD_operations');
@@ -35,7 +36,6 @@ class FirebaseCrud {
       "element_answer_three": elementAnswerThree,
       "element_answer_four": elementAnswerFour
     };
-    print("LOOOOOOOOOOOOOOOVE");
     var result = await documentReferencer
         .set(data)
         .whenComplete(() {
@@ -44,7 +44,6 @@ class FirebaseCrud {
       response.message = "Successfully Added To The Database";
     })
         .catchError((e) {
-      print("NOOOOOOO????");
       response.code = 500;
       response.message = e;
     });

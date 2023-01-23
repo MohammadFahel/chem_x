@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
-import 'package:chem_x/Controller/firebase_controller.dart';
+import 'package:chem_x/view_model/firebase_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
@@ -85,8 +85,6 @@ class TextProvider extends ChangeNotifier {
   Map<dynamic, dynamic> get userData => _userData;
 
   set userData(Map<dynamic, dynamic> value) {
-    print(value);
-    print("user was hereeeeeeeeeeeeeeee");
     _userData = value;
     notifyListeners();
   }

@@ -121,8 +121,6 @@ class Myelements {
     var jsonNewQuizObject = {'name': newName, 'summary': newSummary};
     String jsonNewQuizString = jsonEncode(jsonNewQuizObject);
     await File("assets/data/quizzesData.json").writeAsString(jsonNewQuizString);
-    print("*****************************");
-    print(jsonNewQuizString);
   }
 
   Map<String, dynamic> toJson() {
