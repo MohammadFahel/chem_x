@@ -71,11 +71,15 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                   color: Colors.black,
                   size: 30,
                 ),
-                onPressed: () => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              PeriodicTableHomePage()),
-                    )),
+                onPressed: () =>
+                    // Navigator.of(context).pushReplacement(
+                    //   MaterialPageRoute(
+                    //       builder: (BuildContext context) =>
+                    //           PeriodicTableHomePage()),
+                    // ),
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                    PeriodicTableHomePage()), (Route<dynamic> route) => false)
+            ),
             // centerTitle: true,
             backgroundColor: ThemeService().getThemeMode() == ThemeMode.light
                 ? Colors.white

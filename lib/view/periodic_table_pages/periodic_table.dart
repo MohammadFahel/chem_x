@@ -145,9 +145,9 @@ class _PeriodicTableState extends State<PeriodicTable> {
                     HexColor("${myColor}").withOpacity(0.6)
                   ],
                 ),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.grey.shade300,
+                    color: Colors.black12,
                     blurRadius: 10.0,
                     spreadRadius: 5.0,
                   ),

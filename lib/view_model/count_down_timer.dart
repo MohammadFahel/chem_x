@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:chem_x/view_model/theme_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -19,7 +20,7 @@ class Countdown extends AnimatedWidget {
 
     return Text(
       timerText,
-      style:  TextStyle(fontSize: 20.sp, color: Colors.white),
+      style:  TextStyle(fontSize: 20.sp, color: Colors.black,),
     );
   }
 }

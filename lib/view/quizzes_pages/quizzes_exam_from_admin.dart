@@ -161,7 +161,7 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
                                                       color: Colors.blueAccent,
                                                       fontWeight: FontWeight.w500))),
                                           onTap: () {
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>

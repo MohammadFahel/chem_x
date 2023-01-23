@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../View/quizzes_pages/quiz_home_page.dart';
 import '../../view_model/chem_provider.dart';
+import '../../view_model/theme_service.dart';
 
 
 class QuizView extends StatefulWidget {
@@ -42,32 +44,97 @@ class _QuizState extends State<QuizView> {
   @override
   Widget build(BuildContext context) {
     // double height = MediaQuery.of(context).size.height;
-    var providerChem = Provider.of<TextProvider>(context, listen: false);
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(
-              widget.summary,
-              style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    fontSize: 15.0.sp,
-                  )),
-            ),
-            Text(
-              "What is the name of this chemical element?",
-              style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    fontSize: 15.0.sp,
-                  )),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-          Container(
+    // var providerChem = Provider.of<TextProvider>(context, listen: false);
+    return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: ThemeService().getThemeMode() == ThemeMode.light
+      //       ? Colors.white
+      //       : Colors.grey,
+      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+      //   shadowColor: Colors.black,
+      //   centerTitle: true,
+      //   title: const Text("Question Bank",
+      //       style: TextStyle(color: Colors.black)),
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+      //     onPressed: () {
+      //       Navigator.pushReplacement(
+      //           context,
+      //           MaterialPageRoute(
+      //               builder: (context) => QuizzesPage(categoryName: widget.category)
+      //           ));
+      //       // Navigator.of(context).pop();
+      //     },
+      //   ),
+      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                widget.summary,
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontSize: 15.0.sp,
+                    )),
+              ),
+              Text(
+                "What is the name of this chemical element?",
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontSize: 15.0.sp,
+                    )),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+            Container(
+                  height: 6.5.h,
+
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            HexColor("#D9D9D9")
+
+                        ),
+
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0)
+                            ,side: BorderSide(width: 3,color: widget.name==widget.options[0]? Colors.green:Colors.red)))),
+                    onPressed: () => {
+
+                    },
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: HexColor("#192A51"),
+                          child: Text(
+                            "A",
+                            style: TextStyle(color:Colors.white, fontSize: 18.sp),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 1.w,
+                        ),
+                        Text(
+                          " " + widget.options[0],
+                          style: TextStyle(
+                              color: HexColor("#626262"), fontSize: 15.sp),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+
+              SizedBox(
+                height: 2.h,
+              ),
+              Container(
                 height: 6.5.h,
 
                 child: ElevatedButton(
@@ -80,7 +147,7 @@ class _QuizState extends State<QuizView> {
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0)
-                          ,side: BorderSide(width: 3,color: widget.name==widget.options[0]? Colors.green:Colors.red)))),
+                              ,side: BorderSide(width: 3,color: widget.name==widget.options[1]? Colors.green:Colors.red)))),
                   onPressed: () => {
 
                   },
@@ -89,7 +156,7 @@ class _QuizState extends State<QuizView> {
                       CircleAvatar(
                         backgroundColor: HexColor("#192A51"),
                         child: Text(
-                          "A",
+                          "B",
                           style: TextStyle(color:Colors.white, fontSize: 18.sp),
                         ),
                       ),
@@ -97,7 +164,7 @@ class _QuizState extends State<QuizView> {
                         width: 1.w,
                       ),
                       Text(
-                        " " + widget.options[0],
+                        " " + widget.options[1],
                         style: TextStyle(
                             color: HexColor("#626262"), fontSize: 15.sp),
                       ),
@@ -105,166 +172,123 @@ class _QuizState extends State<QuizView> {
                   ),
                 ),
               ),
-
-
-            SizedBox(
-              height: 2.h,
-            ),
-            Container(
-              height: 6.5.h,
-
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        HexColor("#D9D9D9")
-
-                    ),
-
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)
-                            ,side: BorderSide(width: 3,color: widget.name==widget.options[1]? Colors.green:Colors.red)))),
-                onPressed: () => {
-
-                },
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: HexColor("#192A51"),
-                      child: Text(
-                        "B",
-                        style: TextStyle(color:Colors.white, fontSize: 18.sp),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 1.w,
-                    ),
-                    Text(
-                      " " + widget.options[1],
-                      style: TextStyle(
-                          color: HexColor("#626262"), fontSize: 15.sp),
-                    ),
-                  ],
-                ),
+              SizedBox(
+                height: 2.h,
               ),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Container(
-              height: 6.5.h,
+              Container(
+                height: 6.5.h,
 
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        HexColor("#D9D9D9")
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          HexColor("#D9D9D9")
 
-                    ),
-
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)
-                            ,side: BorderSide(width: 3,color: widget.name==widget.options[2]? Colors.green:Colors.red))
-                    )),
-                onPressed: () => {
-
-                },
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: HexColor("#192A51"),
-                      child: Text(
-                        "C",
-                        style: TextStyle(color:Colors.white, fontSize: 18.sp),
                       ),
-                    ),
-                    SizedBox(
-                      width: 1.w,
-                    ),
-                    Text(
-                      " " + widget.options[2],
-                      style: TextStyle(
-                          color: HexColor("#626262"), fontSize: 15.sp),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Container(
-              height: 6.5.h,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        HexColor("#D9D9D9")
 
-                    ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)
+                              ,side: BorderSide(width: 3,color: widget.name==widget.options[2]? Colors.green:Colors.red))
+                      )),
+                  onPressed: () => {
 
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)
-                            ,side: BorderSide(width: 3,color: widget.name==widget.options[3]? Colors.green:Colors.red))
-                    )),
-                onPressed: () => {
-
-                },
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: HexColor("#192A51"),
-                      child: Text(
-                        "D",
-                        style: TextStyle(color:Colors.white, fontSize: 18.sp),
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: HexColor("#192A51"),
+                        child: Text(
+                          "C",
+                          style: TextStyle(color:Colors.white, fontSize: 18.sp),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 1.w,
-                    ),
-                    Text(
-                      " " + widget.options[3],
-                      style: TextStyle(
-                          color: HexColor("#626262"), fontSize: 15.sp),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Spacer(),
-            SizedBox(
-              height: 2.h,
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: MaterialButton(
-                onPressed: () =>
-                {
-                  if(widget.currentPage==5){
-                    Navigator.pop(context)
-                  }else
-                    widget.pageController.jumpToPage(widget.currentPage + 1),
-
-                },
-                child: Container(
-                  height: 7.h,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: HexColor("#D9D9D9"),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Center(
-                      child: Text(
-                        widget.currentPage==5?"Return": "Next Question",
-                        style: TextStyle(color: HexColor("#192A51"), fontSize: 15.sp),
-                      )
-
+                      SizedBox(
+                        width: 1.w,
+                      ),
+                      Text(
+                        " " + widget.options[2],
+                        style: TextStyle(
+                            color: HexColor("#626262"), fontSize: 15.sp),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            )
-          ],
+              SizedBox(
+                height: 2.h,
+              ),
+              Container(
+                height: 6.5.h,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          HexColor("#D9D9D9")
+                      ),
+
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)
+                              ,side: BorderSide(width: 3,color: widget.name==widget.options[3]? Colors.green:Colors.red))
+                      )),
+                  onPressed: () => {
+
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: HexColor("#192A51"),
+                        child: Text(
+                          "D",
+                          style: TextStyle(color:Colors.white, fontSize: 18.sp),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 1.w,
+                      ),
+                      Text(
+                        " " + widget.options[3],
+                        style: TextStyle(
+                            color: HexColor("#626262"), fontSize: 15.sp),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Spacer(),
+              SizedBox(
+                height: 2.h,
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: MaterialButton(
+                  onPressed: () =>
+                  {
+                    if(widget.currentPage==5){
+                      Navigator.pop(context)
+                    }else
+                      widget.pageController.jumpToPage(widget.currentPage + 1),
+
+                  },
+                  child: Container(
+                    height: 7.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: HexColor("#D9D9D9"),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Center(
+                        child: Text(
+                          widget.currentPage==5?"Return": "Next Question",
+                          style: TextStyle(color: HexColor("#192A51"), fontSize: 15.sp),
+                        )
+
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

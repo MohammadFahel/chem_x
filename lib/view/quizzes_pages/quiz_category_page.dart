@@ -121,7 +121,7 @@ Widget elementInsideGridForQuizzes(
     String color, String name, BuildContext context, String category) {
   return InkWell(
     onTap: () => {
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => QuizzesPage(

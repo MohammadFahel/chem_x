@@ -156,7 +156,7 @@ Widget examsPages(
                           width: 30.w,
                           decoration: BoxDecoration(
                               color: myData.userData["trueAnswers"]["question${myData.currentPageForExamPage}"] !=null &&
-                                  myData.userData["trueAnswers"]["question${myData.currentPageForExamPage}"] != false?HexColor("#B3FBB6"):Colors.red,
+                                  myData.userData["trueAnswers"]["question${myData.currentPageForExamPage}"] != false? HexColor("#B3FBB6"):Colors.red,
                               borderRadius: BorderRadius.circular(5)),
                           child: Text(
                             "Question ${myData.currentPageForExamPage + 1}",

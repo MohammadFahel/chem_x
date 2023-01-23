@@ -77,7 +77,7 @@ class _UpdateQuizState extends State<UpdateQuiz> {
           centerTitle: true,
           title: Row(children: [
             SizedBox(width: 15.w),
-            const Text("Update Quiz", style: TextStyle(color: Colors.black)),
+            const Text("Edit Quiz", style: TextStyle(color: Colors.black)),
             SizedBox(width: 2.w),
             const Icon(Icons.edit, color: Colors.black),
           ]),
@@ -196,7 +196,12 @@ class _UpdateQuizState extends State<UpdateQuiz> {
                 ),
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  CRUDPage(categoryName: widget.elementCategory)));
+                      // Navigator.of(context).pop();
                     },
                     child: Text(
                       languages.profileCancelChanges(),

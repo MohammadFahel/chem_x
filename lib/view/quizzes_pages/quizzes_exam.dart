@@ -11,6 +11,7 @@ import 'package:sizer/sizer.dart';
 import 'package:chem_x/view_model/firebase_controller.dart';
 import '../../view_model/chem_provider.dart';
 import '../../view_model/count_down_timer.dart';
+import '../../view_model/theme_service.dart';
 import 'dialog_are_you_sure_you_want_to_get_out.dart';
 
 class QuizzesExam extends StatefulWidget {
@@ -176,6 +177,7 @@ Widget examsPages(
                           child: Text(
                             "Question ${myData.currentPageForExamPage + 1}",
                             style: GoogleFonts.poppins(
+                                color: Colors.black,
                                 textStyle: TextStyle(
                               fontSize: 15.0.sp,
                             )),
@@ -201,8 +203,10 @@ Widget examsPages(
                   SizedBox(
                     height: 1.w,
                   ),
-                  const Divider(
-                    color: Colors.black,
+                  Divider(
+                    color: ThemeService().getThemeMode() == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
                     thickness: 2,
                   ),
                   Expanded(

@@ -44,7 +44,7 @@ class _CreateQuizState extends State<CreateQuiz> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
@@ -157,12 +157,12 @@ class _CreateQuizState extends State<CreateQuiz> {
               ),
               TextButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             CRUDPage(categoryName: widget.category)));
-                    Navigator.of(context).pop();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CRUDPage(categoryName: widget.category)));
+                    // Navigator.of(context).pop();
                   },
                   child: Text(
                     languages.profileCancelChanges(),

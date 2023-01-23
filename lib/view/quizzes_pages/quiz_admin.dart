@@ -147,7 +147,8 @@ class _ReadQuizzesFromAdminState extends State<ReadQuizzesFromAdmin>
               padding: const EdgeInsets.only(bottom: 10),
               child: MaterialButton(
                 onPressed: () async => {
-                  Navigator.push(
+
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => QuizzesExamAdmin(
@@ -174,15 +175,19 @@ class _ReadQuizzesFromAdminState extends State<ReadQuizzesFromAdmin>
                                   Text("congratulations!",
                                     style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
+                                          color: ThemeService().getThemeMode() == ThemeMode.light
+                                              ? Colors.black
+                                              : Colors.white,
                                           fontSize: 18.0.sp,
-                                          color: Colors.black,
                                         ))),
                                   Text(
                                     "    Your Answer is Correct    ",
                                     style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
                                       fontSize: 18.0.sp,
-                                      color: Colors.black,
+                                          color: ThemeService().getThemeMode() == ThemeMode.light
+                                              ? Colors.black
+                                              : Colors.white,
                                     )),
                                   ),
 
@@ -214,14 +219,18 @@ class _ReadQuizzesFromAdminState extends State<ReadQuizzesFromAdmin>
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     fontSize: 18.0.sp,
-                                    color: Colors.black,
+                                    color: ThemeService().getThemeMode() == ThemeMode.light
+                                        ? Colors.black
+                                        : Colors.white,
                                   ))),
                           Text(
                             "${widget.elementAnswer}",
                             style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
                               fontSize: 18.0.sp,
-                              color: Colors.black,
+                                  color: ThemeService().getThemeMode() == ThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white,
                             )),
                           ),
                         ],

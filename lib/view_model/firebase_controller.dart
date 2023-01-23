@@ -27,7 +27,7 @@ class FirebaseController {
         });
   }
 
-  Future<void> signInWithEmailAndPassword(
+  Future<void>  signInWithEmailAndPassword(
     BuildContext context, {
     required String email,
     required String password,

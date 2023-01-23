@@ -64,7 +64,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                     providerChem.isActiveSwitch(newValue);
                     ThemeService().changeTheme();
                     setState(() {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const PeriodicTablePage()));
@@ -87,7 +87,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 DrawerItem(
                     name: languages.drawerChangeLanguage(),
                     icon: Icons.language,
-                    onPressed: () => onItemPressed(context, index: 2)),
+                    onPressed: () => onItemPressed(context, index: 5)),
                 SizedBox(width: languages.getMyLanguages() == 'EN' ? 4.w : 22.w),
                 DropdownButton(
                   value: dropdownValue,
@@ -161,8 +161,11 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                   builder: (context) => const PeriodicTablePage()));
           FirebaseController().signOutUser();
         });
-
         break;
+      case 5:
+        break;
+
+
     }
   }
 
