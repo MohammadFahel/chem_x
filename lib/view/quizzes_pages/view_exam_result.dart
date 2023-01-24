@@ -38,11 +38,6 @@ class _QuizzesExamState extends State<QuizzesExamView>
       duration: const Duration(seconds: 120),
       vsync: this,
     );
-    _controller.addListener(() {
-      if (_controller.isCompleted) {
-        Navigator.pop(context);
-      }
-    });
     textProvider = Provider.of<TextProvider>(context, listen: false)
         .currentPageForExamPage = 0;
     providerChem = Provider.of<TextProvider>(context, listen: false)
@@ -65,12 +60,8 @@ class _QuizzesExamState extends State<QuizzesExamView>
 
   @override
   void dispose() {
-    if (_controller.isAnimating || _controller.isCompleted) {
-      _controller.dispose();
-    }
-
+_controller.dispose();
     pageController.dispose();
-
     super.dispose();
   }
 

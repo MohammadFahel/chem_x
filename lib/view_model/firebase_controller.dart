@@ -58,6 +58,7 @@ class FirebaseController {
     }
   }
 
+
   userChangePassword(String currentPassword, String newPassword) {
     final user = _firebaseAuth.currentUser;
     if (user == null) {

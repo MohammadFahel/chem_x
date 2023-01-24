@@ -56,12 +56,14 @@ class _ElementPageState extends State<ElementPage>
   void initState() {
     // TODO: implement initState
     super.initState();
+
     animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 10));
-    animationController.repeat(reverse: true);
+        AnimationController(vsync: this, duration: const Duration(seconds: 100));
+    animationController.repeat(reverse: false);
+
     animationController.addListener(() {
       setState(() {
-        rotationAngle = animationController.value*8 ;
+        rotationAngle = animationController.value *50 ;
       });
     });
   }
@@ -88,7 +90,7 @@ class _ElementPageState extends State<ElementPage>
       return Column(
         children: [
           SizedBox(
-            height: 15.h,
+            height: 5.h,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Text(
@@ -138,40 +140,83 @@ class _ElementPageState extends State<ElementPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 40.h,
-              width: 90.w,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment(0, 0),
-                    child: Transform.rotate(
-                      angle: rotationAngle,
-                      child: Image.asset(
-                        "assets/images/${widget.name}.png",
-                        fit: BoxFit.cover,
+            Row(
+              children: [
+
+
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: HexColor(widget.myColor), width: 1.5),
+                      color: HexColor(widget.myColor),
+                      gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          HexColor(widget.myColor).withOpacity(0.9),
+                          HexColor(widget.myColor).withOpacity(0.4)
+                        ],
                       ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10.0,
+                          spreadRadius: 5.0,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "${widget.number}",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        Text(widget.symbol,
+                            style: GoogleFonts.poppins(
+                                fontSize: 45,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                        Text(widget.name,
+                            style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment:Alignment(0.0,
-                        -0.03),
-                    child: CircleAvatar(
-                      maxRadius: 40,
-                        backgroundColor: HexColor("#cccccc"),
-                        child: Text(widget.symbol,style: TextStyle(fontSize: 25.sp,color: Colors.black),))
-                    // Container(
-                    //   width: 22.w,
-                    //   height:11.5.h,
-                    //   child: Image.asset(
-                    //     "assets/images/${widget.name}Two.png",fit: BoxFit.cover,
-                    //
-                    //   ),
-                    // ),
-                  ),
-                ],
-              ),
+                ),
+                 SizedBox(width: 9.w,),
+                Expanded(
+                  child: Container(
+
+
+
+                           child: Transform.rotate(
+                                    angle: rotationAngle,
+                                    child: Image.asset(
+                                      "assets/images/${widget.name}.png",
+
+                                    ),
+                                  ),
+
+
+
+    )
+                ),
+              ],
             ),
+
             Container(
               color: Colors.white,
               child: const Text(
@@ -183,10 +228,11 @@ class _ElementPageState extends State<ElementPage>
               child: SizedBox(
                 height: 200,
                 child: SingleChildScrollView(
+                  padding: EdgeInsets.zero,
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 5.h,
+                        height: 2.h,
                       ),
                       buildColumn(
                           "Summary", widget.summary, true, widget.summary),
@@ -232,7 +278,7 @@ class _ElementPageState extends State<ElementPage>
                               height: 0.0.h,
                             ),
                       SizedBox(
-                        height: 15.h,
+                        height: 5.h,
                       ),
                     ],
                   ),

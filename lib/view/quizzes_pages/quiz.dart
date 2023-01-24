@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,7 +42,7 @@ class _QuizState extends State<Quiz> {
 
 // Convert the set to a list and shuffle it
   late List<int> shuffledNumbers = numbers.toList()..shuffle();
-
+  DatabaseReference ref =FirebaseDatabase.instance.ref(FirebaseAuth.instance.currentUser!.uid);
   @override
   Widget build(BuildContext context) {
 
@@ -317,6 +319,11 @@ class _QuizState extends State<Quiz> {
 
                   if(widget.currentPage==5){
                     FirebaseController().addOrUpdateUserDataOdExams(widget.category,score:providerChem.pointsForTrueAnswers ),
+
+                    ref.onValue.listen((event) {
+                      Provider.of<TextProvider>(context, listen: false).userData =
+                      event.snapshot.value as Map;
+                    }),
                     Navigator.pop(context)
                   }else
                     widget.pageController.jumpToPage(widget.currentPage + 1),
