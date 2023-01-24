@@ -55,7 +55,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 DrawerItem(
                     name: languages.drawerChangeTheme(),
                     icon: Icons.dark_mode,
-                    onPressed: () => onItemPressed(context, index: 2)),
+                    onPressed: () => onItemPressed(context, index: 5)),
                 SizedBox(width: languages.getMyLanguages() == 'EN' ? 8.w : 18.w),
                 Switch(
                   activeColor: HexColor('#AAA1C8'),
@@ -106,7 +106,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                     myLanguages = newValue.toString();
                     setState(() {
                       dropdownValue = newValue.toString();
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const PeriodicTablePage()));
@@ -116,8 +116,8 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
               ],
             ),
              SizedBox(height: 2.h),
-            DrawerItem(name: "CRUD Operation", icon: Icons.admin_panel_settings, onPressed:() => onItemPressed(context, index: 2)),
-             SizedBox(height: 2.h),
+            // DrawerItem(name: "CRUD Operation", icon: Icons.admin_panel_settings, onPressed:() => onItemPressed(context, index: 2)),
+            //  SizedBox(height: 2.h),
              Divider(thickness: 1, height: 2.h, color: Colors.grey),
              SizedBox(height: 2.h),
             DrawerItem(

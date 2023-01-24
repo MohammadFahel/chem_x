@@ -44,11 +44,12 @@ class _CreateQuizState extends State<CreateQuiz> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        CRUDPage(categoryName: widget.category)));
+            // Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) =>
+            //             CRUDPage(categoryName: widget.category)));
+            Navigator.of(context).pop();
           },
         ),
       ),

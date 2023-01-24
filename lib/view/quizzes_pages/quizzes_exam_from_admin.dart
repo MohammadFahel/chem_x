@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:chem_x/view/drawer_page/my_drawer.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../main.dart';
 import '../../view_model/chem_provider.dart';
 import '../../View/quizzes_pages/quiz_home_page.dart';
 import '../../view_model/admin_firebase_crud.dart';
@@ -104,7 +106,7 @@ class _QuizzesExamAdminState extends State<QuizzesExamAdmin>
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
           shadowColor: Colors.black,
           centerTitle: true,
-          title: const Text("Question Bank",
+          title:  Text(languages.quizzesQuickQuizzesTitle(),
               style: TextStyle(color: Colors.black)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios, color: Colors.black),

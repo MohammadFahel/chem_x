@@ -12,6 +12,7 @@ bool darkMode = false;
 MyLanguages languages = MyLanguages();
 String dropdownValue = languageList.first;
 String myLanguages = 'EN';
+
 void main() async {
 
   await GetStorage.init();

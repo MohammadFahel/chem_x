@@ -442,4 +442,98 @@ class MyLanguages extends ChangeNotifier {
     }
     return '';
   }
+
+  String homePageTitle() {
+    if (getMyLanguages() == 'AR') {
+      return 'الجدول الدوري';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Periodic Table';
+    }
+    return '';
+  }
+
+  String searchTitle() {
+    if (getMyLanguages() == 'AR') {
+      return 'البحث عن عنصر معين';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Search for specific element';
+    }
+    return '';
+  }
+
+  String searchHint() {
+    if (getMyLanguages() == 'AR') {
+      return 'البحث...';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Search...';
+    }
+    return '';
+  }
+
+
+  // quizzes:
+  String quizzesHomePageTitle() {
+    if (getMyLanguages() == 'AR') {
+      return 'صفحة الاختبارات الرئيسية';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Home Page Quizzes';
+    }
+    return '';
+  }
+
+  String quizzes() {
+    if (getMyLanguages() == 'AR') {
+      return 'الاختبارات';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Quizzes';
+    }
+    return '';
+  }
+
+  String quizzesScore() {
+    if (getMyLanguages() == 'AR') {
+      return 'نتيجتك هي ';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Your score is ';
+    }
+    return '';
+  }
+
+  String quizzesStartAgain() {
+    if (getMyLanguages() == 'AR') {
+      return 'إعادة المحاولة';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Start Again';
+    }
+    return '';
+  }
+
+  String quizzesViewResult() {
+    if (getMyLanguages() == 'AR') {
+      return 'عرض الإجابات';
+    } else if (getMyLanguages() == 'EN') {
+      return 'View Results';
+    }
+    return '';
+  }
+
+  String quizzesQuickQuizzes() {
+    if (getMyLanguages() == 'AR') {
+      return 'الاختبارات السريعة';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Try Quick Quizzes';
+    }
+    return '';
+  }
+
+  String quizzesQuickQuizzesTitle() {
+    if (getMyLanguages() == 'AR') {
+      return 'بنك الأسئلة';
+    } else if (getMyLanguages() == 'EN') {
+      return 'Question Bank';
+    }
+    return '';
+  }
+
+
 }

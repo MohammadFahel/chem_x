@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:chem_x/main.dart';
 import 'package:chem_x/view/quizzes_pages/dialog_are_you_sure_you_want_to_get_out.dart';
 import 'package:chem_x/view/quizzes_pages/quiz.dart';
 import 'package:chem_x/view/quizzes_pages/quizzes_exam.dart';
@@ -64,9 +65,9 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("Home Page Quizzes",style: const TextStyle(color: Colors.black)),
+            title: Text(languages.quizzesHomePageTitle(),style: const TextStyle(color: Colors.black)),
             leading: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_ios,
                   color: Colors.black,
                   size: 30,
@@ -107,29 +108,29 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5, top: 10),
-                      child: Container(
-
-                          width: 5.5.w,
-                          height: 4.h,
-                          child: Image.asset(
-                            "assets/images/flask.png",
-                            fit: BoxFit.fill,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 1.h),
-                      child: Text(
-                        "Quizzes",
-                        style: TextStyle(
-                            fontSize: 12.sp, color: HexColor("#778198")),
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                      thickness: 2,
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(bottom: 5, top: 10),
+                    //   child: Container(
+                    //
+                    //       width: 5.5.w,
+                    //       height: 4.h,
+                    //       child: Image.asset(
+                    //         "assets/images/flask.png",
+                    //         fit: BoxFit.fill,
+                    //       )),
+                    // ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(bottom: 1.h),
+                    //   child: Text(
+                    //    languages.quizzes(),
+                    //     style: TextStyle(
+                    //         fontSize: 12.sp, color: HexColor("#778198")),
+                    //   ),
+                    // ),
+                    // Divider(
+                    //   color: Colors.grey,
+                    //   thickness: 2,
+                    // ),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -140,10 +141,10 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                         height: 25.h ),
 
                     Text(
-                      "Your score is "
+                        "${languages.quizzesScore()}"
                           "${value.userData[widget.categoryName]["score"]}/6 ",
                        style:TextStyle(
-                          fontSize: 17.sp, fontWeight: FontWeight.bold)
+                          fontSize: 20.sp, fontWeight: FontWeight.bold)
 
                     ),
                     SizedBox(
@@ -167,7 +168,7 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                             textProvider.pointsForExamToZeroValue();
                           },
                           child: Text(
-                            "Start Again",
+                            languages.quizzesStartAgain(),
                             style: TextStyle(fontSize: 15.sp),
                           ),
                         ),
@@ -188,7 +189,7 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                             textProvider.pointsForExamToZeroValue();
                           },
                           child: Text(
-                            "View Results",
+                            languages.quizzesViewResult(),
                             style: TextStyle(fontSize: 15.sp),
                           ),
                         ),
@@ -209,7 +210,7 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                         // textProvider.pointsForExamToZeroValue();
                       },
                       child: Text(
-                        "Try Quick Quizzes",
+                        languages.quizzesQuickQuizzes(),
                         style: TextStyle(fontSize: 15.sp),
                       ),
                     ),

@@ -159,7 +159,7 @@ Widget examsPages(
               myList.where((user) => user["category"] == category).toList();
 
           return Padding(
-            padding: EdgeInsets.only(top: 5.h, right: 2.w, left: 2.w),
+            padding: EdgeInsets.only(top: 8.h, right: 2.w, left: 2.w),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,

@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, unused_field
 
 import 'dart:convert';
+import 'package:chem_x/main.dart';
 import 'package:chem_x/view/periodic_table_pages/periodic_table.dart';
 import 'package:chem_x/view/periodic_table_pages/pop_up.dart';
 import 'package:chem_x/view/quizzes_pages/quiz_category_page.dart';
@@ -14,6 +15,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:chem_x/view_model/firebase_controller.dart';
+import '../../View/admin_pages/admin_select_category.dart';
 import '../../view_model/theme_service.dart';
 import '../drawer_page/my_drawer.dart';
 import '../search_elements_pages/search_page.dart';
@@ -73,7 +75,6 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
     // Initialize the values here
     super.initState();
     drawerIcon = GlobalKey<ScaffoldState>();
-
   }
 
   @override
@@ -109,9 +110,9 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
           drawer: const MyNavigationDrawer(),
           endDrawer: QuizDrawerPage(),
           appBar: AppBar(
-            title: const Text(
-              'Periodic Table',
-              style: TextStyle(color: Colors.black),
+            title:  Text(
+              languages.homePageTitle(),
+              style: const TextStyle(color: Colors.black),
             ),
             bottom: const PreferredSize(
               preferredSize: Size.fromHeight(1),
@@ -139,8 +140,16 @@ class _PeriodicTableHomePageState extends State<PeriodicTableHomePage> {
                     size: 30,
                   )),
               IconButton(
+
                   onPressed: () {
-                    drawerIcon!.currentState?.openEndDrawer();
+                    FirebaseController().verifyAdmin(firebaseAuth.currentUser!.email.toString());
+                    isAdmin?
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CRUDOperations())):
+                     drawerIcon!.currentState?.openEndDrawer();
+
                   },
                   icon: Image.asset('assets/images/flask.png',
                       color: Colors.black)),

@@ -9,11 +9,17 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../View/periodic_table_pages/home_page.dart';
+import '../main.dart';
 import '../view/registration_pages/sign_up_page.dart';
 import 'package:chem_x/view_model/chem_provider.dart';
 
+late bool isAdmin;
+final firebaseAuth = FirebaseAuth.instance;
+
 class FirebaseController {
-  final _firebaseAuth = FirebaseAuth.instance;
+  
+
+
 
   haundleAuthState() {
     return StreamBuilder(
@@ -27,13 +33,25 @@ class FirebaseController {
         });
   }
 
+  verifyAdmin(String email){
+    if(email == "admin123@admin.com" || email == "Admin123@admin.com") {
+      isAdmin = true;
+    }
+    else{
+      isAdmin = false;
+    }
+    print("the email is: ${firebaseAuth.currentUser?.email.toString()}");
+    print("the password is: ${firebaseAuth.currentUser?.uid.toString()}");
+    print("it as an admin? $isAdmin");
+  }
+
   Future<void>  signInWithEmailAndPassword(
     BuildContext context, {
     required String email,
     required String password,
   }) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -56,10 +74,11 @@ class FirebaseController {
         );
       }
     }
+    verifyAdmin(email);
   }
 
   userChangePassword(String currentPassword, String newPassword) {
-    final user = _firebaseAuth.currentUser;
+    final user = firebaseAuth.currentUser;
     if (user == null) {
       print("nooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
       return;
@@ -69,7 +88,7 @@ class FirebaseController {
       password: currentPassword,
     );
 
-    _firebaseAuth.signInWithCredential(credential).then((authResult) {
+    firebaseAuth.signInWithCredential(credential).then((authResult) {
       user.updatePassword(newPassword).then((_) {
         print("Successfully changed password!");
         toast("Password Changed Successfully!");
@@ -88,12 +107,12 @@ class FirebaseController {
     required String password,
   }) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       DatabaseReference ref =
-          FirebaseDatabase.instance.ref(_firebaseAuth.currentUser!.uid);
+          FirebaseDatabase.instance.ref(firebaseAuth.currentUser!.uid);
       await ref.set({
         "userName": userName,
         "email": email,
@@ -127,7 +146,7 @@ class FirebaseController {
 
   userAnsweredTrueOrWhat(int? questionNumber, bool answeredTrueOrWhat) async {
     DatabaseReference ref = FirebaseDatabase.instance
-        .ref(_firebaseAuth.currentUser!.uid)
+        .ref(firebaseAuth.currentUser!.uid)
         .child("trueAnswers");
     await ref.update({"question$questionNumber": answeredTrueOrWhat});
   }
@@ -139,7 +158,7 @@ class FirebaseController {
       String? rightAnswer,
       int? questionNumber}) async {
     DatabaseReference ref = FirebaseDatabase.instance
-        .ref(_firebaseAuth.currentUser!.uid)
+        .ref(firebaseAuth.currentUser!.uid)
         .child(category);
     await ref.update({
       if (score != null) "score": "$score",
@@ -168,7 +187,7 @@ class FirebaseController {
 
   getUserData() async {
     final ref = FirebaseDatabase.instance.ref();
-    final snapshot = await ref.child(_firebaseAuth.currentUser!.uid).get();
+    final snapshot = await ref.child(firebaseAuth.currentUser!.uid).get();
     if (snapshot.exists) {
       return snapshot.value;
     } else {
@@ -200,6 +219,6 @@ class FirebaseController {
   }
 
   signOutUser() {
-    _firebaseAuth.signOut();
+    firebaseAuth.signOut();
   }
 }

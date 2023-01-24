@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
+import 'package:chem_x/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -43,8 +44,8 @@ class _SearchBarState extends State<SearchBar> {
     }
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Search for specific element",
-              style: TextStyle(color: Colors.black)),
+          title:  Text(languages.searchTitle(),
+              style: const TextStyle(color: Colors.black)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             color: Colors.black,
@@ -93,7 +94,7 @@ class _SearchBarState extends State<SearchBar> {
                       });
                     },
                     icon: const Icon(Icons.clear)),
-                hintText: 'Search...',
+                hintText: languages.searchHint(),
                 border: InputBorder.none),
             onChanged: (changeText) {
               changeText = changeText.toLowerCase();
