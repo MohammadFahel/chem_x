@@ -36,7 +36,7 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   int pointNumber = 0;
-
+  DatabaseReference ref =FirebaseDatabase.instance.ref(FirebaseAuth.instance.currentUser!.uid);
   Set<int> numbers = {0, 1, 2, 3};
 
 // Convert the set to a list and shuffle it
@@ -351,7 +351,7 @@ class _QuizState extends State<Quiz> {
                }
                   },
 
-                  if(widget.currentPage==5){
+                  if(widget.currentPage==5) {
                     FirebaseController().addOrUpdateUserDataOdExams(widget.category,score:providerChem.pointsForTrueAnswers ),
 
                     ref.onValue.listen((event) {
@@ -359,7 +359,7 @@ class _QuizState extends State<Quiz> {
                       event.snapshot.value as Map;
                     }),
                     Navigator.pop(context)
-                  }else
+                  } else
                     widget.pageController.jumpToPage(widget.currentPage + 1),
 
                   providerChem.changeColorOfButtonInQuizPageForFalse("D"),

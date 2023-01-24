@@ -12,6 +12,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:chem_x/view_model/firebase_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:string_validator/string_validator.dart';
 import '../../../view_model/chem_provider.dart';
 import '../../../view_model/theme_service.dart';
 import '../my_drawer.dart';
@@ -101,7 +102,7 @@ class _MyProfileState extends State<MyProfile> {
                 enable: true,
                 lable: languages.profileCurrentPassword(),
                 keyy: _currentPasswordKey,
-                validator: "Password",
+                validator: "CurrentPassword",
                 controller: currentPasswordController,
               ),
               const SizedBox(height: 15),
@@ -128,13 +129,21 @@ class _MyProfileState extends State<MyProfile> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0))),
                 onPressed: () {
-                  if (newPasswordController.text ==
-                      againNewPasswordController.text) {
-                    FirebaseController().userChangePassword(currentPasswordController.text,
-                        newPasswordController.text);
-                    Navigator.of(context).pop();
+                  if (_currentPasswordKey.currentState != null &&
+                      _newPasswordKey.currentState != null &&
+                      _againNewPasswordKey.currentState != null) {
+                    if (_currentPasswordKey.currentState!.validate() &&
+                        _newPasswordKey.currentState!.validate() &&
+                        _againNewPasswordKey.currentState!
+                            .validate()) if (newPasswordController.text ==
+                        againNewPasswordController.text) {
+                      FirebaseController().userChangePassword(
+                          currentPasswordController.text,
+                          newPasswordController.text);
+                      Navigator.of(context).pop();
+                    }
                   } else {
-                    showSimpleNotification(const Text("Password not match"),
+                    showSimpleNotification(const Text("You'r data has an issue"),
                         background: Colors.red);
                   }
                 },
@@ -174,26 +183,26 @@ class _MyProfileState extends State<MyProfile> {
     if (_autho.currentUser!.providerData[0].providerId.contains("facebook")) {
       return Consumer<TextProvider>(builder: (context, data, child) {
         return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 10),
-          height: 70,
-          child: Image.asset("assets/images/editProfile.png",
-              width: 100, height: 100),
-        ),
-        Text(
-          data.data['name'].toString(),
-          style: const TextStyle(color: Colors.white, fontSize: 20),
-        ),
-        Text(
-          data.data['email'].toString(),
-          style: TextStyle(
-            color: Colors.grey[200],
-            fontSize: 14,
-          ),
-        ),
-      ],
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 70,
+              child: Image.asset("assets/images/editProfile.png",
+                  width: 100, height: 100),
+            ),
+            Text(
+              data.data['name'].toString(),
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            Text(
+              data.data['email'].toString(),
+              style: TextStyle(
+                color: Colors.grey[200],
+                fontSize: 14,
+              ),
+            ),
+          ],
         );
       });
     } else if (_autho.currentUser!.providerData[0].providerId
@@ -334,6 +343,39 @@ Widget TextFieldWidget(
                     : Colors.white),
             borderRadius: BorderRadius.circular(20)),
       ),
+      validator: (text) {
+        if (validator == "UserName") {
+          if (text == null) {
+            return "please fill this field ";
+          } else if (text.isEmpty) {
+            return "please fill this field ";
+          } else if (!isAlpha(text.replaceAll(' ', ''))) {
+            return "User Name must be only litters";
+          }
+        } else if (validator == "Email") {
+          if (text == null) {
+            return "please fill this field ";
+          } else if (text.isEmpty) {
+            return "please fill this field ";
+          } else if (!RegExp(
+                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+              .hasMatch(text)) {
+            return "Please enter a valid email";
+          }
+        } else if (validator == "Password") {
+          if (text == null) {
+            return "please fill this field ";
+          } else if (text.isEmpty) {
+            return "please fill this field ";
+          } else if (text.length <= 6) {
+            return "The password must be greater than 6 characters";
+          } else if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
+              .hasMatch(text)) {
+            return "Must contain an uppercase, lowercase letter, symbol";
+          }
+        }
+        return null;
+      },
     ),
   );
 }

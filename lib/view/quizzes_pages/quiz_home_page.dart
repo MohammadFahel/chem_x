@@ -115,29 +115,29 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5, top: 10),
-                          child: Container(
-
-                              width: 5.5.w,
-                              height: 4.h,
-                              child: Image.asset(
-                                "assets/images/flask.png",
-                                fit: BoxFit.fill,
-                              )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 1.h),
-                          child: Text(
-                            "Quizzes",
-                            style: TextStyle(
-                                fontSize: 12.sp, color: HexColor("#778198")),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 5, top: 10),
+                        //   child: Container(
+                        //
+                        //       width: 5.5.w,
+                        //       height: 4.h,
+                        //       child: Image.asset(
+                        //         "assets/images/flask.png",
+                        //         fit: BoxFit.fill,
+                        //       )),
+                        // ),
+                        // Padding(
+                        //   padding: EdgeInsets.only(bottom: 1.h),
+                        //   child: Text(
+                        //     "Quizzes",
+                        //     style: TextStyle(
+                        //         fontSize: 12.sp, color: HexColor("#778198")),
+                        //   ),
+                        // ),
+                        // Divider(
+                        //   color: Colors.grey,
+                        //   thickness: 2,
+                        // ),
                         SizedBox(
                           height: 10.h,
                         ),
