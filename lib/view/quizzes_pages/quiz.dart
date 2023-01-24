@@ -337,19 +337,34 @@ class _QuizState extends State<Quiz> {
                   if(providerChem.answerInQuiz == widget.name){
                     providerChem.pointsForExam(),
                if(widget.currentPage+1 ==1){
-                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatOne: true),
+                 FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatOne: true),
                }else if(widget.currentPage+1 ==2){
-                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatTwo: true),
+                 FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatTwo: true),
                }else if(widget.currentPage+1 ==3){
-                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatThree: true),
+                 FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatThree: true),
                }else if(widget.currentPage+1 ==4){
-                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatFour: true),
+                 FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatFour: true),
                }else if(widget.currentPage+1 ==5){
-                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatFive: true),
+                 FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatFive: true),
                }else if(widget.currentPage+1 ==6){
-                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatSix: true),
+                 FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatSix: true),
                }
-                  },
+                  }else{
+                    if(widget.currentPage+1 ==1){
+                      FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatOne: false),
+                    }else if(widget.currentPage+1 ==2){
+                      FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatTwo: false),
+                    }else if(widget.currentPage+1 ==3){
+                      FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatThree: false),
+                    }else if(widget.currentPage+1 ==4){
+                      FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatFour: false),
+                    }else if(widget.currentPage+1 ==5){
+                      FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatFive: false),
+                    }else if(widget.currentPage+1 ==6){
+                      FirebaseController().userAnsweredTrueOrWhat(widget.currentPage+1,answeredTrueOrWhatSix: false),
+                    }
+                    },
+
 
                   if(widget.currentPage==5) {
                     FirebaseController().addOrUpdateUserDataOdExams(widget.category,score:providerChem.pointsForTrueAnswers ),

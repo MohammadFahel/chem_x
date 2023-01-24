@@ -145,18 +145,39 @@ class FirebaseController {
     }
   }
 
-  userAnsweredTrueOrWhat({bool? answeredTrueOrWhatOne, bool? answeredTrueOrWhatTwo, bool? answeredTrueOrWhatThree, bool? answeredTrueOrWhatFour, bool? answeredTrueOrWhatFive, bool? answeredTrueOrWhatSix}) async {
+  userAnsweredTrueOrWhat(int questionNumber,{bool? answeredTrueOrWhatOne, bool? answeredTrueOrWhatTwo, bool? answeredTrueOrWhatThree, bool? answeredTrueOrWhatFour, bool? answeredTrueOrWhatFive, bool? answeredTrueOrWhatSix}) async {
+    print("ho$questionNumber");
     DatabaseReference ref = FirebaseDatabase.instance
         .ref(firebaseAuth.currentUser!.uid)
         .child("trueAnswers");
-    await ref.update({
-      "question0":  answeredTrueOrWhatOne == true?answeredTrueOrWhatOne:false,
-      "question1": answeredTrueOrWhatTwo == true?answeredTrueOrWhatTwo:false,
-      "question2":answeredTrueOrWhatThree == true?answeredTrueOrWhatThree:false,
-      "question3": answeredTrueOrWhatFour == true?answeredTrueOrWhatFour:false,
-      "question4": answeredTrueOrWhatFive == true?answeredTrueOrWhatFive:false,
-      "question5": answeredTrueOrWhatSix == true?answeredTrueOrWhatSix:false,
-    });
+    if(questionNumber ==1){
+
+        await ref.update({
+          "question0":answeredTrueOrWhatOne,
+        });
+
+    }else if(questionNumber ==2){
+      await ref.update({
+        "question1":  answeredTrueOrWhatTwo
+      });
+    }else if(questionNumber ==3 ){
+      await ref.update({
+        "question2":answeredTrueOrWhatThree
+      });
+
+    }else if(questionNumber ==4){
+      await ref.update({
+        "question3": answeredTrueOrWhatFour
+      });
+    }else if (questionNumber ==5){
+      await ref.update({
+        "question4": answeredTrueOrWhatFive
+      });
+    }else if ( questionNumber == 6){
+      await ref.update({
+        "question5": answeredTrueOrWhatSix
+      });
+    }
   }
 
   addOrUpdateUserDataOdExams(String category,
