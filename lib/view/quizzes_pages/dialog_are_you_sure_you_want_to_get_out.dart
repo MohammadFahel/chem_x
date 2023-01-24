@@ -1,4 +1,6 @@
 import 'package:chem_x/view/quizzes_pages/quiz_home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +15,7 @@ import '../../view_model/chem_provider.dart';
 import '../../view_model/theme_service.dart';
 
 showPopUpInExam(String category,BuildContext context) {
+  DatabaseReference ref =FirebaseDatabase.instance.ref(FirebaseAuth.instance.currentUser!.uid);
   return showDialog(
       context: context,
       builder: (context) {
@@ -85,6 +88,10 @@ showPopUpInExam(String category,BuildContext context) {
                       onPressed: () {
                         var provider=Provider.of<TextProvider>(context, listen: false);
                         FirebaseController().addOrUpdateUserDataOdExams(category,score: provider.pointsForTrueAnswers);
+                        ref.onValue.listen((event) {
+                          Provider.of<TextProvider>(context, listen: false).userData =
+                          event.snapshot.value as Map;
+                        });
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (BuildContext context) => QuizzesPage(categoryName: category)),
                         );

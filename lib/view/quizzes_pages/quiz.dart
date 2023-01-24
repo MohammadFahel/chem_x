@@ -373,7 +373,10 @@ class _QuizState extends State<Quiz> {
                       Provider.of<TextProvider>(context, listen: false).userData =
                       event.snapshot.value as Map;
                     }),
-                    Navigator.pop(context)
+                Future.delayed(Duration(seconds: 1), () {
+                  Navigator.pop(context);
+                })
+
                   } else
                     widget.pageController.jumpToPage(widget.currentPage + 1),
 
