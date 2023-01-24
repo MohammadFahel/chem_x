@@ -314,7 +314,19 @@ class _QuizState extends State<Quiz> {
                 {
                   if(providerChem.answerInQuiz == widget.name){
                     providerChem.pointsForExam(),
-                    FirebaseController().userAnsweredTrueOrWhat(widget.currentPage, true)
+               if(widget.currentPage+1 ==1){
+                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatOne: true),
+               }else if(widget.currentPage+1 ==2){
+                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatTwo: true),
+               }else if(widget.currentPage+1 ==3){
+                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatThree: true),
+               }else if(widget.currentPage+1 ==4){
+                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatFour: true),
+               }else if(widget.currentPage+1 ==5){
+                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatFive: true),
+               }else if(widget.currentPage+1 ==6){
+                 FirebaseController().userAnsweredTrueOrWhat(answeredTrueOrWhatSix: true),
+               }
                   },
 
                   if(widget.currentPage==5){
