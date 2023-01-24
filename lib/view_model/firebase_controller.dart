@@ -145,11 +145,18 @@ class FirebaseController {
     }
   }
 
-  userAnsweredTrueOrWhat(int? questionNumber, bool answeredTrueOrWhat) async {
+  userAnsweredTrueOrWhat({bool? answeredTrueOrWhatOne, bool? answeredTrueOrWhatTwo, bool? answeredTrueOrWhatThree, bool? answeredTrueOrWhatFour, bool? answeredTrueOrWhatFive, bool? answeredTrueOrWhatSix}) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref(firebaseAuth.currentUser!.uid)
         .child("trueAnswers");
-    await ref.update({"question$questionNumber": answeredTrueOrWhat});
+    await ref.update({
+      "question0":  answeredTrueOrWhatOne == true?answeredTrueOrWhatOne:false,
+      "question1": answeredTrueOrWhatTwo == true?answeredTrueOrWhatTwo:false,
+      "question2":answeredTrueOrWhatThree == true?answeredTrueOrWhatThree:false,
+      "question3": answeredTrueOrWhatFour == true?answeredTrueOrWhatFour:false,
+      "question4": answeredTrueOrWhatFive == true?answeredTrueOrWhatFive:false,
+      "question5": answeredTrueOrWhatSix == true?answeredTrueOrWhatSix:false,
+    });
   }
 
   addOrUpdateUserDataOdExams(String category,
