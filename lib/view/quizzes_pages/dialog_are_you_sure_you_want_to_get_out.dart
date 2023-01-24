@@ -87,7 +87,6 @@ showPopUpInExam(String category,BuildContext context) {
                         FirebaseController().addOrUpdateUserDataOdExams(category,score: provider.pointsForTrueAnswers);
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (BuildContext context) => QuizzesPage(categoryName: category)),
-
                         );
                       },
                       style: ElevatedButton.styleFrom(

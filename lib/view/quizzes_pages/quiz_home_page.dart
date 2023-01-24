@@ -8,6 +8,8 @@ import 'package:chem_x/view/quizzes_pages/quiz.dart';
 import 'package:chem_x/view/quizzes_pages/quizzes_exam.dart';
 import 'package:chem_x/view/quizzes_pages/quizzes_exam_from_admin.dart';
 import 'package:chem_x/view/quizzes_pages/view_exam_result.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,9 +17,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:lottie/lottie.dart';
+
 import '../../view_model/chem_provider.dart';
 import '../../view_model/theme_service.dart';
 import '../periodic_table_pages/home_page.dart';
+
 
 class QuizzesPage extends StatefulWidget {
   String categoryName;
@@ -40,25 +44,32 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
 
   @override
   void dispose() {
-   _animationController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   Future<bool> _onBackPressed() async {
     final backButtonProvider =
-        Provider.of<TextProvider>(context, listen: false);
+    Provider.of<TextProvider>(context, listen: false);
     if (!backButtonProvider.onBackspacePressed) {
       return Future.value(false);
     }
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => PeriodicTableHomePage()),
-      (route) => false,
+          (route) => false,
     );
     return Future.value(false);
   }
+  // DatabaseReference ref =
+  // FirebaseDatabase.instance.ref(FirebaseAuth.instance.currentUser!.uid);
 
   @override
   Widget build(BuildContext context) {
+    // ref.onValue.listen((event) {
+    //   Provider.of<TextProvider>(context, listen: false).userData =
+    //   event.snapshot.value as Map;
+    // });
+
     var textProvider = Provider.of<TextProvider>(context);
     return WillPopScope(
         onWillPop: _onBackPressed,
@@ -72,21 +83,17 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
                   color: Colors.black,
                   size: 30,
                 ),
-                onPressed: () =>
-                    // Navigator.of(context).pushReplacement(
-                    //   MaterialPageRoute(
-                    //       builder: (BuildContext context) =>
-                    //           PeriodicTableHomePage()),
-                    // ),
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                    PeriodicTableHomePage()), (Route<dynamic> route) => false)
-            ),
+                onPressed: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          PeriodicTableHomePage()),
+                )),
             // centerTitle: true,
             backgroundColor: ThemeService().getThemeMode() == ThemeMode.light
                 ? Colors.white
                 : Colors.grey.shade500,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
             shadowColor: Colors.black,
             // elevation: 0.0,
             // title: Container(
@@ -97,48 +104,48 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
           ),
           body: Consumer<TextProvider>(
             builder: (BuildContext context, value, Widget? child) {
-          if(value.userData.containsKey(widget.categoryName)){
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 15, right: 15, left: 15),
-              child: Container(
-                width: double.infinity,
+              if(value.userData.containsKey(widget.categoryName)){
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 15, right: 15, left: 15),
+                  child: Container(
+                    width: double.infinity,
 
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(bottom: 5, top: 10),
-                    //   child: Container(
-                    //
-                    //       width: 5.5.w,
-                    //       height: 4.h,
-                    //       child: Image.asset(
-                    //         "assets/images/flask.png",
-                    //         fit: BoxFit.fill,
-                    //       )),
-                    // ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(bottom: 1.h),
-                    //   child: Text(
-                    //    languages.quizzes(),
-                    //     style: TextStyle(
-                    //         fontSize: 12.sp, color: HexColor("#778198")),
-                    //   ),
-                    // ),
-                    // Divider(
-                    //   color: Colors.grey,
-                    //   thickness: 2,
-                    // ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Lottie.asset(
-                        int.parse(value.userData[widget.categoryName]["score"]) >= 3?"assets/animation/congratulation-success-batch.json":"assets/animation/try-again.json",
-                        controller:_animationController ,
-                        width: double.infinity ,
-                        height: 25.h ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5, top: 10),
+                          child: Container(
+
+                              width: 5.5.w,
+                              height: 4.h,
+                              child: Image.asset(
+                                "assets/images/flask.png",
+                                fit: BoxFit.fill,
+                              )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 1.h),
+                          child: Text(
+                            "Quizzes",
+                            style: TextStyle(
+                                fontSize: 12.sp, color: HexColor("#778198")),
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Lottie.asset(
+                            int.parse(value.userData[widget.categoryName]["score"]) >= 3?"assets/animation/congratulation-success-batch.json":"assets/animation/try-again.json",
+                            controller:_animationController ,
+                            width: double.infinity ,
+                            height: 25.h ),
 
                     Text(
                         "${languages.quizzesScore()}"
@@ -225,86 +232,80 @@ class _QuizzesPageState extends State<QuizzesPage> with SingleTickerProviderStat
               child: Container(
                 width: double.infinity,
 
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5, top: 10),
-                      child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5, top: 10),
+                          child: Container(
 
-                          width: 5.5.w,
-                          height: 4.h,
-                          child: Image.asset(
-                            "assets/images/flask.png",
-                            fit: BoxFit.fill,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 1.h),
-                      child: Text(
-                        "Quizzes",
-                        style: TextStyle(
-                            fontSize: 12.sp, color: HexColor("#778198")),
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                      thickness: 2,
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                     Lottie.asset(
-                          "assets/animation/chemical-test-tube.json",
-                          controller:_animationController ,
-                          width: double.infinity ,
-                          height: 25.h ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    Text(
-                    "You are attending the ${widget.categoryName} exam"
+                              width: 5.5.w,
+                              height: 4.h,
+                              child: Image.asset(
+                                "assets/images/flask.png",
+                                fit: BoxFit.fill,
+                              )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 1.h),
+                          child: Text(
+                            "Quizzes",
+                            style: TextStyle(
+                                fontSize: 12.sp, color: HexColor("#778198")),
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        ),
+                        Lottie.asset(
+                            "assets/animation/chemical-test-tube.json",
+                            controller:_animationController ,
+                            width: double.infinity ,
+                            height: 25.h ),
+                        Text(
+                          "You are attending the ${widget.categoryName} exam"
                           ,
-                      style: TextStyle(
-                          fontSize: 15.sp, fontWeight: FontWeight.bold),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Text(
-                       "Press the button to start the exam"
-                          ,
-                        style:TextStyle(
-                            fontSize: 12.sp, fontWeight: FontWeight.bold)
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                              "Press the button to start the exam"
+                              ,
+                              style:TextStyle(
+                                  fontSize: 12.sp, fontWeight: FontWeight.bold)
 
-                      ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  HexColor("#192A51"))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      QuizzesExam(category: widget.categoryName),
+                                ));
+                            textProvider.pointsForExamToZeroValue();
+                            textProvider.startedExam();
+                          },
+                          child: Text(
+                            "Start",
+                            style: TextStyle(fontSize: 15.sp),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
                     ),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              HexColor("#192A51"))),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  QuizzesExam(category: widget.categoryName),
-                            ));
-                        textProvider.pointsForExamToZeroValue();
-                        textProvider.startedExam();
-                      },
-                      child: Text(
-                       "Start",
-                        style: TextStyle(fontSize: 15.sp),
-                      ),
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-            );
-          }
+                  ),
+                );
+              }
 
             },
           ),

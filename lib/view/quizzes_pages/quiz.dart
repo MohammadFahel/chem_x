@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -330,26 +332,29 @@ class _QuizState extends State<Quiz> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: MaterialButton(
-                onPressed: () => {
-                  if (providerChem.answerInQuiz == widget.name)
-                    {
-                      providerChem.pointsForExam(),
-                      FirebaseController()
-                          .userAnsweredTrueOrWhat(widget.currentPage, true)
-                    },
-                  if (widget.currentPage == 5)
-                    {
-                      FirebaseController().addOrUpdateUserDataOdExams(
-                          widget.category,
-                          score: providerChem.pointsForTrueAnswers),
-                      Navigator.pop(context)
-                    }
-                  else
+                onPressed: () =>
+                {
+                  if(providerChem.answerInQuiz == widget.name){
+                    providerChem.pointsForExam(),
+                    FirebaseController().userAnsweredTrueOrWhat(widget.currentPage, true)
+                  },
+
+                  if(widget.currentPage==5){
+                    FirebaseController().addOrUpdateUserDataOdExams(widget.category,score:providerChem.pointsForTrueAnswers ),
+
+                    ref.onValue.listen((event) {
+                      Provider.of<TextProvider>(context, listen: false).userData =
+                      event.snapshot.value as Map;
+                    }),
+                    Navigator.pop(context)
+                  }else
                     widget.pageController.jumpToPage(widget.currentPage + 1),
+
                   providerChem.changeColorOfButtonInQuizPageForFalse("D"),
                   providerChem.changeColorOfButtonInQuizPageForFalse("B"),
                   providerChem.changeColorOfButtonInQuizPageForFalse("C"),
                   providerChem.changeColorOfButtonInQuizPageForFalse("A"),
+
                 },
                 child: Container(
                   height: 7.h,
@@ -360,10 +365,11 @@ class _QuizState extends State<Quiz> {
                   ),
                   child: Center(
                       child: Text(
-                    widget.currentPage == 5 ? "SUBMIT" : "Next Question",
-                    style:
-                        TextStyle(color: HexColor("#192A51"), fontSize: 15.sp),
-                  )),
+                        widget.currentPage==5?"SUBMIT": "Next Question",
+                        style: TextStyle(color: HexColor("#192A51"), fontSize: 15.sp),
+                      )
+
+                  ),
                 ),
               ),
             )

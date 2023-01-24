@@ -57,7 +57,7 @@ class _QuizzesExamState extends State<QuizzesExamView>
 
   @override
   void dispose() {
-
+_controller.dispose();
     pageController.dispose();
 
     super.dispose();

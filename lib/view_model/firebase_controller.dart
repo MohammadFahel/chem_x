@@ -77,6 +77,7 @@ class FirebaseController {
     verifyAdmin(email);
   }
 
+
   userChangePassword(String currentPassword, String newPassword) {
     final user = firebaseAuth.currentUser;
     if (user == null) {
