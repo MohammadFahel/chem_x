@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, constant_identifier_names, unused_field
+
 
 import 'dart:convert';
 import 'package:chem_x/main.dart';

@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
-
 import 'package:chem_x/view/periodic_table_pages/pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -144,10 +142,10 @@ class _ElementPageState extends State<ElementPage>
               padding: const EdgeInsets.only(right: 20),
               child: Row(
                 children: [
-
-
                   Expanded(
                     child: Container(
+                      height: 150,
+                      width:150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: HexColor(widget.myColor), width: 1.5),

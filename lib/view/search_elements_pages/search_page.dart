@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
 import 'package:chem_x/main.dart';
 import 'package:flutter/material.dart';
